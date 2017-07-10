@@ -8,15 +8,17 @@ class CarreraModel {
 	public static $tablename = 'carrera';
 	public $id;
 	public $nombre;
-	public $modalidad;
+    public $siglas;
+    public $modalidad;
 
 	function __construct(){
-		$this->nombre = '';
+        $this->nombre = '';
+        $this->siglas = '';
 		$this->modalidad = 'Escolarizado';
 	}
 
 	public function add(){
-		$query = "INSERT INTO ".self::$tablename." (nombre, modalidad) VALUES ('{$this->nombre}', '{$this->modalidad}')";
+		$query = "INSERT INTO ".self::$tablename." (nombre, siglas, modalidad) VALUES ('{$this->nombre}', '{$this->siglas}', '{$this->modalidad}')";
 		$sql = Executor::doit($query);
 
 		return $sql[1];
@@ -33,7 +35,8 @@ class CarreraModel {
 	}
 
 	public function update(){
-		$sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}', modalidad='{$this->modalidad}' WHERE id = {$this->id}";
+		$sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}', siglas='{$this->siglas}', modalidad='{$this->modalidad}' 
+		WHERE id = {$this->id}";
 		Executor::doit($sql);
 	}
 

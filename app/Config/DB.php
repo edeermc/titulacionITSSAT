@@ -10,9 +10,9 @@ class DB {
 
 	function __construct(){
 		$this->user="root";
-		$this->pass="toor";
-		$this->host="localhost";
-		$this->ddbb="titulacion2";
+		$this->pass="";
+		$this->host="localhost:8088";
+		$this->ddbb="titulacion";
 	}
 
 	function connect(){
