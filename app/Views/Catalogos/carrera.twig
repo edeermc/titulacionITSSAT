@@ -9,7 +9,7 @@
                 <div class="input-group">
                     <input type="search" class="form-control" name="buscar" id="buscar" placeholder="Buscar...">
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
                     </span>
                 </div>
             </div>
@@ -53,6 +53,30 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <div class="text-center">
+                <nav aria-label="Paginación">
+                    <ul class="pagination">
+                        <li class="disabled">
+                            <a href="#" class="pag" id="pag-prev" data-page="0" data-model="Carrera" aria-label="Anterior">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        {% for i in 1..pag %}
+                            <li{{ (i == 1) ? ' class="active"' }}>
+                                <a href="#" class="pag" data-page="{{ i }}" data-model="Carrera">
+                                    {{ i }}{{ (i == 1) ? ' <span class="sr-only">(current)</span>' }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                        <li{{ (pag == 1 ? ' class="disabled"') }}>
+                            <a href="#" class="pag" id="pag-next" data-page="2" data-model="Carrera" aria-label="Siguiente">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 {% endblock %}

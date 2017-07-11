@@ -47,10 +47,17 @@ class CarreraModel {
 		return Model::one($query[0], new CarreraModel());
 	}
 
-	public static function getAll(){
-		$sql = "SELECT * FROM ".self::$tablename;
-		$query = Executor::doit($sql);
+    public static function getAll(){
+        $sql = "SELECT * FROM ".self::$tablename;
+        $query = Executor::doit($sql);
 
-		return Model::many($query[0], new CarreraModel());
-	}
+        return Model::many($query[0], new CarreraModel());
+    }
+
+    public static function getRange($i, $q){
+        $sql = "SELECT * FROM ".self::$tablename." LIMIT {$i}, {$q}";
+        $query = Executor::doit($sql);
+
+        return Model::many($query[0], new CarreraModel());
+    }
 }

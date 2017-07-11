@@ -51,7 +51,7 @@ function Eliminar(){
 	$carrera = CarreraModel::getById($_POST['id']); ?>
 	<form action="<?=route($_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
 		<input type="hidden" name="id" value="<?=$carrera->id; ?>">
-		<h5>�Desea eliminar la carrera '<?=$carrera->nombre; ?><?=($carrera->modalidad == 'Semiescolarizado') ? ' (Semiescolarizado)' : ''; ?>'?</h5>
+		<h5>Desea eliminar la carrera '<?=$carrera->nombre; ?><?=($carrera->modalidad == 'Semiescolarizado') ? ' (Semiescolarizado)' : ''; ?>'?</h5>
 
 		<div class="form-group">
 			<div class="col-sm-12 text-right">
@@ -61,4 +61,26 @@ function Eliminar(){
 		</div>
 	</form>
 	<?php
+}
+
+function pagination(){
+    $p = 10 * ($_POST['page'] - 1);
+    $carrera = CarreraModel::getRange($p, 10);
+    foreach ($carrera as $c){ ?>
+        <tr>
+            <td><?=$c->id; ?></td>
+            <td><?=utf8_encode($c->nombre); ?></td>
+            <td><?=$c->siglas; ?></td>
+            <td><?=$c->modalidad; ?></td>
+            <td class="text-right">
+                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Carrera" data-operation="Editar">
+                    <i class="fa fa-edit"></i> Editar
+                </button>
+                <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Carrera" data-operation="Eliminar">
+                    <i class="fa fa-trash"></i> Eliminar
+                </button>
+            </td>
+        </tr>
+        <?php
+    }
 }
