@@ -8,10 +8,9 @@ $funcion = $_POST['function'];
 call_user_func($funcion);
 
 function Agregar(){
-	if ($_POST['id'] == 0)
-		$carrera = new CarreraModel();
-	else
-		$carrera = CarreraModel::getById($_POST['id']); ?>
+    $carrera = new CarreraModel();
+	if ($_POST['id'] != 0)
+		$carrera = $carrera->getById($_POST['id']); ?>
 	<form action="<?=route($_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
 		<input type="hidden" name="id" value="<?=$carrera->id; ?>">
 		<div class="form-group">
@@ -63,9 +62,33 @@ function Eliminar(){
 	<?php
 }
 
-function pagination(){
+function Paginacion(){
     $p = 10 * ($_POST['page'] - 1);
-    $carrera = CarreraModel::getRange($p, 10);
+    $car = new CarreraModel();
+    $carrera = $car->getRange($p, 10);
+    foreach ($carrera as $c){ ?>
+        <tr>
+            <td><?=$c->id; ?></td>
+            <td><?=utf8_encode($c->nombre); ?></td>
+            <td><?=$c->siglas; ?></td>
+            <td><?=$c->modalidad; ?></td>
+            <td class="text-right">
+                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Carrera" data-operation="Editar">
+                    <i class="fa fa-edit"></i> Editar
+                </button>
+                <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Carrera" data-operation="Eliminar">
+                    <i class="fa fa-trash"></i> Eliminar
+                </button>
+            </td>
+        </tr>
+        <?php
+    }
+}
+
+function Buscar(){
+    $k = $_POST['key'];
+    $car = new CarreraModel();
+    $carrera = $car->getSearch('nombre', $k);
     foreach ($carrera as $c){ ?>
         <tr>
             <td><?=$c->id; ?></td>

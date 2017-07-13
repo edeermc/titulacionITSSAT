@@ -1,0 +1,55 @@
+{% extends 'template/temp.twig' %}
+
+{% block title 'Listado de carreras' %}
+
+{% block body %}
+    <div class="row">
+        <div class="form-group">
+            <div class="col-sm-4">
+                <div class="input-group">
+                    <input type="search" class="form-control" name="buscar" id="buscar" data-model="{{ modelo }}" placeholder="Buscar...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-sm-8 text-right">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#operationModal" data-id="0" data-model="{{ modelo }}" data-operation="Agregar">
+                    <i class="fa fa-plus"></i> Agregar registro
+                </button>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <div class="table-responsive" style="margin-top: 25px">
+            {% block tabla %}
+
+            {% endblock %}
+        </div>
+
+        <div class="text-center">
+            <nav aria-label="Paginación" id="pag-nav">
+                <ul class="pagination">
+                    <li class="disabled">
+                        <a href="#" class="pag" id="pag-prev" data-page="1" data-model="{{ modelo }}" aria-label="Anterior">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {% for i in 1..pag %}
+                        <li>
+                            <a href="#" class="pag" data-page="{{ i }}" data-model="{{ modelo }}">
+                                {{ i }}{{ (i == 1) ? ' <span class="sr-only">(current)</span>' }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    <li{{ (pag == 1 ? ' class="disabled"') }}>
+                        <a href="#" class="pag" id="pag-next" data-page="{{ pag }}" data-model="{{ modelo }}" aria-label="Siguiente">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock %}

@@ -1,5 +1,6 @@
 var url_request = window.location.protocol + "//" + window.location.host + "/titulacion/app/Request/";
 var spinner = '<div class="text-center"><i class="fa fa-spinner fa-cog fa-3x fa-fw"></i> <span class="sr-only">Cargando...</span></div>';
+var ajaxError = '<i class="fa fa-warning text-warning"></i> Error al cargar los datos!';
 
 $('#operationModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
@@ -24,47 +25,87 @@ $('#operationModal').on('show.bs.modal', function (event) {
             modal.find('.modal-body').html(data);
         },
         error: function () {
-            modal.find('.modal-body').html('<i class="fa fa-warning text-warning"></i> Error al cargar los datos!');
+            modal.find('.modal-body').html(ajaxError);
         }
     });
 });
 
-$('.pag').on('click', function (event) {
+$('.pag').click(function () {
     var model = $(this).data('model');
     var prev = $('#pag-prev');
     var next = $('#pag-next');
     var p = $(this).data('page');
-    var n = ($(".pagination > li").length) - 1;
+    var n = ($(".pagination > li").length) - 2;
 
-    if((p != 0) && (p != n + 1)){
+    $.ajax({
+        url: url_request + model + 'Request.php',
+        type: 'POST',
+        data: {
+            function: 'Paginacion',
+            page: p
+        },
+        beforeSend: function () {
+            $('#table-content').html(spinner);
+        },
+        success: function (data) {
+            $('#table-content').html(data);
+
+            if(p == 1)
+                prev.parent().addClass('disabled');
+            else
+                prev.parent().removeClass('disabled');
+
+            if(p == n)
+                next.parent().addClass('disabled');
+            else
+                next.parent().removeClass('disabled');
+        },
+        error: function () {
+            $('#table-content').html(ajaxError);
+        }
+    });
+});
+
+$('#buscar').on('keyup', function () {
+    var model = $(this).data('model');
+    var key = $(this).val();
+
+    if(!key){
+        $('#pag-nav').show();
         $.ajax({
             url: url_request + model + 'Request.php',
             type: 'POST',
             data: {
-                function: 'pagination',
-                page: p
+                function: 'Paginacion',
+                page: 1
             },
             beforeSend: function () {
                 $('#table-content').html(spinner);
             },
             success: function (data) {
                 $('#table-content').html(data);
-
-                prev.attr('data-page', p - 1);
-                next.attr('data-page', p + 1);
-                $(this).parent().addClass('active');
-                if(prev.data('page') < 1)
-                    prev.parent().addClass('disabled');
-                else
-                    prev.parent().removeClass('disabled');
-
-                if(next.data('page') > n)
-                    next.parent().addClass('disabled');
-                else
-                    next.parent().removeClass('disabled');
             },
             error: function () {
-                $('#table-content').html('<i class="fa fa-warning text-warning"></i> Error al cargar los datos!');
+                $('#table-content').html(ajaxError);
+            }
+        });
+    } else {
+        $.ajax({
+            url: url_request + model + 'Request.php',
+            type: 'POST',
+            data: {
+                function: 'Buscar',
+                key: key
+            },
+            beforeSend: function () {
+                $('#table-content').html(spinner);
+            },
+            success: function (data) {
+                $('#table-content').html(data);
+                $('#pag-nav').hide();
+            },
+            error: function () {
+                $('#table-content').html(ajaxError);
             }
         });
     }

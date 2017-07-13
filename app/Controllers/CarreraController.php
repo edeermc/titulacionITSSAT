@@ -6,11 +6,12 @@ use App\Models\CarreraModel;
 
 class CarreraController {
 	public function index(){
-        $carreras = CarreraModel::getRange(0, 10);
-        $c = CarreraModel::getAll();
+	    $carrera = new CarreraModel();
+        $carreras = $carrera->getRange(0, 10);
+        $c = $carrera->getAll();
         $p = round(count($c)/10) + (count($c)%10 < 5 ? 1 : 0);
 
-		return view('Catalogos/carrera.twig', ['carreras' => $carreras, 'pag' => $p]);
+		return view('Catalogos/carrera.twig', ['carreras' => $carreras, 'modelo' => 'Carrera', 'pag' => $p]);
 	}
 
 	public function save(){
@@ -34,7 +35,8 @@ class CarreraController {
 	}
 
 	public function del(){
-        CarreraModel::delById($_POST['id']);
+	    $carrera = new CarreraModel();
+        $carrera->delById($_POST['id']);
 
         redirect('carrera');
 	}

@@ -1,82 +1,36 @@
-{% extends 'template/temp.twig' %}
+{% extends 'Catalogos/catalogo.twig' %}
 
 {% block title 'Listado de carreras' %}
 
-{% block body %}
-    <div class="row">
-        <div class="form-group">
-            <div class="col-sm-4">
-                <div class="input-group">
-                    <input type="search" class="form-control" name="buscar" id="buscar" placeholder="Buscar...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                    </span>
-                </div>
-            </div>
-
-            <div class="col-sm-8 text-right">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#operationModal" data-id="0" data-model="Carrera" data-operation="Agregar">
-                    <i class="fa fa-plus"></i> Agregar registro
-                </button>
-            </div>
-        </div>
-        <div class="clearfix"></div>
-
-        <div class="table-responsive" style="margin-top: 25px">
-            <table class="table table-bordered table-condensed table-hover">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nombre</th>
-                        <th>Siglas</th>
-                        <th>Modalidad</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="table-content">
-                    <!-- Contenido de la tabla -->
-                    {% for c in carreras %}
-                        <tr>
-                            <td>{{ c.id }}</td>
-                            <td>{{ c.nombre|convert_encoding('UTF-8', 'iso-2022-jp') }}</td>
-                            <td>{{ c.siglas }}</td>
-                            <td>{{ c.modalidad }}</td>
-                            <td class="text-right">
-                                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ c.id }}" data-model="Carrera" data-operation="Editar">
-                                    <i class="fa fa-edit"></i> Editar
-                                </button>
-                                <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="{{ c.id }}" data-model="Carrera" data-operation="Eliminar">
-                                    <i class="fa fa-trash"></i> Eliminar
-                                </button>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
-            <div class="text-center">
-                <nav aria-label="Paginación">
-                    <ul class="pagination">
-                        <li class="disabled">
-                            <a href="#" class="pag" id="pag-prev" data-page="0" data-model="Carrera" aria-label="Anterior">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        {% for i in 1..pag %}
-                            <li{{ (i == 1) ? ' class="active"' }}>
-                                <a href="#" class="pag" data-page="{{ i }}" data-model="Carrera">
-                                    {{ i }}{{ (i == 1) ? ' <span class="sr-only">(current)</span>' }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                        <li{{ (pag == 1 ? ' class="disabled"') }}>
-                            <a href="#" class="pag" id="pag-next" data-page="2" data-model="Carrera" aria-label="Siguiente">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
+{% block tabla %}
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nombre</th>
+                <th>Siglas</th>
+                <th>Modalidad</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="table-content">
+            <!-- Contenido de la tabla -->
+            {% for c in carreras %}
+                <tr>
+                    <td>{{ c.id }}</td>
+                    <td>{{ c.nombre|convert_encoding('UTF-8', 'iso-2022-jp') }}</td>
+                    <td>{{ c.siglas }}</td>
+                    <td>{{ c.modalidad }}</td>
+                    <td class="text-right">
+                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ c.id }}" data-model="Carrera" data-operation="Editar">
+                            <i class="fa fa-edit"></i> Editar
+                        </button>
+                        <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="{{ c.id }}" data-model="Carrera" data-operation="Eliminar">
+                            <i class="fa fa-trash"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
