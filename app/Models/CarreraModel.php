@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Config\Executor;
 
 class CarreraModel extends Model {
-	//public static $tablename = 'carrera';
 	public $nombre;
     public $siglas;
     public $modalidad;
@@ -13,8 +12,6 @@ class CarreraModel extends Model {
 	function __construct(){
 	    self::$tablename = 'carrera';
         $this->nombre = '';
-        $this->siglas = '';
-		$this->modalidad = 'Escolarizado';
 	}
 
 	public function add(){
