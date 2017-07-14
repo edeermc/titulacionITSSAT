@@ -1,0 +1,34 @@
+{% extends 'Catalogos/catalogo.twig' %}
+
+{% block title 'Documentos :v' %}
+
+{% block tabla %}
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+        <tr>
+            <th>No</th>
+            <th>Nombre</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="table-content">
+        <!-- Contenido de la tabla -->
+        {% for c in tipoDoc %}
+            <tr>
+                <td>{{ c.id }}</td>
+                <td>{{ c.nombre|convert_encoding('UTF-8', 'iso-2022-jp') }}</td>
+                <td class="text-right">
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ c.id }}" data-model="{{ modelo }}" data-operation="Editar">
+                        <i class="fa fa-edit"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="{{ c.id }}" data-model="{{ modelo }}" data-operation="Eliminar">
+                        <i class="fa fa-trash"></i> Eliminar
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+
