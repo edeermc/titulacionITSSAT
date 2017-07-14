@@ -17,15 +17,15 @@ function Agregar(){
                 <div class="col-sm-6">
                     <input type="text" name="nombre" id="nombre" value="<?=utf8_encode($division->nombre); ?>" class="form-control" required>
                 </div>
+            </div>
 
-                <div class="clearfix"></div>
-
-                <div class="form-group">
-                    <div class="col-sm-12 text-right">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i> Cancelar</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
-                    </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <div class="col-sm-12 text-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i> Cancelar</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
                 </div>
+            </div>
         </form>
     <?php
 }
@@ -51,27 +51,27 @@ function Buscar(){
     $car = new DivisionModel();
     $division = $car->getSearch('nombre', $k);
     if(count($division)>0){
-    foreach ($division as $c){ ?>
-        <tr>
-            <td><?=$c->id; ?></td>
-            <td><?=utf8_encode($c->nombre); ?></td>
-             <td class="text-right">
-                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Division" data-operation="Editar">
-                    <i class="fa fa-edit"></i> Editar
-                </button>
-                <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Division" data-operation="Eliminar">
-                    <i class="fa fa-trash"></i> Eliminar
-                </button>
-            </td>
-        </tr>
-        <?php
-    }}
-    else{
-        ?>
-<tr>
-    <td colspan="2 class="text-center"> no existen coincidencias</td>
-</tr>
-<?php
+        foreach ($division as $c){ ?>
+            <tr>
+                <td><?=$c->id; ?></td>
+                <td><?=utf8_encode($c->nombre); ?></td>
+                 <td class="text-right">
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Division" data-operation="Editar">
+                        <i class="fa fa-edit"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Division" data-operation="Eliminar">
+                        <i class="fa fa-trash"></i> Eliminar
+                    </button>
+                </td>
+            </tr>
+            <?php
+        }
+    }
+    else{ ?>
+    <tr>
+        <td colspan="2" class="text-center"> &#161;No existen coincidencias!</td>
+    </tr>
+    <?php
     }
 }
 function Paginacion(){
@@ -83,10 +83,10 @@ function Paginacion(){
             <td><?=$c->id; ?></td>
             <td><?=utf8_encode($c->nombre); ?></td>
             <td class="text-right">
-                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Carrera" data-operation="Editar">
+                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Division" data-operation="Editar">
                     <i class="fa fa-edit"></i> Editar
                 </button>
-                <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Carrera" data-operation="Eliminar">
+                <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Division" data-operation="Eliminar">
                     <i class="fa fa-trash"></i> Eliminar
                 </button>
             </td>

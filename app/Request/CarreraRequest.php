@@ -89,19 +89,33 @@ function Buscar(){
     $k = $_POST['key'];
     $car = new CarreraModel();
     $carrera = $car->getSearch('nombre', $k);
-    foreach ($carrera as $c){ ?>
+
+    if(count($carrera) > 0) {
+        foreach ($carrera as $c) { ?>
+            <tr>
+                <td><?= $c->id; ?></td>
+                <td><?= utf8_encode($c->nombre); ?></td>
+                <td><?= $c->siglas; ?></td>
+                <td><?= $c->modalidad; ?></td>
+                <td class="text-right">
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
+                            data-target="#operationModal" data-id="<?= $c->id; ?>" data-model="Carrera"
+                            data-operation="Editar">
+                        <i class="fa fa-edit"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal"
+                            data-target="#operationModal" data-id="<?= $c->id; ?>" data-model="Carrera"
+                            data-operation="Eliminar">
+                        <i class="fa fa-trash"></i> Eliminar
+                    </button>
+                </td>
+            </tr>
+            <?php
+        }
+    } else{ ?>
         <tr>
-            <td><?=$c->id; ?></td>
-            <td><?=utf8_encode($c->nombre); ?></td>
-            <td><?=$c->siglas; ?></td>
-            <td><?=$c->modalidad; ?></td>
-            <td class="text-right">
-                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Carrera" data-operation="Editar">
-                    <i class="fa fa-edit"></i> Editar
-                </button>
-                <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="<?=$c->id; ?>" data-model="Carrera" data-operation="Eliminar">
-                    <i class="fa fa-trash"></i> Eliminar
-                </button>
+            <td colspan="5" class="text-center">
+                &#161;No se han encontrado coincidencias!
             </td>
         </tr>
         <?php
