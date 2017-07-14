@@ -11,7 +11,17 @@ class Route{
 			/* catalogos */
 			['url' => 'carrera',					'ctrl' => 'CarreraController@index',					'type' => 'guest'],
 			['url' => 'carrera/save',				'ctrl' => 'CarreraController@save',						'type' => 'guest'],
-			['url' => 'carrera/del',				'ctrl' => 'CarreraController@del',						'type' => 'guest'],
+            ['url' => 'carrera/del',				'ctrl' => 'CarreraController@del',						'type' => 'guest'],
+
+            /* division */
+            ['url' => 'division',					'ctrl' => 'DivisionController@index',					'type' => 'guest'],
+            ['url' => 'division/save',				'ctrl' => 'DivisionController@save',					'type' => 'guest'],
+            ['url' => 'division/del',				'ctrl' => 'DivisionController@del',						'type' => 'guest'],
+
+            /* Tipo documento */
+            ['url' => 'tipodocumento',				'ctrl' => 'TipoDocumentoController@index',				'type' => 'guest'],
+            ['url' => 'tipodocumento/save',			'ctrl' => 'TipoDocumentoController@save',				'type' => 'guest'],
+            ['url' => 'tipodocumento/del',			'ctrl' => 'TipoDocumentoController@del',				'type' => 'guest'],
 
             /* autenticación */
             ['url' => 'login', 						'ctrl' => 'AuthController@index', 						'type' => 'guest'],
