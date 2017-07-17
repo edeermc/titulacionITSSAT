@@ -7,7 +7,6 @@ use App\Config\Executor;
 abstract class Model {
     public $id;
     public static $tablename;
-    private static $aclass;
 
     abstract function add();
     abstract function update();
@@ -29,22 +28,22 @@ abstract class Model {
         return self::one($query[0]);
     }
 
-    public static function getAll(){
-        $sql = "SELECT * FROM ".self::$tablename;
+    public static function getAll($ord = 'id'){
+        $sql = "SELECT * FROM ".self::$tablename." ORDER BY {$ord}";
         $query = Executor::doit($sql);
 
         return self::many($query[0]);
     }
 
-    public static function getRange($i, $q){
-        $sql = "SELECT * FROM ".self::$tablename." LIMIT {$i}, {$q}";
+    public static function getRange($i, $q, $ord = 'id'){
+        $sql = "SELECT * FROM ".self::$tablename." ORDER BY {$ord} LIMIT {$i}, {$q}";
         $query = Executor::doit($sql);
 
         return self::many($query[0]);
     }
 
-    public static function getSearch($field, $key){
-        $sql = "SELECT * FROM ".self::$tablename." where {$field} LIKE '%{$key}%'  LIMIT 0, 25";
+    public static function getSearch($field, $key, $ord = 'id'){
+        $sql = "SELECT * FROM ".self::$tablename." where {$field} LIKE '%{$key}%' ORDER BY {$ord} LIMIT 0, 25";
         $query = Executor::doit($sql);
 
         return self::many($query[0]);
@@ -54,13 +53,15 @@ abstract class Model {
         return get_called_class();
     }
 
-	public static function many($query){
-        if (self::$aclass == '') self::$aclass = self::getClassName();
+	public static function many($query, $aclass = ''){
+        if($aclass == '')
+            $aclass = self::getClassName();
+
 		$cnt = 0;
 		$array = array();
 
 		while($r = $query->fetch_array()){
-			$array[$cnt] = new self::$aclass;
+			$array[$cnt] = new $aclass;
 			$cnt2=1;
 			foreach ($r as $key => $v) {
 				if($cnt2>0 && $cnt2%2==0){
@@ -73,10 +74,12 @@ abstract class Model {
 		return $array;
 	}
 
-	public static function one($query){
-        if (self::$aclass == '') self::$aclass = self::getClassName();
-		$found = null;
-		$data = new self::$aclass;
+	public static function one($query, $aclass = ''){
+        if($aclass == '')
+            $aclass = self::getClassName();
+
+        $found = null;
+		$data = new $aclass;
 
 		while($r = $query->fetch_array()){
 			$cnt=1;

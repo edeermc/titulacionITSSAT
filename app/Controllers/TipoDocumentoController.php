@@ -1,19 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Mario René
- * Date: 14/07/2017
- * Time: 01:10 AM
- */
 
 namespace App\Controllers;
 
 use App\Models\TipoDocumentoModel;
 
-class TipoDocumentoController
-{
-    function index()
-    {
+class TipoDocumentoController{
+    function index(){
         $tipo = new TipoDocumentoModel();
         $tipos = $tipo->getRange(0, 10);
         $c = $tipo->getAll();

@@ -26,4 +26,9 @@ class CarreraModel extends Model {
 		WHERE id = {$this->id}";
 		Executor::doit($sql);
 	}
+
+	public function getPlanes(){
+	    $r = new PlanEstudiosModel();
+	    return $r->getByCarrera($this->id);
+    }
 }

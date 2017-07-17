@@ -23,6 +23,11 @@ class Route{
             ['url' => 'tipodocumento/save',			'ctrl' => 'TipoDocumentoController@save',				'type' => 'guest'],
             ['url' => 'tipodocumento/del',			'ctrl' => 'TipoDocumentoController@del',				'type' => 'guest'],
 
+            /* Tipo documento */
+            ['url' => 'opciontitulacion',			'ctrl' => 'OpcionTitulacionController@index',			'type' => 'guest'],
+            ['url' => 'opciontitulacion/save',		'ctrl' => 'OpcionTitulacionController@save',			'type' => 'guest'],
+            ['url' => 'opciontitulacion/del',		'ctrl' => 'OpcionTitulacionController@del',				'type' => 'guest'],
+
             /* autenticación */
             ['url' => 'login', 						'ctrl' => 'AuthController@index', 						'type' => 'guest'],
 			['url' => 'logout', 					'ctrl' => 'AuthController@logout', 						'type' => 'guest'],
