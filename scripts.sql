@@ -1,6 +1,6 @@
 ALTER TABLE `carrera`
 MODIFY COLUMN `nombre`  varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `id`,
-ADD COLUMN `siglas`  varchar(6) NULL AFTER `nombre`;
+ADD COLUMN `siglas`  varchar(10) NULL AFTER `nombre`;
 
 ALTER TABLE `opcion_titulacion` DROP FOREIGN KEY `FK_opcion_plan`;
 
@@ -22,3 +22,5 @@ CONSTRAINT `FK_titulacion_opcion` FOREIGN KEY (`id_opcion`) REFERENCES `opcion_t
 )
 ;
 
+ALTER TABLE `carrera`
+MODIFY COLUMN `siglas`  varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `nombre`;

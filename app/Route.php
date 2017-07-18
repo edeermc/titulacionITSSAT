@@ -26,6 +26,8 @@ class Route{
             /* Tipo documento */
             ['url' => 'opciontitulacion',			'ctrl' => 'OpcionTitulacionController@index',			'type' => 'guest'],
             ['url' => 'opciontitulacion/save',		'ctrl' => 'OpcionTitulacionController@save',			'type' => 'guest'],
+            ['url' => 'opciontitulacion/saved',		'ctrl' => 'OpcionTitulacionController@saved',			'type' => 'guest'],
+            ['url' => 'opciontitulacion/savep',		'ctrl' => 'OpcionTitulacionController@savep',			'type' => 'guest'],
             ['url' => 'opciontitulacion/del',		'ctrl' => 'OpcionTitulacionController@del',				'type' => 'guest'],
 
             /* autenticación */

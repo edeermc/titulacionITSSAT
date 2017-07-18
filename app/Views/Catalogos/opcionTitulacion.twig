@@ -8,7 +8,6 @@
         <tr>
             <th>No</th>
             <th>Nombre</th>
-            <th>Planes de estudio</th>
             <th></th>
         </tr>
         </thead>
@@ -18,8 +17,13 @@
             <tr>
                 <td>{{ o.id }}</td>
                 <td>{{ o.nombre|convert_encoding('UTF-8', 'iso-2022-jp') }}</td>
-                <td>{{ o.getPlanes|length }} planes de estudio</td>
                 <td class="text-right">
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ o.id }}" data-model="{{ modelo }}" data-operation="Planes">
+                        <i class="fa fa-book"></i> Planes de estudio
+                    </button>
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ o.id }}" data-model="{{ modelo }}" data-operation="Documentos">
+                        <i class="fa fa-files-o"></i> Documentos
+                    </button>
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ o.id }}" data-model="{{ modelo }}" data-operation="Editar">
                         <i class="fa fa-edit"></i> Editar
                     </button>

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 
+use App\Models\OpcionDocumentoModel;
 use App\Models\OpcionPlanModel;
 use App\Models\OpcionTitulacionModel;
 
@@ -24,19 +25,45 @@ class OpcionTitulacionController {
 
         $reg->nombre = utf8_decode($_POST['nombre']);
 
-        if($_POST['id'] == 0){
-            $id = $reg->add();
-        } else{
+        if($_POST['id'] == 0)
+            $reg->add();
+        else
             $reg->update();
-            $id = $reg->id;
+
+        redirect('opciontitulacion');
+    }
+
+    public function savep(){
+        $reg = new OpcionTitulacionModel();
+        if($_POST['id'] != 0){
+            $reg = $reg->getById($_POST['id']);
         }
 
         $planes = $_POST['id_plan'];
         $op = new OpcionPlanModel();
-        $op->delByOpcion($id);
-        for ($i=0;$i<count($planes);$i++) {
-            $op->id_opcion = $id;
+        $op->delByOpcion($reg->id);
+        for ($i=0; $i<count($planes); $i++) {
+            $op->id_opcion = $reg->id;
             $op->id_plan = $planes[$i];
+
+            $op->add();
+        }
+
+        redirect('opciontitulacion');
+    }
+
+    public function saved(){
+        $reg = new OpcionTitulacionModel();
+        if($_POST['id'] != 0){
+            $reg = $reg->getById($_POST['id']);
+        }
+
+        $doctos = $_POST['id_docto'];
+        $op = new OpcionDocumentoModel();
+        $op->delByOpcion($reg->id);
+        for ($i=0; $i<count($doctos); $i++) {
+            $op->id_opcion = $reg->id;
+            $op->id_documento = $doctos[$i];
 
             $op->add();
         }

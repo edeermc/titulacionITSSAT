@@ -24,4 +24,9 @@ class TipoDocumentoModel extends Model{
 		$sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}' WHERE id = {$this->id}";
 		Executor::doit($sql);
 	}
+
+    public function isChecked($id){
+        $r = new OpcionDocumentoModel();
+        return $r->existOpcion($this->id, $id);
+    }
 }
