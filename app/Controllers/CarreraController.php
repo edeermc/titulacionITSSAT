@@ -15,9 +15,8 @@ class CarreraController {
 	}
 
 	public function save(){
-        if($_POST['id'] == 0){
-            $reg = new CarreraModel();
-        } else{
+        $reg = new CarreraModel();
+        if($_POST['id'] != 0){
             $reg = CarreraModel::getById($_POST['id']);
         }
 
