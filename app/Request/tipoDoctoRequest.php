@@ -38,7 +38,7 @@ function Eliminar(){
     $documento = $c->getById($_POST['id']); ?>
     <form action="<?=route('TipoDocumento/del'); ?>" method="POST" class="form-horizontal">
         <input type="hidden" name="id" value="<?=$documento->id; ?>">
-        <h5>&#191;Desea eliminar el documento'<?=$documento->nombre; ?>'?</h5>
+        <h5>&#191;Desea eliminar el documento'<?=utf8_encode($documento->nombre); ?>'?</h5>
 
         <div class="form-group">
             <div class="col-sm-12 text-right">

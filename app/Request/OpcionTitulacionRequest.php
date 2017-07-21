@@ -133,7 +133,7 @@ function Eliminar(){
     $opc = $opc->getById($_POST['id']); ?>
     <form action="<?=route($_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
         <input type="hidden" name="id" value="<?=$opc->id; ?>">
-        <h5>Desea eliminar la carrera '<?=$opc->nombre; ?>'?</h5>
+        <h5>Desea eliminar la opción '<?=utf8_encode($opc->nombre); ?>'?</h5>
 
         <div class="form-group">
             <div class="col-sm-12 text-right">

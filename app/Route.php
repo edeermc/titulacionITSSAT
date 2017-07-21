@@ -8,7 +8,7 @@ class Route{
             //url
             ['url' => '/', 							'ctrl' => 'HomeController@index', 						'type' => 'guest'],
 
-			/* catalogos */
+			/* carrera */
 			['url' => 'carrera',					'ctrl' => 'CarreraController@index',					'type' => 'guest'],
 			['url' => 'carrera/save',				'ctrl' => 'CarreraController@save',						'type' => 'guest'],
             ['url' => 'carrera/del',				'ctrl' => 'CarreraController@del',						'type' => 'guest'],
@@ -23,12 +23,17 @@ class Route{
             ['url' => 'tipodocumento/save',			'ctrl' => 'TipoDocumentoController@save',				'type' => 'guest'],
             ['url' => 'tipodocumento/del',			'ctrl' => 'TipoDocumentoController@del',				'type' => 'guest'],
 
-            /* Tipo documento */
+            /* Opciones de ttulacion */
             ['url' => 'opciontitulacion',			'ctrl' => 'OpcionTitulacionController@index',			'type' => 'guest'],
             ['url' => 'opciontitulacion/save',		'ctrl' => 'OpcionTitulacionController@save',			'type' => 'guest'],
             ['url' => 'opciontitulacion/saved',		'ctrl' => 'OpcionTitulacionController@saved',			'type' => 'guest'],
             ['url' => 'opciontitulacion/savep',		'ctrl' => 'OpcionTitulacionController@savep',			'type' => 'guest'],
             ['url' => 'opciontitulacion/del',		'ctrl' => 'OpcionTitulacionController@del',				'type' => 'guest'],
+
+			/* Docentes */
+			['url' => 'docente',					'ctrl' => 'DocenteController@index',					'type' => 'guest'],
+			['url' => 'docente/save',				'ctrl' => 'DocenteController@save',						'type' => 'guest'],
+			['url' => 'docente/del',				'ctrl' => 'DocenteController@del',						'type' => 'guest'],
 
             /* autenticación */
             ['url' => 'login', 						'ctrl' => 'AuthController@index', 						'type' => 'guest'],

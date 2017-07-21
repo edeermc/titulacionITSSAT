@@ -43,7 +43,7 @@ abstract class Model {
     }
 
     public static function getSearch($field, $key, $ord = 'id'){
-        $sql = "SELECT * FROM ".self::$tablename." where {$field} LIKE '%{$key}%' ORDER BY {$ord} LIMIT 0, 25";
+        $sql = "SELECT * FROM ".self::$tablename." WHERE {$field} LIKE '%{$key}%' ORDER BY {$ord} LIMIT 0, 25";
         $query = Executor::doit($sql);
 
         return self::many($query[0]);

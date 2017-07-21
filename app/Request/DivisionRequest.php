@@ -35,7 +35,7 @@ function Eliminar(){
     $division = $c->getById($_POST['id']); ?>
     <form action="<?=route($_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
         <input type="hidden" name="id" value="<?=$division->id; ?>">
-        <h5>Desea eliminar la division '<?=$division->nombre; ?>'?</h5>
+        <h5>Desea eliminar la division '<?=utf8_decode($division->nombre); ?>'?</h5>
 
         <div class="form-group">
             <div class="col-sm-12 text-right">
