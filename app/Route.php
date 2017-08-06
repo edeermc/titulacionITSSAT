@@ -30,7 +30,22 @@ class Route{
             ['url' => 'opciontitulacion/savep',		'ctrl' => 'OpcionTitulacionController@savep',			'type' => 'guest'],
             ['url' => 'opciontitulacion/del',		'ctrl' => 'OpcionTitulacionController@del',				'type' => 'guest'],
 
-			/* Docentes */
+            /* Alumnos */
+            ['url' => 'egresado',			        'ctrl' => 'EgresadoController@index',			        'type' => 'guest'],
+            ['url' => 'egresado/save',		        'ctrl' => 'EgresadoController@save',		            'type' => 'guest'],
+            ['url' => 'egresado/del',		        'ctrl' => 'EgresadoController@del',				        'type' => 'guest'],
+
+            /* Planes de estudio */
+            ['url' => 'planestudios',			    'ctrl' => 'PlanController@index',			            'type' => 'guest'],
+            ['url' => 'planestudios/save',		    'ctrl' => 'PlanController@save',		              	'type' => 'guest'],
+            ['url' => 'planestudios/del',		    'ctrl' => 'PlanController@del',				            'type' => 'guest'],
+
+            /* Proyectos */
+            ['url' => 'proyecto',			        'ctrl' => 'ProyectoController@index',			        'type' => 'guest'],
+            ['url' => 'proyecto/save',		        'ctrl' => 'ProyectoController@save',		          	'type' => 'guest'],
+            ['url' => 'proyecto/del',		        'ctrl' => 'ProyectoController@del',				        'type' => 'guest'],
+
+            /* Docentes */
 			['url' => 'docente',					'ctrl' => 'DocenteController@index',					'type' => 'guest'],
 			['url' => 'docente/save',				'ctrl' => 'DocenteController@save',						'type' => 'guest'],
 			['url' => 'docente/del',				'ctrl' => 'DocenteController@del',						'type' => 'guest'],

@@ -1,6 +1,9 @@
 :focus {
     outline: none;
 }
+body .row .container-fluid{
+    margin-top: 50px;
+}
 .row {
     margin-right: 0;
     margin-left: 0;

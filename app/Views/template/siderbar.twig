@@ -22,10 +22,10 @@
                     </a>
                 </div>
 
-                <!-- Search -->
+                <!-- Search
                 <a data-toggle="collapse" href="#search" class="btn btn-default" id="search-trigger">
                     <span class="fa fa-search"></span>
-                </a>
+                </a> -->
 
                 <!-- Search body -->
                 <div id="search" class="panel-collapse collapse">
@@ -45,36 +45,51 @@
         <!-- Main Menu -->
         <div class="side-menu-container">
             <ul class="nav navbar-nav">
-
-                <li class="active"><a href="{{ route('carrera') }}"><i class="fa fa-list"></i> Carrera</a></li>
-                <li><a href="#"><i class="fa fa-plane"></i> Active Link</a></li>
-                <li><a href="#"><i class="fa fa-cloud"></i> Link</a></li>
-
-                <!-- Dropdown-->
                 <li class="panel panel-default" id="dropdown">
                     <a data-toggle="collapse" href="#dropdown-lvl1">
-                        <i class="fa fa-user"></i> Sub Level <span class="caret"></span>
+                        <i class="fa fa-folder-open"></i> Catálogos<span class="caret"></span>
                     </a>
-
                     <!-- Dropdown level 1 -->
                     <div id="dropdown-lvl1" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
-                                <li><a href="#">Link</a></li>
+                                <li class="active"><a href="{{ route('carrera') }}"><i class="fa fa-list"></i> Carreras</a></li>
+                                <li><a href="{{ route('division') }}"><i class="fa fa-list-alt"></i> Divisiones</a></li>
+                                <li><a href="{{ route('docente') }}"><i class="fa fa-address-book"></i> Docentes</a></li>
+                                <li><a href="{{ route('tipodocumento') }}"><i class="fa fa-files-o"></i> Documentos</a></li>
+                                <li><a href="{{ route('egresado') }}"><i class="fa fa-files-o"></i> Egresados</a></li>
+                                <li><a href="{{ route('opciontitulacion') }}"><i class="fa fa-list-ul"></i> Opciones de titulación</a></li>
+                                <li><a href="{{ route('planestudios') }}"><i class="fa fa-graduation-cap"></i> Planes de estudios</a></li>
+                                <li><a href="{{ route('proyecto') }}"><i class="fa fa-folder-open"></i> Proyectos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Dropdown-->
+                <li class="panel panel-default" id="dropdown">
+                    <a data-toggle="collapse" href="#dropdown-lvl2">
+                        <i class="fa fa-cogs"></i> Configuración<span class="caret"></span>
+                    </a>
+
+                    <!-- Dropdown level 2 -->
+                    <div id="dropdown-lvl2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li><a href="{{ route('perfil') }}">Perfiles</a></li>
+                                <li><a href="{{ route('usuario') }}"><i class="fa fa-users"></i> Usuarios</a></li>
 
                                 <!-- Dropdown level 2 -->
                                 <li class="panel panel-default" id="dropdown">
-                                    <a data-toggle="collapse" href="#dropdown-lvl2">
-                                        <i class="fa fa-off"></i> Sub Level <span class="caret"></span>
+                                    <a data-toggle="collapse" href="#dropdown-lvl22">
+                                        <i class="fa fa-off"></i> Mi cuenta<span class="caret"></span>
                                     </a>
-                                    <div id="dropdown-lvl2" class="panel-collapse collapse">
+                                    <div id="dropdown-lvl22" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <ul class="nav navbar-nav">
-                                                <li><a href="#">Link</a></li>
-                                                <li><a href="#">Link</a></li>
-                                                <li><a href="#">Link</a></li>
+                                                <li><a href="{{ route('ccontrasena') }}"><i class="fa fa-key"></i> Cambiar contraseña</a></li>
+                                                <li><a href="{{ route('cdatos') }}"><i class="fa fa-id-card"></i> Cambiar mis datos</a></li>
+                                                <li><a href="{{ route('logout') }}"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -84,7 +99,6 @@
                     </div>
                 </li>
 
-                <li><a href="#"><i class="fa fa-signal"></i> Link</a></li>
 
             </ul>
         </div><!-- /.navbar-collapse -->

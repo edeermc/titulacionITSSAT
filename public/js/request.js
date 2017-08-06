@@ -1,4 +1,4 @@
-var url_request = window.location.protocol + "//" + window.location.host + "/titulacion/app/Request/";
+var url_request = window.location.protocol + "//" + window.location.host + "/titulacion/requested.php";
 var spinner = '<div class="text-center"><i class="fa fa-spinner fa-cog fa-3x fa-fw"></i> <span class="sr-only">Cargando...</span></div>';
 var ajaxError = '<i class="fa fa-warning text-warning"></i> Error al cargar los datos!';
 
@@ -10,7 +10,7 @@ $('#operationModal').on('show.bs.modal', function (event) {
     var modal = $(this);
 
     $.ajax({
-        url: url_request + model + 'Request.php',
+        url: url_request,
         type: 'POST',
         data: {
             function: (operation == 'Agregar' || operation == 'Editar') ?  'Agregar' : operation,
@@ -38,9 +38,10 @@ $('.pag').click(function () {
     var n = ($(".pagination > li").length) - 2;
 
     $.ajax({
-        url: url_request + model + 'Request.php',
+        url: url_request,
         type: 'POST',
         data: {
+            model: model,
             function: 'Paginacion',
             page: p
         },
@@ -73,9 +74,10 @@ $('#buscar').on('keyup', function () {
     if(!key){
         $('#pag-nav').show();
         $.ajax({
-            url: url_request + model + 'Request.php',
+            url: url_request,
             type: 'POST',
             data: {
+                model: model,
                 function: 'Paginacion',
                 page: 1
             },
@@ -91,9 +93,10 @@ $('#buscar').on('keyup', function () {
         });
     } else {
         $.ajax({
-            url: url_request + model + 'Request.php',
+            url: url_request,
             type: 'POST',
             data: {
+                model: model,
                 function: 'Buscar',
                 key: key
             },

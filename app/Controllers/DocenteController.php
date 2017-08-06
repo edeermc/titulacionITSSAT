@@ -17,7 +17,7 @@ class DocenteController {
 	public function save(){
 		$reg = new DocenteModel();
 		if($_POST['id'] != 0){
-			$reg = DocenteModel::getById($_POST['id']);
+			$reg = $reg->getById($_POST['id']);
 		}
 
 		$reg->nombre = utf8_decode($_POST['nombre']);

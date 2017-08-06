@@ -17,7 +17,7 @@ class CarreraController {
 	public function save(){
         $reg = new CarreraModel();
         if($_POST['id'] != 0){
-            $reg = CarreraModel::getById($_POST['id']);
+            $reg = $reg->getById($_POST['id']);
         }
 
         $reg->nombre = utf8_decode($_POST['nombre']);

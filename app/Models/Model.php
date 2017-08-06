@@ -12,17 +12,17 @@ abstract class Model {
     abstract function update();
 
     public static function delById($id){
-        $sql = "DELETE FROM ".self::$tablename." WHERE id = {$id}";
+        $sql = "DELETE FROM ".self::$tablename." WHERE id = '{$id}'";
         Executor::doit($sql);
     }
 
     public function del(){
-        $sql = "DELETE FROM ".self::$tablename." WHERE id = {$this->id}";
+        $sql = "DELETE FROM ".self::$tablename." WHERE id = '{$this->id}'";
         Executor::doit($sql);
     }
 
     public static function getById($id){
-        $sql = "SELECT * FROM ".self::$tablename." WHERE id = {$id}";
+        $sql = "SELECT * FROM ".self::$tablename." WHERE id = '{$id}'";
         $query = Executor::doit($sql);
 
         return self::one($query[0]);

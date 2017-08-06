@@ -19,3 +19,8 @@ CREATE TABLE `opcion_plan` (
 PRIMARY KEY (`id`),
 CONSTRAINT `FK_plan_opcion` FOREIGN KEY (`id_plan`) REFERENCES `plan_estudios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 CONSTRAINT `FK_titulacion_opcion` FOREIGN KEY (`id_opcion`) REFERENCES `opcion_titulacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE);
+
+
+ALTER TABLE `egresados`
+CHANGE COLUMN `n_control` `id`  varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL FIRST ;
+
