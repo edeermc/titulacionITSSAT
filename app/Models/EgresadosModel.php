@@ -42,8 +42,8 @@ class EgresadosModel extends Model {
 
     public function update(){
         $sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}', apellido_paterno='{$this->apellido_paterno}',
-		apellido_materno='{$this->apellido_materno}', sexo='{$this->sexo}', id_plan='{$this->id_plan}', id_proyecto='{$this->id_proyecto}', 
-		numero_libro='{$this->numero_libro}', numero_foja='{$this->numero_foja}', periodo_ingreso='{$this->periodo_ingreso}', periodo_egreso='{$this->periodo_egreso}' 
+		apellido_materno='{$this->apellido_materno}', sexo='{$this->sexo}', id_plan='{$this->id_plan}', id_proyecto={$this->id_proyecto}, 
+		numero_libro={$this->numero_libro}, numero_foja={$this->numero_foja}, periodo_ingreso='{$this->periodo_ingreso}', periodo_egreso='{$this->periodo_egreso}' 
 		WHERE id = '{$this->id}'";
 
         echo $sql;

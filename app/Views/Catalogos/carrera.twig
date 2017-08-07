@@ -18,7 +18,7 @@
             {% for c in carreras %}
                 <tr>
                     <td>{{ c.id }}</td>
-                    <td>{{ c.nombre|convert_encoding('UTF-8', 'iso-2022-jp') }}</td>
+                    <td>{{ c.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
                     <td>{{ c.siglas }}</td>
                     <td>{{ c.modalidad }}</td>
                     <td class="text-right">

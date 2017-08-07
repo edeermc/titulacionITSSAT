@@ -19,10 +19,10 @@
         {% for d in egresados %}
             <tr>
                 <td>{{ d.id }}</td>
-                <td>{{ d.getNombreCompleto|convert_encoding('UTF-8', 'iso-2022-jp') }}</td>
+                <td>{{ d.getNombreCompleto|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
                 <td class="text-center">{{ d.sexo }}</td>
-                <td>{{ d.getPlan.getCarrera.nombre|convert_encoding('UTF-8', 'iso-2022-jp') }}</td>
-                <td>{{ d.getPlan.nombre|convert_encoding('UTF-8', 'iso-2022-jp') }}</td>
+                <td>{{ d.getPlan.getCarrera.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
+                <td>{{ d.getPlan.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
                 <td class="text-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Editar">
                         <i class="fa fa-edit"></i> Editar

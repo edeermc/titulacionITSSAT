@@ -27,11 +27,23 @@ class EgresadoController {
         $reg->apellido_materno = utf8_decode($_POST['apellido_materno']);
         $reg->sexo = $_POST['sexo'];
         $reg->id_plan = $_POST['id_plan'];
-        $reg->id_proyecto = $_POST['id_proyecto'];
-        $reg->no_libro = $_POST['no_libro'];
-        $reg->no_foja = $_POST['no_foja'];
         $reg->periodo_ingreso = $_POST['periodo_ingreso'];
         $reg->periodo_egreso = $_POST['periodo_egreso'];
+
+        if ((!empty($_POST['id_proyecto'])) && (!empty($reg->id_proyecto)))
+            $reg->id_proyecto = $_POST['id_proyecto'];
+        else
+            $reg->id_proyecto = 'null';
+
+        if ((!empty($_POST['no_libro'])) && (!empty($reg->id_proyecto)))
+            $reg->numero_libro = $_POST['no_libro'];
+        else
+            $reg->numero_libro = $_POST['no_libro'];
+
+        if ((!empty($_POST['no_foja'])) && (!empty($reg->id_proyecto)))
+            $reg->numero_foja = $_POST['no_foja'];
+        else
+            $reg->numero_foja = $_POST['no_foja'];
 
         if(!$reg->exist($_POST['id'])){
             $reg->add();
@@ -39,7 +51,7 @@ class EgresadoController {
             $reg->update();
         }
 
-        //redirect('egresado');
+        redirect('egresado');
     }
 
     public function del(){
