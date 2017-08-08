@@ -29,21 +29,9 @@ class EgresadoController {
         $reg->id_plan = $_POST['id_plan'];
         $reg->periodo_ingreso = $_POST['periodo_ingreso'];
         $reg->periodo_egreso = $_POST['periodo_egreso'];
-
-        if (!empty($_POST['id_proyecto']))
-            $reg->id_proyecto = $_POST['id_proyecto'];
-        else
-            $reg->id_proyecto = 'null';
-
-        if (!empty($_POST['no_libro']))
-            $reg->numero_libro = $_POST['no_libro'];
-        else
-            $reg->numero_libro = 'null';
-
-        if (!empty($_POST['no_foja']))
-            $reg->numero_foja = $_POST['no_foja'];
-        else
-            $reg->numero_foja = 'null';
+        $reg->id_proyecto = !empty($_POST['id_proyecto']) ? $_POST['id_proyecto'] : 'null';
+        $reg->numero_libro = !empty($_POST['numero_libro']) ? $_POST['numero_libro'] : 'null';
+        $reg->numero_foja = !empty($_POST['numero_foja']) ? $_POST['numero_foja'] : 'null';
 
         if(!$reg->exist($_POST['id'])){
             $reg->add();

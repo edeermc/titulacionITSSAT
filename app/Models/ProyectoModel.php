@@ -46,10 +46,11 @@ class ProyectoModel extends Model {
     }
 
     public function update(){
-        $sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}', id_opcion='{$this->id_opcion}', id_presidente='{$this->id_presidente}',
-		id_secretario='{$this->id_secretario}', id_vocal='{$this->id_vocal}', id_vocal_suplente='{$this->id_vocal_suplente}', id_asesor='{$this->id_asesor}', 
-		id_asesor2='{$this->id_asesor2}', observaciones='{$this->observaciones}', id_presidenteacademia='{$this->id_presidenteacademia}', 
+        $sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}', id_opcion={$this->id_opcion}, id_presidente={$this->id_presidente},
+		id_secretario={$this->id_secretario}, id_vocal={$this->id_vocal}, id_vocal_suplente={$this->id_vocal_suplente}, id_asesor={$this->id_asesor}, 
+		id_asesor2={$this->id_asesor2}, observaciones='{$this->observaciones}', id_presidenteacademia={$this->id_presidenteacademia}, 
 		fecha_liberacion='{$this->fecha_liberacion}', fecha_notificacion='{$this->fecha_notificacion}' WHERE id = {$this->id}";
+
         Executor::doit($sql);
     }
 

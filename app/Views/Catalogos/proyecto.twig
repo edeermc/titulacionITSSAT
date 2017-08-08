@@ -1,0 +1,61 @@
+{% extends 'Catalogos/catalogo.twig' %}
+
+{% block title 'Listado de proyectos' %}
+
+{% block tabla %}
+    <!-- <div class="text-right">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#operationModal" data-model="{{ modelo }}" data-operation="Editar">
+            <i class="fa fa-edit"></i> Editar
+        </button>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#operationModal" data-model="{{ modelo }}" data-operation="Eliminar">
+            <i class="fa fa-trash"></i> Eliminar
+        </button>
+    </div> -->
+
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+        <tr>
+            <!-- <th class="text-center">
+                <input id="allitems" type="checkbox" hidden>
+                <button class="btn-link hidden btn-xs" id="status-all-check"><i class="fa fa-check-square-o"></i></button>
+                <button class="btn-link btn-xs" id="status-all-uncheck"><i class="fa fa-square-o"></i></button>
+            </th> -->
+            <th>No</th>
+            <th>Nombre</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="table-content">
+        <!-- Contenido de la tabla -->
+        {% for p in proyectos %}
+            <tr>
+                <!-- <td class="text-center">
+                    <input id="item{{ p.id }}" class="itemschecked" type="checkbox" name="id[]" value="{{ p.id }}" hidden>
+                    <i class="fa fa-check-square-o status-check hidden"></i>
+                    <i class="fa fa-square-o status-uncheck"></i>
+                </td> -->
+                <td>{{ p.id }}</td>
+                <td>{{ p.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
+                <td class="text-right">
+                    {% if((p.getAlumnos|length) > 0) %}
+                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ p.id }}" data-model="{{ modelo }}" data-operation="Alumnos">
+                            <i class="fa fa-edit"></i> Ver alumnos
+                        </button>
+                    {% endif %}
+                    {% if((p.getPresidente|length) > 0) %}
+                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ p.id }}" data-model="{{ modelo }}" data-operation="Dictamen">
+                            <i class="fa fa-edit"></i> Dictamen
+                        </button>
+                    {% endif %}
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ p.id }}" data-model="{{ modelo }}" data-operation="Editar">
+                        <i class="fa fa-edit"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#operationModal" data-id="{{ p.id }}" data-model="{{ modelo }}" data-operation="Eliminar">
+                        <i class="fa fa-trash"></i> Eliminar
+                    </button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

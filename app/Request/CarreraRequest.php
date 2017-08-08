@@ -85,12 +85,12 @@ class CarreraRequest {
                 <td><?= $c->modalidad; ?></td>
                 <td class="text-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
-                            data-target="#operationModal" data-id="<?= $c->id; ?>" data-model="Carrera"
+                            data-target="#operationModal" data-id="<?= $c->id; ?>" data-model="<?=$_POST['model']; ?>"
                             data-operation="Editar">
                         <i class="fa fa-edit"></i> Editar
                     </button>
                     <button type="button" class="btn btn-xs btn-danger" data-toggle="modal"
-                            data-target="#operationModal" data-id="<?= $c->id; ?>" data-model="Carrera"
+                            data-target="#operationModal" data-id="<?= $c->id; ?>" data-model="<?=$_POST['model']; ?>"
                             data-operation="Eliminar">
                         <i class="fa fa-trash"></i> Eliminar
                     </button>

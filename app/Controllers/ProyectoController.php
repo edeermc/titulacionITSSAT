@@ -11,7 +11,7 @@ class ProyectoController {
         $pr = $proyecto->getAll();
         $p = round(count($pr)/10) + (count($pr)%10 < 5 ? 1 : 0);
 
-        return view('Catalogos/proyecto.twig', ['egresados' => $proyectos, 'modelo' => 'Egresado', 'pag' => $p]);
+        return view('Catalogos/proyecto.twig', ['proyectos' => $proyectos, 'modelo' => 'Proyecto', 'pag' => $p]);
     }
 
     public function save(){
@@ -21,29 +21,19 @@ class ProyectoController {
         }
 
         $reg->nombre = utf8_decode($_POST['nombre']);
-        $reg->apellido_paterno = utf8_decode($_POST['apellido_paterno']);
-        $reg->apellido_materno = utf8_decode($_POST['apellido_materno']);
-        $reg->sexo = $_POST['sexo'];
-        $reg->id_plan = $_POST['id_plan'];
-        $reg->periodo_ingreso = $_POST['periodo_ingreso'];
-        $reg->periodo_egreso = $_POST['periodo_egreso'];
+        $reg->id_opcion = !empty($_POST['id_opcion']) ? $_POST['id_opcion'] : 'null';
+        $reg->id_presidente = !empty($_POST['id_presidente']) ? $_POST['id_presidente'] : 'null';
+        $reg->id_secretario = !empty($_POST['id_secretario']) ? $_POST['id_secretario'] : 'null';
+        $reg->id_vocal = !empty($_POST['id_vocal']) ? $_POST['id_vocal'] : 'null';
+        $reg->id_vocal_suplente = !empty($_POST['id_vocal_suplente']) ? $_POST['id_vocal_suplente'] : 'null';
+        $reg->id_asesor = !empty($_POST['id_asesor']) ? $_POST['id_asesor'] : 'null';
+        $reg->id_asesor2 = !empty($_POST['id_asesor2']) ? $_POST['id_asesor2'] : 'null';
+        $reg->observaciones = utf8_decode($_POST['observaciones']);
+        $reg->id_presidenteacademia = !empty($_POST['id_presidenteacademia']) ? $_POST['id_presidenteacademia'] : 'null';
+        $reg->fecha_liberacion = !empty($_POST['fecha_liberacion']) ? $_POST['fecha_liberacion'] : 'null';
+        $reg->fecha_notificacion = !empty($_POST['fecha_notificacion']) ? $_POST['fecha_notificacion'] : 'null';
 
-        if ((!empty($_POST['id_proyecto'])) && (!empty($reg->id_proyecto)))
-            $reg->id_proyecto = $_POST['id_proyecto'];
-        else
-            $reg->id_proyecto = 'null';
-
-        if ((!empty($_POST['no_libro'])) && (!empty($reg->id_proyecto)))
-            $reg->numero_libro = $_POST['no_libro'];
-        else
-            $reg->numero_libro = $_POST['no_libro'];
-
-        if ((!empty($_POST['no_foja'])) && (!empty($reg->id_proyecto)))
-            $reg->numero_foja = $_POST['no_foja'];
-        else
-            $reg->numero_foja = $_POST['no_foja'];
-
-        if($_POST['id'] != 0){
+        if($_POST['id'] == 0){
             $reg->add();
         } else{
             $reg->update();
