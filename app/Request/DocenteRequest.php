@@ -16,7 +16,7 @@ class DocenteRequest{
 
         $divisiones = new DivisionModel();
         $divisiones = $divisiones->getAll(); ?>
-        <form action="<?= route($_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
+        <form action="<?= route('cpanel/' . $_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $docente->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
@@ -93,7 +93,7 @@ class DocenteRequest{
     function Eliminar(){
         $d = new DocenteModel();
         $d = $d->getById($_POST['id']); ?>
-        <form action="<?= route($_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
+        <form action="<?= route('cpanel/' . $_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $d->id; ?>">
             <h5>Desea eliminar al docente '<?= utf8_encode($d->getNombreCompleto()); ?>'?</h5>
 

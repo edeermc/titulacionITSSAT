@@ -8,7 +8,7 @@ class DivisionRequest {
         $division = new DivisionModel();
         if ($_POST['id'] != 0)
             $division = $division->getById($_POST['id']); ?>
-        <form action="<?= route($_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
+        <form action="<?= route('cpanel/' . $_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $division->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
@@ -34,7 +34,7 @@ class DivisionRequest {
     function Eliminar(){
         $division = new DivisionModel();
         $division = $division->getById($_POST['id']); ?>
-        <form action="<?= route($_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
+        <form action="<?= route('cpanel/' . $_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $division->id; ?>">
             <h5>Desea eliminar la division '<?= utf8_decode($division->nombre); ?>'?</h5>
 

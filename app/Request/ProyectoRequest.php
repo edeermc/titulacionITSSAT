@@ -2,11 +2,11 @@
 
 namespace App\Request;
 
-use App\Models\CarreraModel;
+use App\Models\ProyectoModel;
 
-class CarreraRequest {
+class ProyectoRequest {
     function Agregar(){
-        $carrera = new CarreraModel();
+        $carrera = new ProyectoModel();
         if ($_POST['id'] != 0)
             $carrera = $carrera->getById($_POST['id']); ?>
         <form action="<?= route('cpanel/' . $_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
@@ -53,7 +53,7 @@ class CarreraRequest {
     }
 
     function Eliminar(){
-        $carrera = new CarreraModel();
+        $carrera = new ProyectoModel();
         $carrera = $carrera->getById($_POST['id']); ?>
         <form action="<?= route('cpanel/' . $_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $carrera->id; ?>">
@@ -75,7 +75,7 @@ class CarreraRequest {
 
     function Paginacion(){
         $p = 10 * ($_POST['page'] - 1);
-        $car = new CarreraModel();
+        $car = new ProyectoModel();
         $carrera = $car->getRange($p, 10);
         foreach ($carrera as $c) { ?>
             <tr>
@@ -102,7 +102,7 @@ class CarreraRequest {
 
     function Buscar(){
         $k = $_POST['key'];
-        $car = new CarreraModel();
+        $car = new ProyectoModel();
         $carrera = $car->getSearch('nombre', $k);
 
         if (count($carrera) > 0) {

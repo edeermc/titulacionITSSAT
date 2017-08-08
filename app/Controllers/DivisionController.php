@@ -27,12 +27,12 @@ class DivisionController
             $reg->update();
         }
 
-        redirect('division');
+        redirect('cpanel/division');
     }
     public function del(){
         $carrera = new DivisionModel();
         $carrera->delById($_POST['id']);
 
-        redirect('division');
+        redirect('cpanel/division');
     }
 }

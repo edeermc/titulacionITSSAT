@@ -13,10 +13,10 @@ class EgresadoRequest{
 
         $planes = new PlanEstudiosModel();
         $planes = $planes->getAll(); ?>
-        <form action="<?= route($_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
-            <input type="hidden" value="null" name="id_proyecto">
-            <input type="hidden" value="null" name="no_libro">
-            <input type="hidden" value="null" name="no_foja">
+        <form action="<?= route('cpanel/' . $_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
+            <input type="hidden" value="<?=$alumno->id_proyecto; ?>" name="id_proyecto">
+            <input type="hidden" value="<?=$alumno->numero_libro; ?>" name="no_libro">
+            <input type="hidden" value="<?=$alumno->numero_foja; ?>" name="no_foja">
             <div class="form-group">
                 <label for="id" class="col-sm-2 control-label">No Control</label>
                 <div class="col-sm-4">
@@ -87,7 +87,7 @@ class EgresadoRequest{
     function Eliminar(){
         $a = new EgresadosModel();
         $a = $a->getById($_POST['id']); ?>
-        <form action="<?= route($_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
+        <form action="<?= route('cpanel/' . $_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $a->id; ?>">
             <h5>Desea eliminar al alumno '<?= utf8_encode($a->getNombreCompleto()); ?>'?</h5>
 

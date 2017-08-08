@@ -30,20 +30,20 @@ class EgresadoController {
         $reg->periodo_ingreso = $_POST['periodo_ingreso'];
         $reg->periodo_egreso = $_POST['periodo_egreso'];
 
-        if ((!empty($_POST['id_proyecto'])) && (!empty($reg->id_proyecto)))
+        if (!empty($_POST['id_proyecto']))
             $reg->id_proyecto = $_POST['id_proyecto'];
         else
             $reg->id_proyecto = 'null';
 
-        if ((!empty($_POST['no_libro'])) && (!empty($reg->id_proyecto)))
+        if (!empty($_POST['no_libro']))
             $reg->numero_libro = $_POST['no_libro'];
         else
-            $reg->numero_libro = $_POST['no_libro'];
+            $reg->numero_libro = 'null';
 
-        if ((!empty($_POST['no_foja'])) && (!empty($reg->id_proyecto)))
+        if (!empty($_POST['no_foja']))
             $reg->numero_foja = $_POST['no_foja'];
         else
-            $reg->numero_foja = $_POST['no_foja'];
+            $reg->numero_foja = 'null';
 
         if(!$reg->exist($_POST['id'])){
             $reg->add();
@@ -51,13 +51,13 @@ class EgresadoController {
             $reg->update();
         }
 
-        redirect('egresado');
+        redirect('cpanel/egresado');
     }
 
     public function del(){
         $egresado = new EgresadosModel();
         $egresado->delById($_POST['id']);
 
-        redirect('egresado');
+        redirect('cpanel/egresado');
     }
 }

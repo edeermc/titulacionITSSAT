@@ -30,7 +30,7 @@ class OpcionTitulacionController {
         else
             $reg->update();
 
-        redirect('opciontitulacion');
+        redirect('cpanel/opciontitulacion');
     }
 
     public function savep(){
@@ -49,7 +49,7 @@ class OpcionTitulacionController {
             $op->add();
         }
 
-        redirect('opciontitulacion');
+        redirect('cpanel/opciontitulacion');
     }
 
     public function saved(){
@@ -68,13 +68,13 @@ class OpcionTitulacionController {
             $op->add();
         }
 
-        redirect('opciontitulacion');
+        redirect('cpanel/opciontitulacion');
     }
 
     public function del(){
         $tipoD = new OpcionTitulacionModel();
         $tipoD->delById($_POST['id']);
 
-        redirect('opciontitulacion');
+        redirect('cpanel/opciontitulacion');
     }
 }

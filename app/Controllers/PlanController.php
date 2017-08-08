@@ -29,13 +29,13 @@ class PlanController {
             $reg->update();
         }
 
-        redirect('planestudios');
+        redirect('cpanel/planestudios');
     }
 
     public function del(){
         $plan = new PlanEstudiosModel();
         $plan->delById($_POST['id']);
 
-        redirect('planestudios');
+        redirect('cpanel/planestudios');
     }
 }

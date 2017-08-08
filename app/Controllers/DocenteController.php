@@ -35,13 +35,13 @@ class DocenteController {
 			$reg->update();
 		}
 
-		redirect('docente');
+		redirect('cpanel/docente');
 	}
 
 	public function del(){
 		$carrera = new DocenteModel();
 		$carrera->delById($_POST['id']);
 
-		redirect('docente');
+		redirect('cpanel/docente');
 	}
 }

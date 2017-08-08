@@ -28,13 +28,13 @@ class TipoDocumentoController{
             $reg->update();
         }
 
-        redirect('tipodocumento');
+        redirect('cpanel/tipodocumento');
     }
 
     public function del(){
         $tipoD = new TipoDocumentoModel();
         $tipoD->delById($_POST['id']);
 
-        redirect('tipodocumento');
+        redirect('cpanel/tipodocumento');
     }
 }

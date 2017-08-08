@@ -30,13 +30,13 @@ class CarreraController {
             $reg->update();
         }
 
-        redirect('carrera');
+        redirect('cpanel/carrera');
 	}
 
 	public function del(){
 	    $carrera = new CarreraModel();
         $carrera->delById($_POST['id']);
 
-        redirect('carrera');
+        redirect('cpanel/carrera');
 	}
 }

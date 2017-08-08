@@ -8,7 +8,7 @@ class tipoDoctoRequest{
         $tipoDocumento = new TipoDocumentoModel();
         if ($_POST['id'] != 0)
             $tipoDocumento = $tipoDocumento->getById($_POST['id']); ?>
-        <form action="<?= route('TipoDocumento/save'); ?>" method="POST" class="form-horizontal">
+        <form action="<?= route('cpanel/TipoDocumento/save'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $tipoDocumento->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
@@ -34,7 +34,7 @@ class tipoDoctoRequest{
     function Eliminar(){
         $c = new TipoDocumentoModel();
         $documento = $c->getById($_POST['id']); ?>
-        <form action="<?= route('TipoDocumento/del'); ?>" method="POST" class="form-horizontal">
+        <form action="<?= route('cpanel/TipoDocumento/del'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $documento->id; ?>">
             <h5>&#191;Desea eliminar el documento'<?= utf8_encode($documento->nombre); ?>'?</h5>
 
