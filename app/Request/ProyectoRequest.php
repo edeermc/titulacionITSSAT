@@ -131,7 +131,7 @@ class ProyectoRequest {
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $pr->id; ?>" data-model="<?=$_POST['model']; ?>"
                                 data-operation="Dictamen">
-                            <i class="fa fa-users"></i> Dictamen
+                            <i class="fa fa-graduation-cap"></i> Dictamen
                         </button>
                     <?php } ?>
 

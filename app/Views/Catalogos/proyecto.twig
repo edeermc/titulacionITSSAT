@@ -39,12 +39,12 @@
                 <td class="text-right">
                     {% if((p.getAlumnos|length) > 0) %}
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ p.id }}" data-model="{{ modelo }}" data-operation="Alumnos">
-                            <i class="fa fa-edit"></i> Ver alumnos
+                            <i class="fa fa-users"></i> Ver alumnos
                         </button>
                     {% endif %}
                     {% if((p.getPresidente|length) > 0) %}
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ p.id }}" data-model="{{ modelo }}" data-operation="Dictamen">
-                            <i class="fa fa-edit"></i> Dictamen
+                            <i class="fa fa-graduation-cap"></i> Dictamen
                         </button>
                     {% endif %}
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ p.id }}" data-model="{{ modelo }}" data-operation="Editar">
