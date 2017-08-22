@@ -13,7 +13,7 @@ class EgresadoRequest{
 
         $planes = new PlanEstudiosModel();
         $planes = $planes->getAll(); ?>
-        <form action="<?= route('cpanel/' . $_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
+        <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" value="<?=$alumno->id_proyecto; ?>" name="id_proyecto">
             <input type="hidden" value="<?=$alumno->numero_libro; ?>" name="no_libro">
             <input type="hidden" value="<?=$alumno->numero_foja; ?>" name="no_foja">
@@ -87,7 +87,7 @@ class EgresadoRequest{
     function Eliminar(){
         $a = new EgresadosModel();
         $a = $a->getById($_POST['id']); ?>
-        <form action="<?= route('cpanel/' . $_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
+        <form method="POST" class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $a->id; ?>">
             <h5>Desea eliminar al alumno '<?= utf8_encode($a->getNombreCompleto()); ?>'?</h5>
 

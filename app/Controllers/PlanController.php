@@ -25,17 +25,20 @@ class PlanController {
 
         if($_POST['id'] == 0){
             $reg->add();
+            return 1;
         } else{
             $reg->update();
+            return 2;
         }
 
-        redirect('cpanel/planestudios');
+        //redirect('cpanel/planestudios');
     }
 
     public function del(){
         $plan = new PlanEstudiosModel();
         $plan->delById($_POST['id']);
+        return 3;
 
-        redirect('cpanel/planestudios');
+        //redirect('cpanel/planestudios');
     }
 }

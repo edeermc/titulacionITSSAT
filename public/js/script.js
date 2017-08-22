@@ -78,18 +78,50 @@ $('#siderbar').metisMenu({
 });
 */
 
+function showMessage(n) {
+    var msg = '';
+
+    msg = '<div class="alert alert-info" style="margin-top: 25px;">' +
+        '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+        '<strong>Operación extitosa!</strong> ';
+    switch (n){
+        case '1':
+            msg += 'Registro agregado correctamente.';
+            break;
+        case '2':
+            msg += 'Registro actualizado correctamente.';
+            break;
+        case '3':
+            msg += 'Registro eliminado correctamente.';
+            break;
+        case '0':
+            msg = '<div class="alert alert-danger" style="margin-top: 25px;">'+
+                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+                '<strong>Error inesperado!</strong> Vuelva a intentarlo, si el error persiste recargue la página.';
+            break;
+        default:
+            msg = '<div class="alert alert-danger" style="margin-top: 25px;">'+
+                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+                '<strong>Error inesperado!</strong> Error: <i>'+n+'</i>.';
+    }
+
+    msg += '</div>';
+    $('#getMesagge').html(msg);
+}
+
+
 function sendForm(send_to,model) {
-    alert('Vamos bien '+send_to+' a '+model);
     $.ajax({
         url: send_to,
         type: 'POST',
-        data: $('#form-data').serialize(),
+        data: $('#form-submit').serialize(),
         beforeSend: function () {
+            $('#operationModal').modal('hide');
             waitingDialog.show();
         },
         success: function (data) {
             waitingDialog.hide();
-            alert(data);
+            showMessage(data);
 
             $.ajax({
                 url: url_request,
@@ -97,15 +129,24 @@ function sendForm(send_to,model) {
                 data: {
                     model: model,
                     function: 'Paginacion',
-                    page: 1
+                    page: (data != '3') ? ($(".pagination > li").length) - 2 : 1
+                },
+                success: function (data) {
+                    $('#table-content').html(data);
                 }
             });
         },
         error: function () {
             waitingDialog.hide();
+            showMessage(0);
         }
     });
-    alert('chido!');
 
     return false;
 }
+
+$(document).ready(function(){
+    $(document).bind("contextmenu",function(e){
+        return false;
+    });
+});

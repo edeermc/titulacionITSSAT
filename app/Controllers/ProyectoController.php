@@ -38,18 +38,21 @@ class ProyectoController {
 
         if($_POST['id'] == 0){
             $reg->add();
+            return 1;
         } else{
             $reg->update();
+            return 2;
         }
 
-        redirect('cpanel/proyecto');
+        //redirect('cpanel/proyecto');
     }
 
     public function del(){
         $proyecto = new ProyectoModel();
         $proyecto->delById($_POST['id']);
 
-        redirect('cpanel/proyecto');
+        return 3;
+        //redirect('cpanel/proyecto');
     }
 
     public function validar(){

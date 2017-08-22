@@ -12,7 +12,7 @@ class PlanRequest{
 
         $carrera = new CarreraModel();
         $carrera = $carrera->getAll(); ?>
-        <form action="<?= route('cpanel/' . $_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
+        <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/planestudios/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <div class="form-group">
                 <input type="hidden" name="id" value="<?= $plan->id; ?>">
                 <label for="nombre" class="col-sm-2">Nombre</label>
@@ -48,7 +48,7 @@ class PlanRequest{
     function Eliminar(){
         $plan = new PlanEstudiosModel();
         $plan = $plan->getById($_POST['id']); ?>
-        <form action="<?= route('cpanel/' . $_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
+        <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/planestudios/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $plan->id; ?>">
             <h5>Desea eliminar el plan de estudios '<?= utf8_decode($plan->nombre); ?>'?</h5>
 

@@ -9,7 +9,7 @@ class CarreraRequest {
         $carrera = new CarreraModel();
         if ($_POST['id'] != 0)
             $carrera = $carrera->getById($_POST['id']); ?>
-        <form action="<?= route('cpanel/' . $_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
+        <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $carrera->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
@@ -45,7 +45,7 @@ class CarreraRequest {
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>
                         Cancelar
                     </button>
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                    <button type="submit" class="btn btn-primary" data-dimiss="modal"><i class="fa fa-save"></i> Guardar</button>
                 </div>
             </div>
         </form>
@@ -55,7 +55,7 @@ class CarreraRequest {
     function Eliminar(){
         $carrera = new CarreraModel();
         $carrera = $carrera->getById($_POST['id']); ?>
-        <form action="<?= route('cpanel/' . $_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
+        <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $carrera->id; ?>">
             <h5>Desea eliminar la carrera
                 '<?= utf8_encode($carrera->nombre); ?><?= ($carrera->modalidad == 'Semiescolarizado') ? ' (Semiescolarizado)' : ''; ?>
@@ -63,10 +63,8 @@ class CarreraRequest {
 
             <div class="form-group">
                 <div class="col-sm-12 text-right">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>
-                        Cancelar
-                    </button>
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-trash"></i> Eliminar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>Cancelar</button>
+                    <button type="submit" class="btn btn-primary" data-dimiss="modal"><i class="fa fa-trash"></i> Eliminar</button>
                 </div>
             </div>
         </form>

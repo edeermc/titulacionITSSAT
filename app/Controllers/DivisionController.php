@@ -23,16 +23,19 @@ class DivisionController
 
         if($_POST['id'] == 0){
             $reg->add();
+            return 1;
         } else{
             $reg->update();
+            return 2;
         }
 
-        redirect('cpanel/division');
+        //redirect('cpanel/division');
     }
     public function del(){
         $carrera = new DivisionModel();
         $carrera->delById($_POST['id']);
 
-        redirect('cpanel/division');
+        return 3;
+        //redirect('cpanel/division');
     }
 }

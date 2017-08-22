@@ -24,17 +24,20 @@ class TipoDocumentoController{
 
         if($_POST['id'] == 0){
             $reg->add();
+            return 1;
         } else{
             $reg->update();
+            return 2;
         }
 
-        redirect('cpanel/tipodocumento');
+        //redirect('cpanel/tipodocumento');
     }
 
     public function del(){
         $tipoD = new TipoDocumentoModel();
         $tipoD->delById($_POST['id']);
 
-        redirect('cpanel/tipodocumento');
+        return 3;
+        //redirect('cpanel/tipodocumento');
     }
 }

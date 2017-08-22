@@ -8,7 +8,7 @@ class PerfilRequest{
             $perfil = new PerfilModel();
         if ($_POST['id'] != 0)
             $perfil = $perfil->getById($_POST['id']); ?>
-        <form action="<?= route('cpanel/' . $_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
+        <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $perfil->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-1">Nombre</label>
@@ -34,7 +34,7 @@ class PerfilRequest{
     function Eliminar(){
         $perfil = new PerfilModel();
         $perfil = $perfil->getById($_POST['id']); ?>
-        <form action="<?= route('cpanel/' . $_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
+        <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $perfil->id; ?>">
             <h5>Desea eliminar el perfil '<?= utf8_decode($perfil->nombre); ?>'?</h5>
 

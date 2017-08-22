@@ -9,7 +9,7 @@ class ProyectoRequest {
         $proyecto = new ProyectoModel();
         if ($_POST['id'] != 0)
             $proyecto = $proyecto->getById($_POST['id']); ?>
-        <form action="<?= route('cpanel/' . $_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
+        <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $proyecto->id; ?>">
             <input type="hidden" name="estatus" value="<?= $proyecto->estatus; ?>">
             <input type="hidden" name="id_opcion" value="<?= $proyecto->id_opcion; ?>">
@@ -79,7 +79,7 @@ class ProyectoRequest {
                 <div class="clearfix"></div>
 
                 <?php if (!empty($proyecto->id_presidente) && !empty($proyecto->id_secretario) && !empty($proyecto->id_vocal) && !empty($proyecto->id_vocal_suplente)){ ?>
-                    <div class="col-sm-12 text-center"><b>COMITE REVISOR</b></div>
+                    <div class="page-header text-center"><b>COMITE REVISOR</b></div>
                     <div class="col-sm-2 text-right"><b>Presidente:</b></div>
                     <div class="col-sm-10">
                         <?=utf8_encode($proyecto->getPresidente()->getNombreCompleto()); ?><br>
@@ -104,14 +104,16 @@ class ProyectoRequest {
                     <div class="col-sm-9" style="margin-top: 25px">
                         <i><?=nl2br(utf8_encode($proyecto->observaciones)); ?></i>
                     </div>
+                    <div class="clearfix"></div>
                 <?php } ?>
 
 
-                <div class="col-sm-6 text-center" style="margin-top: 35px">
+                <div class="page-header" style="margin-top: 35px"></div>
+                <div class="col-sm-6 text-center">
                     <b>Presidente de Academia</b><br>
                     <?=utf8_encode($proyecto->getPresidenteAcademia()->getNombreCompleto()); ?>
                 </div>
-                <div class="col-sm-6 text-center" style="margin-top: 35px">
+                <div class="col-sm-6 text-center">
                     <b>Secretario de Academia</b><br>
                     <?=utf8_encode($proyecto->getSecretarioAcademia()->getNombreCompleto()); ?>
                 </div>
@@ -147,7 +149,7 @@ class ProyectoRequest {
     function Eliminar(){
         $proyecto = new ProyectoModel();
         $proyecto = $proyecto->getById($_POST['id']); ?>
-        <form action="<?= route('cpanel/' . $_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
+        <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $proyecto->id; ?>">
             <h5>Desea eliminar el proyecto '<?= utf8_encode($proyecto->nombre); ?>'?</h5>
 

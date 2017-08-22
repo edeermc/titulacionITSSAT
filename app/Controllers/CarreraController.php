@@ -16,7 +16,7 @@ class CarreraController {
 
 	public function save(){
         $reg = new CarreraModel();
-        if($_POST['id'] != 0){
+        if ($_POST['id'] != 0) {
             $reg = $reg->getById($_POST['id']);
         }
 
@@ -24,19 +24,21 @@ class CarreraController {
         $reg->siglas = strtoupper($_POST['siglas']);
         $reg->modalidad = $_POST['modalidad'];
 
-        if($_POST['id'] == 0){
+        if ($_POST['id'] == 0) {
             $reg->add();
-        } else{
+            return 1;
+        } else {
             $reg->update();
+            return 2;
         }
-
-        redirect('cpanel/carrera');
+        //redirect('cpanel/carrera');
 	}
 
 	public function del(){
-	    $carrera = new CarreraModel();
+        $carrera = new CarreraModel();
         $carrera->delById($_POST['id']);
 
-        redirect('cpanel/carrera');
+        return 3;
+        //redirect('cpanel/carrera');
 	}
 }

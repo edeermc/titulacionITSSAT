@@ -32,17 +32,20 @@ class DocenteController {
 
 		if($_POST['id'] == 0){
 			$reg->add();
+			return 1;
 		} else{
 			$reg->update();
+			return 2;
 		}
 
-		redirect('cpanel/docente');
+		//redirect('cpanel/docente');
 	}
 
 	public function del(){
 		$carrera = new DocenteModel();
 		$carrera->delById($_POST['id']);
+        return 3;
 
-		redirect('cpanel/docente');
+		//redirect('cpanel/docente');
 	}
 }

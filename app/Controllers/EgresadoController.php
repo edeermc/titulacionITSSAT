@@ -39,18 +39,21 @@ class EgresadoController {
 
         if(!$reg->exist($_POST['id'])){
             $reg->add();
+            return 1;
         } else{
             $reg->update();
+            return 2;
         }
 
-        redirect('cpanel/egresado');
+        //redirect('cpanel/egresado');
     }
 
     public function del(){
         $egresado = new EgresadosModel();
         $egresado->delById($_POST['id']);
+        return 3;
 
-        redirect('cpanel/egresado');
+        //redirect('cpanel/egresado');
     }
 
     public function panel(){

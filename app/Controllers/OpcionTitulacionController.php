@@ -25,12 +25,15 @@ class OpcionTitulacionController {
 
         $reg->nombre = utf8_decode($_POST['nombre']);
 
-        if($_POST['id'] == 0)
+        if($_POST['id'] == 0) {
             $reg->add();
-        else
+            return 1;
+        } else {
             $reg->update();
+            return 2;
+        }
 
-        redirect('cpanel/opciontitulacion');
+        //redirect('cpanel/opciontitulacion');
     }
 
     public function savep(){
@@ -48,8 +51,9 @@ class OpcionTitulacionController {
 
             $op->add();
         }
+        return 2;
 
-        redirect('cpanel/opciontitulacion');
+        //redirect('cpanel/opciontitulacion');
     }
 
     public function saved(){
@@ -67,14 +71,16 @@ class OpcionTitulacionController {
 
             $op->add();
         }
+        return 2;
 
-        redirect('cpanel/opciontitulacion');
+        //redirect('cpanel/opciontitulacion');
     }
 
     public function del(){
         $tipoD = new OpcionTitulacionModel();
         $tipoD->delById($_POST['id']);
+        return 3;
 
-        redirect('cpanel/opciontitulacion');
+        //redirect('cpanel/opciontitulacion');
     }
 }
