@@ -72,7 +72,7 @@ class PlanRequest{
             <tr>
                 <td><?= $pl->id; ?></td>
                 <td><?= utf8_encode($pl->nombre); ?></td>
-                <td><?= utf8_encode($pl->getCarrera()->nombre); ?></td>
+                <td><?= utf8_encode($pl->getCarrera()->nombre); ?> <?=$pl->getCarrera()->modalidad == 'Semiescolarizado' ? ' - '.$pl->getCarrera()->modalidad : ''; ?></td>
                 <td class="text-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                             data-target="#operationModal" data-id="<?= $pl->id; ?>" data-model="<?=$_POST['model']; ?>"
@@ -100,7 +100,7 @@ class PlanRequest{
                 <tr>
                     <td><?= $p->id; ?></td>
                     <td><?= utf8_encode($p->nombre); ?></td>
-                    <td><?= utf8_encode($p->getCarrera()->nombre); ?></td>
+                    <td><?= utf8_encode($p->getCarrera()->nombre); ?> <?=$pl->getCarrera()->modalidad == 'Semiescolarizado' ? ' - '.$pl->getCarrera()->modalidad : ''; ?></td>
                     <td class="text-right">
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $p->id; ?>" data-model="<?=$_POST['model']; ?>"
