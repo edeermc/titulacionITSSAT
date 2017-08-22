@@ -8,8 +8,14 @@ class Route{
             //url
             ['url' => '/', 	        						'ctrl' => 'HomeController@index', 				    		'type' => 'guest'],
             ['url' => 'cpanel', 							'ctrl' => 'HomeController@index', 			    			'type' => 'guest'],
+            ['url' => 'egresado', 							'ctrl' => 'EgresadoController@panel', 		    			'type' => 'guest'],
+            ['url' => 'egresado/save',          			'ctrl' => 'EgresadoController@save2', 		    			'type' => 'guest'],
+            ['url' => 'egresado/save2',          			'ctrl' => 'EgresadoController@save3', 		    			'type' => 'guest'],
+            ['url' => 'egresado/savefiles',          		'ctrl' => 'EgresadoController@save4', 		    			'type' => 'guest'],
+            ['url' => 'egresado/registro',			        'ctrl' => 'EgresadoController@registro', 	    			'type' => 'guest'],
+            ['url' => 'egresado/datospersonales',			'ctrl' => 'EgresadoController@config', 		    			'type' => 'guest'],
 
-			/* carrera */
+            /* carrera */
 			['url' => 'cpanel/carrera',					    'ctrl' => 'CarreraController@index',	    				'type' => 'guest'],
 			['url' => 'cpanel/carrera/save',				'ctrl' => 'CarreraController@save',	    					'type' => 'guest'],
             ['url' => 'cpanel/carrera/del',				    'ctrl' => 'CarreraController@del',  						'type' => 'guest'],
@@ -45,6 +51,10 @@ class Route{
             ['url' => 'cpanel/proyecto',			        'ctrl' => 'ProyectoController@index',			            'type' => 'guest'],
             ['url' => 'cpanel/proyecto/save',		        'ctrl' => 'ProyectoController@save',		              	'type' => 'guest'],
             ['url' => 'cpanel/proyecto/del',		        'ctrl' => 'ProyectoController@del',			    	        'type' => 'guest'],
+            ['url' => 'cpanel/proyecto/validar',		    'ctrl' => 'ProyectoController@validar',			    	    'type' => 'guest'],
+            ['url' => 'cpanel/proyecto/dictamen',		    'ctrl' => 'ProyectoController@dictamen',			    	'type' => 'guest'],
+            ['url' => 'cpanel/proyecto/liberar',		    'ctrl' => 'ProyectoController@liberar',			    	    'type' => 'guest'],
+            ['url' => 'cpanel/proyecto/examen',		        'ctrl' => 'ProyectoController@examen',			    	    'type' => 'guest'],
 
             /* Docentes */
 			['url' => 'cpanel/docente',					    'ctrl' => 'DocenteController@index',	    				'type' => 'guest'],

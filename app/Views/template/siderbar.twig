@@ -1,8 +1,7 @@
 <!-- uncomment code for absolute positioning tweek see top comment in css -->
 <!-- <div class="absolute-wrapper"> </div> -->
 <!-- Menu -->
-<div class="side-menu">
-
+<div class="side-menu" id="siderbar">
     <nav class="navbar navbar-default" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -74,10 +73,10 @@
                     <div id="dropdown-lvl3" class="panel-collapse collapse">
                         <div class="panel-body">
                             <ul class="nav navbar-nav">
-                                <li><a href="{{ route('/') }}"><i class="fa fa-check"></i> Validar solicitudes</a></li>
-                                <li><a href="{{ route('/') }}"><i class="fa fa-files-o"></i> Dictamen del proyecto</a></li>
-                                <li><a href="{{ route('/') }}"><i class="fa fa-file-text-o"></i> Liberación del proyecto</a></li>
-                                <li><a href="{{ route('/') }}"><i class="fa fa-gavel"></i> Examen profesional</a></li>
+                                <li><a href="{{ route('cpanel/proyecto/validar') }}"><i class="fa fa-check"></i> Validar solicitudes</a></li>
+                                <li><a href="{{ route('cpanel/proyecto/dictamen') }}"><i class="fa fa-files-o"></i> Dictamen del proyecto</a></li>
+                                <li><a href="{{ route('cpanel/proyecto/liberar') }}"><i class="fa fa-file-text-o"></i> Liberación del proyecto</a></li>
+                                <li><a href="{{ route('cpanel/proyecto/examen') }}"><i class="fa fa-gavel"></i> Examen profesional</a></li>
                             </ul>
                         </div>
                     </div>

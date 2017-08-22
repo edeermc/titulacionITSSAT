@@ -1,0 +1,153 @@
+{% extends 'template/temp_guest.twig' %}
+
+{% block title 'Panel de egresado' %}
+
+{% block body %}
+    <div class="col-sm-6 col-md-4">
+        <b>No de control: </b>
+        {{ egresado.id }}
+    </div>
+    <div class="col-sm-6 col-md-6">
+        <b>Alumno: </b>
+        {{ egresado.getNombreCompleto|convert_encoding('UTF-8', 'ISO-8859-1') }}
+    </div>
+    <div class="col-sm-3 col-md-2">
+        <b>Sexo: </b>
+        {{ egresado.sexo == 'H' ? 'Masculino' : 'Femenino' }}
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <b>Dirección: </b>
+        {{ egresado.getDireccionCompleta|convert_encoding('UTF-8', 'ISO-8859-1') }}
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <b>Teléfono: </b>
+        <a href="tel:{{ egresado.telefono }}" target="_blank">{{ egresado.telefono }}</a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <b>E-mail: </b>
+        <a href="mailto:{{ egresado.correo }}" target="_blank">{{ egresado.correo }}</a>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-sm-12 col-md-6">
+        <b>Carrera: </b>
+        {{ egresado.getPlan.getCarrera.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}{{ egresado.getPlan.getCarrera.modalidad == 'Semiescolarizado' ? ' - Semiescolarizado' }}
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <b>Plan de estudios: </b>
+        {{ egresado.getPlan.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}
+    </div>
+
+    <form action="{{ route('egresado/save2') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{{ egresado.id }}">
+        <datalist id="proyectos">
+            {% for p in proyectos %}
+                <option value="{{ p.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}"></option>
+            {% endfor %}
+        </datalist>
+
+        <div class="form-group">
+            <label for="proyecto" class="control-label col-sm-2">Proyecto</label>
+            <div class="col-sm-10">
+                <input type="text" name="proyecto" id="proyecto" list="proyectos" value="{{ egresado.id_proyecto != null ? egresado.getProyecto.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}" class="form-control" {{ (egresado.id_proyecto != null) ? 'readonly' : 'autofocus' }} >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="id_opciontitulacion" class="control-label col-sm-2">Opción de titulación:</label>
+            <div class="col-sm-5">
+                <select name="id_opciontitulacion" id="id_opciontitulacion" class="form-control" {{ (egresado.getProyecto.id_opcion != null) ? 'readonly' }}>
+                    {% for o in opciones %}
+                        <option value="{{ o.id_opcion }}" {{ (o.id_opcion == egresado.getProyecto.id_opcion) ? 'selected' }}>{{ o.getOpcion.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            {% if(egresado.getProyecto.id_opcion == null) %}
+                <div class="col-sm-5 text-right">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar y continuar</button>
+                </div>
+            {% endif %}
+        </div>
+    </form>
+
+    <form action="{{ route('egresado/savefiles') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="{{ egresado.id }}">
+        {% if (documentos|length > 0) %}
+            <div class="form-group" id="doctos">
+                {% set i = 0 %}
+                {% set p = 0 %}
+                {% set r = 0 %}
+                {% for doc in documentos %}
+                    <label for="id_documento" class="control-label col-sm-2">{{ doc.getDocumento.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</label>
+                    {% set a = 0 %}
+                    {% for da in docAlumno %}
+                        {% if(doc.id_documento == da.id_tipo_documento) %}
+                            {% set a = 1 %}
+                            <div class="col-sm-10">
+                                {% if (da.estatus == 'Pendiente') %}
+                                    {% set p = p + 1 %}
+                                    <i class="fa fa-warning text-info"></i> <i>En revisión</i>
+                                {% elseif (da.estatus == 'Aprobado') %}
+                                    {% set i = i + 1 %}
+                                    <i class="fa fa-check text-success"></i> <i>Aceptado</i>
+                                {% else %}
+                                    {% set r = r + 1 %}
+                                    <i class="fa fa-times text-danger"></i> <i>Rechazado</i> (Asista con el jefe de departamento de estudios profesionales)
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if (a == 0) %}
+                        <div class="col-sm-10">
+                            <input type="file" name="documento-{{ doc.id_documento }}" class="form-control" accept="application/pdf" required>
+                        </div>
+                    {% endif %}
+                    <div class="clearfix"></div>
+                {% endfor %}
+
+                <br>
+                {% if(docAlumno|length != documentos|length) %}
+                    <div class="col-sm-12 text-right">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar y continuar</button>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </form>
+
+    {% if ((documentos|length > 0) and (documentos|length == i)) %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-sm-offset-1 col-sm-5 text-center text-success">
+                    <h4>
+                        <b>¡Felicidades!</b> Su proyecto ha sido aceptado. <br>
+                        <small>Puede descargar e imprimir su formato de solicitud en el siguiente enlace</small>
+                    </h4>
+                </div>
+                <div class="col-sm-5 text-center">
+                    <a href="{{ route('egresado/solicitud') }}" class="btn btn-lg btn-success">
+                        <i class="fa fa-file-pdf-o"></i> Descargar
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% elseif((docAlumno|length > 0) and (r > 0)) %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4 class="text-center text-danger">
+                    <i class="fa fa-times"></i> Tiene documentos rechazados. <br>
+                    <small>Asista con el jefe del departamento de estudios profesionales para verificar los detalles por los que se rechazo.</small>
+                </h4>
+            </div>
+        </div>
+    {% elseif((docAlumno|length > 0) and (p > 0)) %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4 class="text-center text-info">
+                    Sus documentos se encuentran en revisión. <br>
+                    <small>Cuando se hayan aprobado satistactoriamente se enviará un correo de confirmación a su correo electrónico.</small>
+                </h4>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -68,6 +68,16 @@ class DocenteRequest{
                 </div>
             </div>
             <div class="form-group">
+                <label for="tipo" class="col-sm-2 control-label">Tipo</label>
+                <div class="col-sm-3">
+                    <select name="tipo" id="tipo" class="form-control">
+                        <option value="Docente"<?= ($docente->tipo == 'Docente') ? ' selected' : ''; ?>>Docente</option>
+                        <option value="Presidente"<?= ($docente->tipo == 'Presidente') ? ' selected' : ''; ?>>Presidente</option>
+                        <option value="Secretario"<?= ($docente->tipo == 'Secretario') ? ' selected' : ''; ?>>Secretario</option>
+                        <option value="JefeCarrera"<?= ($docente->tipo == 'JefeCarrera') ? ' selected' : ''; ?>>Jefe de carrera</option>
+                    </select>
+                </div>
+
                 <label for="estatus" class="col-sm-2 control-label">Participa</label>
                 <div class="col-sm-2">
                     <select name="estatus" id="estatus" class="form-control">

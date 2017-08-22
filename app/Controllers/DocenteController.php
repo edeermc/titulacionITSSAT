@@ -28,6 +28,7 @@ class DocenteController {
 		$reg->id_division = $_POST['division'];
 		$reg->id_carrera = $_POST['carrera'];
 		$reg->estatus = $_POST['estatus'];
+		$reg->tipo = $_POST['tipo'];
 
 		if($_POST['id'] == 0){
 			$reg->add();

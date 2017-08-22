@@ -28,15 +28,15 @@ abstract class Model {
         return self::one($query[0]);
     }
 
-    public static function getAll($ord = 'id'){
-        $sql = "SELECT * FROM ".self::$tablename." ORDER BY {$ord}";
+    public static function getAll($cond = '', $ord = 'id'){
+        $sql = "SELECT * FROM ".self::$tablename." {$cond} ORDER BY {$ord}";
         $query = Executor::doit($sql);
 
         return self::many($query[0]);
     }
 
-    public static function getRange($i, $q, $ord = 'id'){
-        $sql = "SELECT * FROM ".self::$tablename." ORDER BY {$ord} LIMIT {$i}, {$q}";
+    public static function getRange($i, $q, $cond = '', $ord = 'id'){
+        $sql = "SELECT * FROM ".self::$tablename." {$cond} ORDER BY {$ord} LIMIT {$i}, {$q}";
         $query = Executor::doit($sql);
 
         return self::many($query[0]);

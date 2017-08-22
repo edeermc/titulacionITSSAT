@@ -15,8 +15,11 @@ class ProyectoModel extends Model {
     public $id_asesor2;
     public $observaciones;
     public $id_presidenteacademia;
+    public $id_secretarioacademia;
+    public $id_jefecarrera;
     public $fecha_liberacion;
     public $fecha_notificacion;
+    public $estatus;
 
 
     function __construct(){
@@ -31,15 +34,19 @@ class ProyectoModel extends Model {
         $this->id_asesor2 = 'null';
         $this->observaciones = '';
         $this->id_presidenteacademia = 'null';
+        $this->id_secretarioacademia = 'null';
+        $this->id_jefecarrera = 'null';
         $this->fecha_liberacion = 'null';
         $this->fecha_notificacion = 'null';
+        $this->estatus = 'Abierto';
     }
 
     public function add(){
         $query = "INSERT INTO ".self::$tablename." (nombre, id_opcion, id_presidente, id_secretario, id_vocal, id_vocal_suplente, id_asesor, id_asesor2,
-					observaciones, id_presidenteacademia, fecha_libreacion, fecha_notificacion) VALUES ('{$this->nombre}', {$this->id_opcion}, 
-					{$this->id_presidente}, {$this->id_secretario}, {$this->id_vocal}, {$this->id_vocal_suplente}, {$this->id_asesor}, {$this->id_asesor2}, 
-					'{$this->observaciones}', {$this->id_presidenteacademia}, {$this->fecha_liberacion}, {$this->fecha_notificacion})";
+					observaciones, id_presidenteacademia, id_secretarioacademia, id_jefecarrera, fecha_liberacion, fecha_notificacion, estatus) VALUES 
+					('{$this->nombre}', {$this->id_opcion}, {$this->id_presidente}, {$this->id_secretario}, {$this->id_vocal}, {$this->id_vocal_suplente}, 
+					{$this->id_asesor}, {$this->id_asesor2}, '{$this->observaciones}', {$this->id_presidenteacademia}, {$this->id_secretarioacademia},
+					{$this->id_jefecarrera}, {$this->fecha_liberacion}, {$this->fecha_notificacion}, '{$this->estatus}')";
         $sql = Executor::doit($query);
 
         return $sql[1];
@@ -49,7 +56,8 @@ class ProyectoModel extends Model {
         $sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}', id_opcion={$this->id_opcion}, id_presidente={$this->id_presidente},
 		id_secretario={$this->id_secretario}, id_vocal={$this->id_vocal}, id_vocal_suplente={$this->id_vocal_suplente}, id_asesor={$this->id_asesor}, 
 		id_asesor2={$this->id_asesor2}, observaciones='{$this->observaciones}', id_presidenteacademia={$this->id_presidenteacademia}, 
-		fecha_liberacion='{$this->fecha_liberacion}', fecha_notificacion='{$this->fecha_notificacion}' WHERE id = {$this->id}";
+		id_secretarioacademia={$this->id_secretarioacademia}, id_jefecarrera={$this->id_jefecarrera}, fecha_liberacion='{$this->fecha_liberacion}', 
+		fecha_notificacion='{$this->fecha_notificacion}', estatus='{$this->estatus}' WHERE id = {$this->id}";
 
         Executor::doit($sql);
     }
@@ -94,8 +102,39 @@ class ProyectoModel extends Model {
         return $r->getById($this->id_presidenteacademia);
     }
 
+    public function getSecretarioAcademia(){
+        $r = new DocenteModel();
+        return $r->getById($this->id_secretarioacademia);
+    }
+
+    public function getJefeCarrera(){
+        $r = new DocenteModel();
+        return $r->getById($this->id_jefecarrera);
+    }
+
     public function getAlumnos(){
         $r = new EgresadosModel();
         return $r->getByProyecto($this->id);
+    }
+
+    public function getByEstatus($stat = 'Abierto', $ord = 'id'){
+        $sql = "SELECT * FROM ".self::$tablename." WHERE estatus = '{$stat}' ORDER BY {$ord}";
+        $query = Executor::doit($sql);
+
+        return self::many($query[0], new ProyectoModel());
+    }
+
+    public function getByNombre($name){
+        $sql = "SELECT * FROM ".self::$tablename." WHERE nombre = '{$name}' LIMIT 1";
+        $query = Executor::doit($sql);
+
+        return self::one($query[0], new ProyectoModel());
+    }
+
+    public function exist($name){
+        $sql = "SELECT * FROM ".self::$tablename." WHERE nombre = '{$name}' LIMIT 1";
+        $query = Executor::doit($sql);
+
+        return ($query[0]->num_rows > 0);
     }
 }

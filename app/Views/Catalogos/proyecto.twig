@@ -42,7 +42,7 @@
                             <i class="fa fa-users"></i> Ver alumnos
                         </button>
                     {% endif %}
-                    {% if((p.getPresidente|length) > 0) %}
+                    {% if((p.getAlumnos|length) > 0) %}
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ p.id }}" data-model="{{ modelo }}" data-operation="Dictamen">
                             <i class="fa fa-graduation-cap"></i> Dictamen
                         </button>

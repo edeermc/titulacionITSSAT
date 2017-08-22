@@ -22,9 +22,11 @@ $('#operationModal').on('show.bs.modal', function (event) {
             modal.find('.modal-body').html(spinner);
         },
         success: function (data) {
+            waitingDialog.hide();
             modal.find('.modal-body').html(data);
         },
         error: function () {
+            waitingDialog.hide();
             modal.find('.modal-body').html(ajaxError);
         }
     });
@@ -46,22 +48,25 @@ $('.pag').click(function () {
             page: p
         },
         beforeSend: function () {
-            $('#table-content').html(spinner);
+            waitingDialog.show();
+            //$('#table-content').html(spinner);
         },
         success: function (data) {
+            waitingDialog.hide();
             $('#table-content').html(data);
 
-            if(p == 1)
+            if(p === 1)
                 prev.parent().addClass('disabled');
             else
                 prev.parent().removeClass('disabled');
 
-            if(p == n)
+            if(p === n)
                 next.parent().addClass('disabled');
             else
                 next.parent().removeClass('disabled');
         },
         error: function () {
+            waitingDialog.hide();
             $('#table-content').html(ajaxError);
         }
     });
@@ -82,12 +87,15 @@ $('#buscar').on('keyup', function () {
                 page: 1
             },
             beforeSend: function () {
+                //waitingDialog.show();
                 $('#table-content').html(spinner);
             },
             success: function (data) {
+                //waitingDialog.hide();
                 $('#table-content').html(data);
             },
             error: function () {
+                //waitingDialog.hide();
                 $('#table-content').html(ajaxError);
             }
         });
@@ -101,13 +109,16 @@ $('#buscar').on('keyup', function () {
                 key: key
             },
             beforeSend: function () {
+                //waitingDialog.show();
                 $('#table-content').html(spinner);
             },
             success: function (data) {
+                //waitingDialog.hide();
                 $('#table-content').html(data);
                 $('#pag-nav').hide();
             },
             error: function () {
+                //waitingDialog.hide();
                 $('#table-content').html(ajaxError);
             }
         });

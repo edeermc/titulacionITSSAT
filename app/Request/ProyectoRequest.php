@@ -11,6 +11,19 @@ class ProyectoRequest {
             $proyecto = $proyecto->getById($_POST['id']); ?>
         <form action="<?= route('cpanel/' . $_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $proyecto->id; ?>">
+            <input type="hidden" name="estatus" value="<?= $proyecto->estatus; ?>">
+            <input type="hidden" name="id_opcion" value="<?= $proyecto->id_opcion; ?>">
+            <input type="hidden" name="id_presidente" value="<?= $proyecto->id_presidente; ?>">
+            <input type="hidden" name="id_secretario" value="<?= $proyecto->id_secretario; ?>">
+            <input type="hidden" name="id_vocal" value="<?= $proyecto->id_vocal; ?>">
+            <input type="hidden" name="id_vocal_suplente" value="<?= $proyecto->id_vocal_suplente; ?>">
+            <input type="hidden" name="id_asesor" value="<?= $proyecto->id_asesor; ?>">
+            <input type="hidden" name="id_asesor2" value="<?= $proyecto->id_asesor2; ?>">
+            <input type="hidden" name="id_presidenteacademia" value="<?= $proyecto->id_presidenteacademia; ?>">
+            <input type="hidden" name="id_secretarioacademia" value="<?= $proyecto->id_secretarioacademia; ?>">
+            <input type="hidden" name="id_jefecarrera" value="<?= $proyecto->id_jefecarrera; ?>">
+            <input type="hidden" name="fecha_notificacion" value="<?= $proyecto->fecha_notificacion; ?>">
+            <input type="hidden" name="fecha_liberacion" value="<?= $proyecto->fecha_liberacion; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
                 <div class="col-sm-6">
@@ -47,7 +60,7 @@ class ProyectoRequest {
                     <h4>
                         <i class="fa fa-star"></i>
                         <?=utf8_encode($proyecto->nombre); ?> <br>
-                        <small><b><?=utf8_encode($proyecto->getOpcion()->nombre); ?> (En curso)</b></small>
+                        <small><b><?=utf8_encode($proyecto->getOpcion()->nombre); ?> <?=($proyecto->estatus == 'Abierto') ? '(En curso)' : '(Finalizado)'; ?></b></small>
                     </h4>
                 </div>
                 <div class="clearfix"></div>
@@ -65,12 +78,49 @@ class ProyectoRequest {
                 </div>
                 <div class="clearfix"></div>
 
+                <?php if (!empty($proyecto->id_presidente) && !empty($proyecto->id_secretario) && !empty($proyecto->id_vocal) && !empty($proyecto->id_vocal_suplente)){ ?>
+                    <div class="col-sm-12 text-center"><b>COMITE REVISOR</b></div>
+                    <div class="col-sm-2 text-right"><b>Presidente:</b></div>
+                    <div class="col-sm-10">
+                        <?=utf8_encode($proyecto->getPresidente()->getNombreCompleto()); ?><br>
+                    </div>
+                    <div class="col-sm-2 text-right"><b>Secretario:</b></div>
+                    <div class="col-sm-10">
+                        <?=utf8_encode($proyecto->getSecretario()->getNombreCompleto()); ?><br>
+                    </div>
+                    <div class="col-sm-2 text-right"><b>Vocal:</b></div>
+                    <div class="col-sm-10">
+                        <?=utf8_encode($proyecto->getVocal()->getNombreCompleto()); ?><br>
+                    </div>
+                    <div class="col-sm-2 text-right"><b>Vocal suplente:</b></div>
+                    <div class="col-sm-10">
+                        <?=utf8_encode($proyecto->getVocalSuplente()->getNombreCompleto()); ?><br>
+                    </div>
+                    <div class="clearfix"></div>
+                <?php } ?>
+
                 <?php if(!empty($proyecto->observaciones)){ ?>
                     <div class="col-sm-2 text-right" style="margin-top: 25px"><b>Observaciones:</b></div>
                     <div class="col-sm-9" style="margin-top: 25px">
                         <i><?=nl2br(utf8_encode($proyecto->observaciones)); ?></i>
                     </div>
                 <?php } ?>
+
+
+                <div class="col-sm-6 text-center" style="margin-top: 35px">
+                    <b>Presidente de Academia</b><br>
+                    <?=utf8_encode($proyecto->getPresidenteAcademia()->getNombreCompleto()); ?>
+                </div>
+                <div class="col-sm-6 text-center" style="margin-top: 35px">
+                    <b>Secretario de Academia</b><br>
+                    <?=utf8_encode($proyecto->getSecretarioAcademia()->getNombreCompleto()); ?>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-sm-12 text-center">
+                    <b>Jefe de Carrera</b><br>
+                    <?=utf8_encode($proyecto->getJefeCarrera()->getNombreCompleto()); ?>
+                </div>
+                <div class="clearfix"></div>
 
                 <div class="col-sm-12 text-right">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>
@@ -84,10 +134,12 @@ class ProyectoRequest {
     function Dictamen(){
         $proyecto = new ProyectoModel();
         $proyecto = $proyecto->getById($_POST['id']);?>
-        <div class="col-sm-12 text-right">
-            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>
-                Cancelar
-            </button>
+        <div class="row">
+            <div class="col-sm-12 text-right">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>
+                    Cancelar
+                </button>
+            </div>
         </div>
         <?php
     }
@@ -128,11 +180,11 @@ class ProyectoRequest {
                         </button>
                     <?php } ?>
                     <?php if(count($pr->getPresidente()) > 0){ ?>
-                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
+                        <!-- <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $pr->id; ?>" data-model="<?=$_POST['model']; ?>"
                                 data-operation="Dictamen">
                             <i class="fa fa-graduation-cap"></i> Dictamen
-                        </button>
+                        </button> -->
                     <?php } ?>
 
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
@@ -170,11 +222,11 @@ class ProyectoRequest {
                             </button>
                         <?php } ?>
                         <?php if(count($p->getPresidente()) > 0){ ?>
-                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
+                            <!-- <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                     data-target="#operationModal" data-id="<?= $p->id; ?>" data-model="<?=$_POST['model']; ?>"
                                     data-operation="Dictamen">
                                 <i class="fa fa-users"></i> Dictamen
-                            </button>
+                            </button> -->
                         <?php } ?>
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $p->id; ?>" data-model="<?=$_POST['model']; ?>"

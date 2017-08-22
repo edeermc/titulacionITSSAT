@@ -1,3 +1,4 @@
+/*
 var url_base = window.location.protocol + "//" + window.location.host + '/titulacion';    //  Obtener la dirección base para los post
 
 $('#status-all-check').on('click', function(){
@@ -49,4 +50,62 @@ function checkEstatus() {
         $('#status-all-check').addClass('hidden');
         $('#status-all-uncheck').removeClass('hidden');
     }
+}
+
+$(function () {
+    $('#siderbar').metisMenu();
+});
+
+$('#siderbar').metisMenu({
+    // auto collapse.
+    toggle: true,
+
+    // prevents or allows dropdowns' onclick events after expanding/collapsing.
+    preventDefault: false,
+
+    // CSS classes
+    activeClass: 'active',
+    collapseClass: 'collapse',
+    collapseInClass: 'in',
+    collapsingClass: 'collapsing',
+    triggerElement: 'a',
+    parentTrigger: 'li',
+    subMenu: 'ul',
+
+    // callbacks
+    onTransitionStart: false,
+    onTransitionEnd: false
+});
+*/
+
+function sendForm(send_to,model) {
+    alert('Vamos bien '+send_to+' a '+model);
+    $.ajax({
+        url: send_to,
+        type: 'POST',
+        data: $('#form-data').serialize(),
+        beforeSend: function () {
+            waitingDialog.show();
+        },
+        success: function (data) {
+            waitingDialog.hide();
+            alert(data);
+
+            $.ajax({
+                url: url_request,
+                type: 'POST',
+                data: {
+                    model: model,
+                    function: 'Paginacion',
+                    page: 1
+                }
+            });
+        },
+        error: function () {
+            waitingDialog.hide();
+        }
+    });
+    alert('chido!');
+
+    return false;
 }

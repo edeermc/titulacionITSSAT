@@ -13,6 +13,7 @@ class DocenteModel extends Model {
 	public $estatus;
 	public $id_division;
 	public $id_carrera;
+    public $tipo;
 
 	function __construct(){
 		self::$tablename = 'docente';
@@ -24,12 +25,13 @@ class DocenteModel extends Model {
 		$this->estatus = 'Si';
 		$this->id_division = '';
 		$this->id_carrera = '';
+		$this->tipo = "Docente";
 	}
 
 	public function add(){
-		$query = "INSERT INTO ".self::$tablename." (nombre, apellido_paterno, apellido_materno, sexo, cedula_profesional, estatus,
-					id_division, id_carrera) VALUES ('{$this->nombre}', '{$this->apellido_paterno}', '{$this->apellido_materno}',
-					'{$this->sexo}', '{$this->cedula_profesional}', '{$this->estatus}', '{$this->id_division}', '{$this->id_carrera}')";
+		$query = "INSERT INTO ".self::$tablename." (nombre, apellido_paterno, apellido_materno, sexo, cedula_profesional, estatus, id_division, 
+					id_carrera, tipo) VALUES ('{$this->nombre}', '{$this->apellido_paterno}', '{$this->apellido_materno}', '{$this->sexo}', 
+				   '{$this->cedula_profesional}', '{$this->estatus}', '{$this->id_division}', '{$this->id_carrera}', '{$this->tipo}')";
 		$sql = Executor::doit($query);
 
 		return $sql[1];
@@ -38,7 +40,7 @@ class DocenteModel extends Model {
 	public function update(){
 		$sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}', apellido_paterno='{$this->apellido_paterno}',
 		apellido_materno='{$this->apellido_materno}', sexo='{$this->sexo}', cedula_profesional='{$this->cedula_profesional}',
-		estatus='{$this->estatus}', id_division='{$this->id_division}', id_carrera='{$this->id_carrera}' WHERE id = {$this->id}";
+		estatus='{$this->estatus}', id_division='{$this->id_division}', id_carrera='{$this->id_carrera}', tipo='{$this->tipo}' WHERE id = {$this->id}";
 		Executor::doit($sql);
 	}
 
@@ -63,10 +65,24 @@ class DocenteModel extends Model {
 		return self::Many($query[0], new DocenteModel());
 	}
 
-	public static function getByDivision($id, $ord = 'id'){
-		$sql = "SELECT * FROM ".self::$tablename." WHERE id_division = {$id} ORDER BY {$ord}";
-		$query = Executor::doit($sql);
+    public static function getByDivision($id, $ord = 'id'){
+        $sql = "SELECT * FROM ".self::$tablename." WHERE id_division = {$id} ORDER BY {$ord}";
+        $query = Executor::doit($sql);
 
-		return self::Many($query[0], new DocenteModel());
-	}
+        return self::Many($query[0], new DocenteModel());
+    }
+
+    public static function getByTipo($tipo, $ord = 'id'){
+        $sql = "SELECT * FROM ".self::$tablename." WHERE tipo = '{$tipo}' ORDER BY {$ord}";
+        $query = Executor::doit($sql);
+
+        return self::Many($query[0], new DocenteModel());
+    }
+
+    public static function getByEstatus($est = 'Si', $ord = 'id'){
+        $sql = "SELECT * FROM ".self::$tablename." WHERE estatus = '{$est}' ORDER BY {$ord}";
+        $query = Executor::doit($sql);
+
+        return self::Many($query[0], new DocenteModel());
+    }
 }

@@ -30,8 +30,11 @@ class ProyectoController {
         $reg->id_asesor2 = !empty($_POST['id_asesor2']) ? $_POST['id_asesor2'] : 'null';
         $reg->observaciones = utf8_decode($_POST['observaciones']);
         $reg->id_presidenteacademia = !empty($_POST['id_presidenteacademia']) ? $_POST['id_presidenteacademia'] : 'null';
+        $reg->id_secretarioacademia = !empty($_POST['id_secretarioacademia']) ? $_POST['id_secretarioacademia'] : 'null';
+        $reg->id_jefecarrera = !empty($_POST['id_jefecarrera']) ? $_POST['id_jefecarrera'] : 'null';
         $reg->fecha_liberacion = !empty($_POST['fecha_liberacion']) ? $_POST['fecha_liberacion'] : 'null';
         $reg->fecha_notificacion = !empty($_POST['fecha_notificacion']) ? $_POST['fecha_notificacion'] : 'null';
+        $reg->estatus = $_POST['estatus'];
 
         if($_POST['id'] == 0){
             $reg->add();
@@ -47,5 +50,27 @@ class ProyectoController {
         $proyecto->delById($_POST['id']);
 
         redirect('cpanel/proyecto');
+    }
+
+    public function validar(){
+
+    }
+
+    public function dictamen(){
+
+    }
+
+    public function liberar(){
+
+    }
+
+    public function examen(){
+        $cond =  '';
+        $proyecto = new ProyectoModel();
+        $proyectos = $proyecto->getRange(0, 10);
+        $pr = $proyecto->getAll();
+        $p = round(count($pr)/10) + (count($pr)%10 < 5 ? 1 : 0);
+
+        return view('Catalogos/proyecto.twig', ['proyectos' => $proyectos, 'modelo' => 'Proyecto', 'pag' => $p]);
     }
 }
