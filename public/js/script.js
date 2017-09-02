@@ -50,66 +50,44 @@ function checkEstatus() {
         $('#status-all-check').addClass('hidden');
         $('#status-all-uncheck').removeClass('hidden');
     }
-}
+}*/
 
-$(function () {
-    $('#siderbar').metisMenu();
-});
-
-$('#siderbar').metisMenu({
-    // auto collapse.
-    toggle: true,
-
-    // prevents or allows dropdowns' onclick events after expanding/collapsing.
-    preventDefault: false,
-
-    // CSS classes
-    activeClass: 'active',
-    collapseClass: 'collapse',
-    collapseInClass: 'in',
-    collapsingClass: 'collapsing',
-    triggerElement: 'a',
-    parentTrigger: 'li',
-    subMenu: 'ul',
-
-    // callbacks
-    onTransitionStart: false,
-    onTransitionEnd: false
-});
-*/
-
+// Crear mensaje
 function showMessage(n) {
-    var msg = '';
-
-    msg = '<div class="alert alert-info" style="margin-top: 25px;">' +
+    /* var msg = '<div class="alert alert-info" style="margin-top: 25px;">' +
         '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
-        '<strong>Operación extitosa!</strong> ';
+        '<strong>Operación extitosa!</strong> '; */
     switch (n){
         case '1':
-            msg += 'Registro agregado correctamente.';
+            $.notify("Registro agregado exitosamente.", { className: "success", globalPosition: "right bottom" });
+            // msg += 'Registro agregado correctamente.';
             break;
         case '2':
-            msg += 'Registro actualizado correctamente.';
+            $.notify("Registro actualizado exitosamente", { className: "success", globalPosition: "right bottom" });
+            // msg += 'Registro actualizado correctamente.';
             break;
         case '3':
-            msg += 'Registro eliminado correctamente.';
+            $.notify("Registro eliminado exitosamente", { className: "success", globalPosition: "right bottom" });
+            // msg += 'Registro eliminado correctamente.';
             break;
         case '0':
-            msg = '<div class="alert alert-danger" style="margin-top: 25px;">'+
+            $.notify("Error inesperado! Vuelva a intentarlo, si el error persiste recargue la página", { className: "error", globalPosition: "right bottom" });
+            /* msg = '<div class="alert alert-danger" style="margin-top: 25px;">'+
                 '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
-                '<strong>Error inesperado!</strong> Vuelva a intentarlo, si el error persiste recargue la página.';
+                '<strong>Error inesperado!</strong> Vuelva a intentarlo, si el error persiste recargue la página.'; */
             break;
         default:
-            msg = '<div class="alert alert-danger" style="margin-top: 25px;">'+
+            $.notify("Error inesperado! Error: "+n, { className: "error", globalPosition: "right bottom" });
+            /* msg = '<div class="alert alert-danger" style="margin-top: 25px;">'+
                 '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
-                '<strong>Error inesperado!</strong> Error: <i>'+n+'</i>.';
+                '<strong>Error inesperado!</strong> Error: <i>'+n+'</i>.'; */
     }
 
-    msg += '</div>';
-    $('#getMesagge').html(msg);
+    // msg += '</div>';
+    // $('#getMesagge').html(msg);
 }
 
-
+// Enviar form
 function sendForm(send_to,model) {
     $.ajax({
         url: send_to,

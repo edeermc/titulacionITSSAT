@@ -2,6 +2,8 @@ var url_request = window.location.protocol + "//" + window.location.host + "/tit
 var spinner = '<div class="text-center"><i class="fa fa-spinner fa-cog fa-3x fa-fw"></i> <span class="sr-only">Cargando...</span></div>';
 var ajaxError = '<i class="fa fa-warning text-warning"></i> Error al cargar los datos!';
 
+
+// Abrir el modal
 $('#operationModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var operation = button.data('operation');
@@ -32,6 +34,7 @@ $('#operationModal').on('show.bs.modal', function (event) {
     });
 });
 
+// Paginacion
 $('.pag').click(function () {
     var model = $(this).data('model');
     var prev = $('#pag-prev');
@@ -72,6 +75,7 @@ $('.pag').click(function () {
     });
 });
 
+// Busquedas en el catalogo
 $('#buscar').on('keyup', function () {
     var model = $(this).data('model');
     var key = $(this).val();
