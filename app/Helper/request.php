@@ -16,3 +16,8 @@ function user() {
     @session_start();
     return @$_SESSION['user'];
 }
+
+function user_id() {
+    @session_start();
+    return @$_SESSION['id'];
+}

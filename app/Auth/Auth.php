@@ -2,7 +2,7 @@
 
 namespace App\Auth;
 
-use App\Models\UserModel;
+use App\Models\UsuarioModel;
 
 class Auth{
     public function isAuth() {
@@ -10,7 +10,7 @@ class Auth{
     }
 
     public function auth($user, $pass){
-        $user = UserModel::getByUser($user, $pass);
+        $user = UsuarioModel::getByUser($user, $pass);
 
 		return $user;
     }
@@ -18,7 +18,7 @@ class Auth{
     public function logout() {
         session_unset();
         session_destroy();
-        redirect('login');
+        redirect('/');
     }
 
 }

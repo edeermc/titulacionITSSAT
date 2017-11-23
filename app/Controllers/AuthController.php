@@ -24,18 +24,19 @@ class AuthController {
     }
 
     public function login() {
-        $user = input('user');
-        $pass = input('pass');
-        $auth = $this->auth->auth($user, md5($pass));
+        $user = input('usuario');
+        $pass = input('contrasena');
+        $auth = $this->auth->auth($user, $pass);
+        //$auth = $this->auth->auth($user, md5($pass));
         if($auth != null) {
             session_start();
             $_SESSION['user'] = $user;
-			$_SESSION['name'] = $auth->name;
+			$_SESSION['name'] = $auth->nombre;
 			$_SESSION['id'] = $auth->id;
 
-			redirect('/');
+			redirect('/cpanel');
         } else {
-            redirect('login?msg=error402');
+            redirect('403');
         }
     }
 

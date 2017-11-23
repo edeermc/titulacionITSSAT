@@ -61,11 +61,20 @@ class UsuarioModel {
 		return Model::many($query[0], new UsuarioModel());
 	}
 
+    public static function getByUser($user, $pass){
+        $sql = "SELECT * FROM " .self::$tablename . " WHERE usuario = '{$user}' AND contrasena = '{$pass}' LIMIT 1";
+        $query = Executor::doit($sql);
+
+        return Model::one($query[0], new UsuarioModel());
+    }
+
 	public function getDocente(){
-		return DocenteModel::getById($this->id_docente);
+		$u = new DocenteModel();
+	    return $u->getById($this->id_docente);
 	}
 
 	public function getPerfil(){
-		return PerfilModel::getById($this->id_perfil);
+	    $p = new PerfilModel();
+		return $p->getById($this->id_perfil);
 	}
 }

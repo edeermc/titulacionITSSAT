@@ -1,0 +1,32 @@
+{% extends 'Catalogos/catalogo.twig' %}
+
+{% block title 'Listado de usuarios' %}
+
+{% block tabla %}
+    <table class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Perfil</th>
+                <th>Docente</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for u in usuarios  %}
+            <tr>
+                <td>{{ u.id }}</td>
+                <td>{{ u.usuario }}</td>
+                <td>{{ u.nombre }}</td>
+                <td>{{ u.correo }}</td>
+                <td>{{ u.getPerfil.nombre }}</td>
+                <td>{{ u.getDocente.nombre }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        {{ pag }}
+{% endblock %}
