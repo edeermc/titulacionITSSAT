@@ -4,8 +4,8 @@ namespace App\Models;
 
 use App\Config\Executor;
 
-class UsuarioModel {
-	public static $tablename = 'usuario';
+class UsuarioModel extends Model {
+	//public static $tablename = 'usuario';
 	public $id;
 	public $usuario = '';
 	public $contrasena = '';
@@ -15,6 +15,7 @@ class UsuarioModel {
 	public $id_docente;
 
 	function __construct(){
+        self::$tablename = 'usuario';
 		$this->usuario = '';
 		$this->contrasena = '';
 		$this->nombre = '';

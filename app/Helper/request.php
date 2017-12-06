@@ -21,3 +21,8 @@ function user_id() {
     @session_start();
     return @$_SESSION['id'];
 }
+
+function userType() {
+    @session_start();
+    return @$_SESSION['type'];
+}

@@ -6,7 +6,7 @@ class Route{
     public function run(){
         $route = array(
             //url
-            ['url' => '/', 	        						'ctrl' => 'AuthController@index', 						    'type' => 'guest'],
+            ['url' => '/', 	        						'ctrl' => 'HomeController@index', 						    'type' => 'guest'],
             ['url' => 'cpanel', 							'ctrl' => 'HomeController@index', 			    			'type' => 'guest'],
             ['url' => 'egresado', 							'ctrl' => 'EgresadoController@panel', 		    			'type' => 'guest'],
             ['url' => 'egresado/save',          			'ctrl' => 'EgresadoController@save2', 		    			'type' => 'guest'],
@@ -63,6 +63,8 @@ class Route{
 
             /* Usuarios */
             ['url' => 'cpanel/usuario',                     'ctrl' => 'UsuarioController@index',                        'type' => 'guest'],
+            ['url' => 'cpanel/usuario/save',                'ctrl' => 'UsuarioController@save',                         'type' => 'guest'],
+            ['url' => 'cpanel/usuario/del',                 'ctrl' => 'UsuarioController@del',                          'type' => 'guest'],
 
             /* autenticación */
             ['url' => 'cpanel/login', 						'ctrl' => 'AuthController@index', 						    'type' => 'guest'],

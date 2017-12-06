@@ -32,11 +32,12 @@ class AuthController {
             session_start();
             $_SESSION['user'] = $user;
 			$_SESSION['name'] = $auth->nombre;
-			$_SESSION['id'] = $auth->id;
+            $_SESSION['type'] = $auth->type;
+            $_SESSION['id'] = $auth->id;
 
 			redirect('/cpanel');
         } else {
-            redirect('403');
+            redirect('login');
         }
     }
 
