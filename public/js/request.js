@@ -1,4 +1,4 @@
-var url_request = window.location.protocol + "//" + window.location.host + "/titulacion/requested.php";
+var url_request = window.location.protocol + "//" + window.location.host + "/titulacionITSSAT/requested.php";
 var spinner = '<div class="text-center"><i class="fa fa-spinner fa-cog fa-3x fa-fw"></i> <span class="sr-only">Cargando...</span></div>';
 var ajaxError = '<i class="fa fa-warning text-warning"></i> Error al cargar los datos!';
 

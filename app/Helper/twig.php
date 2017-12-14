@@ -1,17 +1,15 @@
 <?php
 
 function resource( $val ) {
-    $dir = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-    $explode = explode("/", $dir);
-    $url = "http://{$explode[0]}/{$explode[1]}/public/{$val}";
+    $url = APPLICATION_ROOT . "/public/{$val}";
+    
     return $url;
 }
 
 function route( $val ) {
-    $dir = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-    $explode = explode("/", $dir);
-	$val = strtolower($val);
-    $url = "http://{$explode[0]}/{$explode[1]}/{$val}";
+    $val = strtolower($val);
+    $url = APPLICATION_ROOT . "/{$val}";
+    
     return $url;
 }
 

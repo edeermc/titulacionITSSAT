@@ -8,13 +8,13 @@ class CarreraRequest {
     function Agregar(){
         $carrera = new CarreraModel();
         if ($_POST['id'] != 0)
-            $carrera = $carrera->getById($_POST['id']); ?>
+            $carrera = CarreraModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $carrera->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
                 <div class="col-sm-6">
-                    <input type="text" name="nombre" id="nombre" value="<?= utf8_encode($carrera->nombre); ?>"
+                    <input type="text" name="nombre" id="nombre" value="<?= $carrera->nombre; ?>"
                            class="form-control" required>
                 </div>
 
@@ -53,8 +53,7 @@ class CarreraRequest {
     }
 
     function Eliminar(){
-        $carrera = new CarreraModel();
-        $carrera = $carrera->getById($_POST['id']); ?>
+        $carrera = CarreraModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $carrera->id; ?>">
             <h5>Desea eliminar la carrera
@@ -73,12 +72,11 @@ class CarreraRequest {
 
     function Paginacion(){
         $p = 10 * ($_POST['page'] - 1);
-        $car = new CarreraModel();
-        $carrera = $car->getRange($p, 10);
+        $carrera = CarreraModel::getAll('', '', $p, 10);
         foreach ($carrera as $c) { ?>
             <tr>
                 <td><?= $c->id; ?></td>
-                <td><?= utf8_encode($c->nombre); ?></td>
+                <td><?= $c->nombre; ?></td>
                 <td><?= $c->siglas; ?></td>
                 <td><?= $c->modalidad; ?></td>
                 <td class="text-right">
@@ -100,14 +98,13 @@ class CarreraRequest {
 
     function Buscar(){
         $k = $_POST['key'];
-        $car = new CarreraModel();
-        $carrera = $car->getSearch('nombre', $k);
+        $carrera = CarreraModel::getSearch('nombre', $k);
 
         if (count($carrera) > 0) {
             foreach ($carrera as $c) { ?>
                 <tr>
                     <td><?= $c->id; ?></td>
-                    <td><?= utf8_encode($c->nombre); ?></td>
+                    <td><?= $c->nombre; ?></td>
                     <td><?= $c->siglas; ?></td>
                     <td><?= $c->modalidad; ?></td>
                     <td class="text-right">

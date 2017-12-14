@@ -6,12 +6,15 @@ use App\Models\CarreraModel;
 
 class CarreraController {
 	public function index(){
-	    $carrera = new CarreraModel();
-        $carreras = $carrera->getRange(0, 10);
-        $c = $carrera->getAll();
-        $p = round(count($c)/10) + (count($c)%10 < 5 ? 1 : 0);
-
-		return view('Catalogos/carrera.twig', ['carreras' => $carreras, 'modelo' => 'Carrera', 'pag' => $p]);
+	    try {
+            $carreras = CarreraModel::getAll('', '', 0, 10);
+            $c = CarreraModel::getNumRows();
+            $p = round(count($c) / 10) + (count($c) % 10 < 5 ? 1 : 0);
+        
+            return view('Catalogos/carrera.twig', ['carreras' => $carreras, 'modelo' => 'Carrera', 'pag' => $p]);
+        } catch (\Exception $e){
+	        redirect('500');
+        }
 	}
 
 	public function save(){
@@ -20,7 +23,7 @@ class CarreraController {
             $reg = $reg->getById($_POST['id']);
         }
 
-        $reg->nombre = utf8_decode($_POST['nombre']);
+        $reg->nombre = $_POST['nombre'];
         $reg->siglas = strtoupper($_POST['siglas']);
         $reg->modalidad = $_POST['modalidad'];
 

@@ -3,6 +3,7 @@
 require_once "vendor/autoload.php";
 require_once 'app/Lib/PhpExcel/PHPExcel/IOFactory.php';
 require_once 'app/Lib/FPDF/fpdf.php';
+require_once 'config_vars.php';
 
 use App\Router\Router;
 
