@@ -6,7 +6,7 @@ use PDO;
 use Exception;
 
 class Executor {
-    public static function doit($sql, $values = []){
+    public static function doit($sql, $values = [], $is_counter = false){
         $con = DB::getCon();
         try {
             $query = $con->prepare($sql);
@@ -28,15 +28,18 @@ class Executor {
             }
             
             $query->execute();
-            if (explode(' ', $sql)[0] == 'SELECT') {
-                return $query->fetchAll(PDO::FETCH_ASSOC);
-            } elseif (explode(' ', $sql)[0] == 'INSERT') {
-                if (DB_DRIVER == 'odbc')
-                    return 0;
-                else
-                    return $con->lastInsertId();
-            } else {
-                return 1;
+            if ($is_counter)
+                return $query->rowCount();
+            else {
+                if (explode(' ', $sql)[0] == 'SELECT') {
+                    return $query->fetchAll(PDO::FETCH_ASSOC);
+                } elseif (explode(' ', $sql)[0] == 'INSERT') {
+                    if (DB_DRIVER == 'odbc')
+                        return 0; else
+                        return $con->lastInsertId();
+                } else {
+                    return 1;
+                }
             }
         } catch (Exception $e){
             throw new Exception('<b>' . $e->getCode() . '</b>: ' . $e->getMessage());

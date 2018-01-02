@@ -77,7 +77,7 @@ function showMessage(n) {
                 '<strong>Error inesperado!</strong> Vuelva a intentarlo, si el error persiste recargue la página.'; */
             break;
         default:
-            $.notify("Error inesperado! Error: "+n, { className: "error", globalPosition: "right bottom" });
+            $.notify("Error inesperado! Error: " + n, { className: "error", globalPosition: "right bottom" });
             /* msg = '<div class="alert alert-danger" style="margin-top: 25px;">'+
                 '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
                 '<strong>Error inesperado!</strong> Error: <i>'+n+'</i>.'; */
@@ -88,7 +88,7 @@ function showMessage(n) {
 }
 
 // Enviar form
-function sendForm(send_to,model) {
+function sendForm(send_to, model) {
     $.ajax({
         url: send_to,
         type: 'POST',

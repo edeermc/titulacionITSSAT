@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Config\Executor;
 
 class EgresadosModel extends Model {
+    public static $tablename = 'egresados';
+    
     public $nombre;
     public $apellido_paterno;
     public $apellido_materno;
@@ -28,7 +30,6 @@ class EgresadosModel extends Model {
     public $estatus;
 
     function __construct(){
-        self::$tablename = 'egresados';
         $this->nombre = '';
         $this->apellido_paterno = '';
         $this->apellido_materno = '';
@@ -52,39 +53,16 @@ class EgresadosModel extends Model {
         $this->estatus = 'Registro';
     }
 
-    public function add(){
-        $query = "INSERT INTO ".self::$tablename." (id, nombre, apellido_paterno, apellido_materno, sexo, id_plan, id_proyecto, numero_libro,
-					numero_foja, periodo_ingreso, periodo_egreso) VALUES ('{$this->id}', '{$this->nombre}', '{$this->apellido_paterno}', 
-					'{$this->apellido_materno}', '{$this->sexo}', '{$this->id_plan}', {$this->id_proyecto}, {$this->numero_libro}, {$this->numero_foja},
-					'{$this->periodo_ingreso}', '{$this->periodo_egreso}')";
-        $sql = Executor::doit($query);
-
-        return $sql[1];
-    }
-
-    public function update(){
-        $sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}', apellido_paterno='{$this->apellido_paterno}',apellido_materno='{$this->apellido_materno}', 
-        sexo='{$this->sexo}', id_plan='{$this->id_plan}', id_proyecto={$this->id_proyecto}, numero_libro={$this->numero_libro}, numero_foja={$this->numero_foja}, 
-        periodo_ingreso='{$this->periodo_ingreso}', periodo_egreso='{$this->periodo_egreso}', calle='{$this->calle}', colonia='{$this->colonia}', ciudad='{$this->ciudad}', 
-        municipio='{$this->municipio}', estado='{$this->estado}', telefono='{$this->telefono}', correo='{$this->correo}', contrasena='{$this->contrasena}', 
-        token='{$this->token}', cp='{$this->cp}', estatus='{$this->estatus}' WHERE id = '{$this->id}'";
-
-        Executor::doit($sql);
-    }
-
     public function getPlan(){
-        $r = new PlanEstudiosModel();
-        return $r->getById($this->id_plan);
+        return PlanEstudiosModel::getById($this->id_plan);
     }
 
     public function getProyecto(){
-        $r = new ProyectoModel();
-        return $r->getById($this->id_proyecto);
+        return ProyectoModel::getById($this->id_proyecto);
     }
 
     public function getDoctos(){
-        $r = new DocumentoAlumnoModel();
-        return $r->getByAlumno($this->id);
+        return DocumentoAlumnoModel::getByAlumno($this->id);
     }
 
     public function getNombreCompleto(){
@@ -96,37 +74,25 @@ class EgresadosModel extends Model {
     }
 
     public static function getByProyecto($id, $ord = 'id'){
-        $sql = "SELECT * FROM ".self::$tablename." WHERE id_proyecto = {$id} ORDER BY {$ord}";
-        $query = Executor::doit($sql);
-
-        return self::Many($query[0], new EgresadosModel());
+        return self::getAll("id_proyecto = {$id}", $ord);
     }
 
     public static function getByPlan($id, $ord = 'id'){
-        $sql = "SELECT * FROM ".self::$tablename." WHERE id_plan = {$id} ORDER BY {$ord}";
-        $query = Executor::doit($sql);
-
-        return self::Many($query[0], new EgresadosModel());
+        return self::getAll("id_plan = {$id}", $ord);
     }
 
     public static function getByEstatus($stat = 'Registro', $ord = 'id'){
-        $sql = "SELECT * FROM ".self::$tablename." WHERE estatus = '{$stat}' ORDER BY {$ord}";
-        $query = Executor::doit($sql);
-
-        return self::Many($query[0], new EgresadosModel());
+        return self::getAll("estatus = {$stat}", $ord);
     }
 
     public static function getByToken($token){
-        $sql = "SELECT * FROM ".self::$tablename." WHERE token = '{$token}' LIMIT 1";
-        $query = Executor::doit($sql);
-
-        return self::one($query[0], new EgresadosModel());
+        return self::getAll("token = {$token}");
     }
 
     public static function exist($id){
-        $sql = "SELECT * FROM ".self::$tablename." WHERE id = '{$id}'";
-        $query = Executor::doit($sql);
+        $sql = "SELECT * FROM " . self::getTable() . " WHERE id = '{$id}'";
+        $n = Executor::doit($sql, [], true);
 
-        return ($query[0]->num_rows > 0);
+        return ($n > 0);
     }
 }

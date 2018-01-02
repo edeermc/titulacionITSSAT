@@ -108,9 +108,9 @@ abstract class Model {
     public static function getNumRows($cond = ''){
         try {
             $sql = "SELECT * FROM ".self::getTable().(empty($cond) ? '' : " WHERE {$cond}");
-            $query = Executor::doit($sql);
+            $n = Executor::doit($sql, [], true);
             
-            return self::many($query);
+            return $n;
         } catch (\Exception $e){
             throw new \Exception($e->getMessage());
         }
