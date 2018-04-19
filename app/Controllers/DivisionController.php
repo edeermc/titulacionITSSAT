@@ -1,17 +1,21 @@
 <?php
 namespace App\Controllers;
 
+use App\Config\DB;
 use App\Models\DivisionModel;
 
 class DivisionController
 {
     public function index(){
-        $division = new DivisionModel();
-        $d = $division->getRange(0, 10);
-        $c = $division->getAll();
-        $p = round(count($c)/10) + (count($c)%10 > 0 ? 1 : 0);
+        try{
+            $division = DivisionModel::getALL('','',0,10);
+            $c = DivisionModel::getNumRows();
+            $p = round($c / 10) + ($c % 10 < 5 ? 1 : 0);
 
-        return view('Catalogos/division.twig', ['division' => $d, 'modelo' => 'Division', 'pag' => $p]);
+            return view('Catalogos/division.twig', ['division' => $division, 'modelo' => 'Division', 'pag' => $p]);
+        }catch(\Exception $e){
+            redirect('500');
+        }
     }
     public function save(){
         $reg = new DivisionModel();
