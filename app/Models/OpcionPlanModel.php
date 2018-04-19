@@ -21,32 +21,56 @@ class OpcionPlanModel extends Model {
     }
 
     public function getOpcionTitulacion(){
-        return OpcionTitulacionModel::getById($this->id);
+        try {
+            return OpcionTitulacionModel::getById($this->id);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getOpcion(){
-        return OpcionTitulacionModel::getById($this->id_opcion);
+        try {
+            return OpcionTitulacionModel::getById($this->id_opcion);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getPlan(){
-        return PlanEstudiosModel::getById($this->id_plan);
+        try {
+            return PlanEstudiosModel::getById($this->id_plan);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public static function getByOpcion($idO){
-        return self::getAll("id_opcion = {$idO}");
+        try {
+            return self::getAll("id_opcion = {$idO}");
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public static function getByPlan($idP){
-        return self::getAll("id_plan = {$idP}");
+        try {
+            return self::getAll("id_plan = {$idP}");
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public static function existOpcion($idP, $idO){
-        if ($idO != 0) {
-            $sql = "SELECT * FROM " . self::getTable() . " WHERE id_plan = {$idP} AND id_opcion = {$idO}";
-            $n = Executor::doit($sql, [], true);
-
-            return ($n > 0);
-        } else
-            return false;
+        try {
+            if ($idO != 0) {
+                $sql = "SELECT * FROM " . self::getTable() . " WHERE id_plan = {$idP} AND id_opcion = {$idO}";
+                $n = Executor::doit($sql, [], true);
+        
+                return ($n > 0);
+            } else
+                return false;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 }

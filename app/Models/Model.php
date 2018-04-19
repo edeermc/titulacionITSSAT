@@ -83,7 +83,7 @@ abstract class Model {
     public static function getAll($cond = '', $ord = '', $i = null, $q = null){
         try {
             $sql = "SELECT * FROM ".self::getTable().(empty($cond) ? '' : " WHERE {$cond}").(empty($ord) ? '' : " ORDER BY ".$ord).
-                (($i != 0 && empty($i)) ? '' : " LIMIT {$i}").(empty($q) ? '' : ", {$q}");
+                (($i !== 0 && empty($i)) ? '' : " LIMIT {$i}").(empty($q) ? '' : ", {$q}");
             $query = Executor::doit($sql);
             
             return self::many($query);

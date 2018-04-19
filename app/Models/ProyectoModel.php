@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Config\Executor;
 
 class ProyectoModel extends Model {
+    public static $tablename = 'proyecto';
+    
     public $nombre;
     public $id_opcion;
     public $id_presidente;
@@ -23,118 +25,127 @@ class ProyectoModel extends Model {
 
 
     function __construct(){
-        self::$tablename = 'proyecto';
-        $this->nombre = '';
-        $this->id_opcion = 'null';
-        $this->id_presidente = 'null';
-        $this->id_secretario = 'null';
-        $this->id_vocal = 'null';
-        $this->id_vocal_suplente = 'null';
-        $this->id_asesor = 'null';
-        $this->id_asesor2 = 'null';
-        $this->observaciones = '';
-        $this->id_presidenteacademia = 'null';
-        $this->id_secretarioacademia = 'null';
-        $this->id_jefecarrera = 'null';
-        $this->fecha_liberacion = 'null';
-        $this->fecha_notificacion = 'null';
         $this->estatus = 'Abierto';
     }
-
-    public function add(){
-        $query = "INSERT INTO ".self::$tablename." (nombre, id_opcion, id_presidente, id_secretario, id_vocal, id_vocal_suplente, id_asesor, id_asesor2,
-					observaciones, id_presidenteacademia, id_secretarioacademia, id_jefecarrera, fecha_liberacion, fecha_notificacion, estatus) VALUES 
-					('{$this->nombre}', {$this->id_opcion}, {$this->id_presidente}, {$this->id_secretario}, {$this->id_vocal}, {$this->id_vocal_suplente}, 
-					{$this->id_asesor}, {$this->id_asesor2}, '{$this->observaciones}', {$this->id_presidenteacademia}, {$this->id_secretarioacademia},
-					{$this->id_jefecarrera}, {$this->fecha_liberacion}, {$this->fecha_notificacion}, '{$this->estatus}')";
-        $sql = Executor::doit($query);
-
-        return $sql[1];
-    }
-
-    public function update(){
-        $sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}', id_opcion={$this->id_opcion}, id_presidente={$this->id_presidente},
-		id_secretario={$this->id_secretario}, id_vocal={$this->id_vocal}, id_vocal_suplente={$this->id_vocal_suplente}, id_asesor={$this->id_asesor}, 
-		id_asesor2={$this->id_asesor2}, observaciones='{$this->observaciones}', id_presidenteacademia={$this->id_presidenteacademia}, 
-		id_secretarioacademia={$this->id_secretarioacademia}, id_jefecarrera={$this->id_jefecarrera}, fecha_liberacion='{$this->fecha_liberacion}', 
-		fecha_notificacion='{$this->fecha_notificacion}', estatus='{$this->estatus}' WHERE id = {$this->id}";
-
-        Executor::doit($sql);
-    }
-
+    
     public function getOpcion(){
-        $r = new OpcionTitulacionModel();
-        return $r->getById($this->id_opcion);
+        try {
+            return OpcionTitulacionModel::getById($this->id_opcion);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getPresidente(){
-        $r = new DocenteModel();
-        return $r->getById($this->id_presidente);
+        try {
+            return DocenteModel::getById($this->id_presidente);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getSecretario(){
-        $r = new DocenteModel();
-        return $r->getById($this->id_secretario);
+        try {
+            return DocenteModel::getById($this->id_secretario);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getVocal(){
-        $r = new DocenteModel();
-        return $r->getById($this->id_vocal);
+        try {
+            return DocenteModel::getById($this->id_vocal);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getVocalSuplente(){
-        $r = new DocenteModel();
-        return $r->getById($this->id_vocal_suplente);
+        try {
+            return DocenteModel::getById($this->id_vocal_suplente);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getAsesor(){
-        $r = new DocenteModel();
-        return $r->getById($this->id_asesor);
+        try {
+            return DocenteModel::getById($this->id_asesor);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getAsesor2(){
-        $r = new DocenteModel();
-        return $r->getById($this->id_asesor2);
+        try {
+            return DocenteModel::getById($this->id_asesor2);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getPresidenteAcademia(){
-        $r = new DocenteModel();
-        return $r->getById($this->id_presidenteacademia);
+        try {
+            return DocenteModel::getById($this->id_presidenteacademia);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getSecretarioAcademia(){
-        $r = new DocenteModel();
-        return $r->getById($this->id_secretarioacademia);
+        try {
+            return DocenteModel::getById($this->id_secretarioacademia);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getJefeCarrera(){
-        $r = new DocenteModel();
-        return $r->getById($this->id_jefecarrera);
+        try {
+            return DocenteModel::getById($this->id_jefecarrera);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getAlumnos(){
-        $r = new EgresadosModel();
-        return $r->getByProyecto($this->id);
+        try {
+            return EgresadosModel::getByProyecto($this->id);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getByEstatus($stat = 'Abierto', $ord = 'id'){
-        $sql = "SELECT * FROM ".self::$tablename." WHERE estatus = '{$stat}' ORDER BY {$ord}";
-        $query = Executor::doit($sql);
-
-        return self::many($query[0], new ProyectoModel());
+        try {
+            $sql = "SELECT * FROM " . self::$tablename . " WHERE estatus = '{$stat}' ORDER BY {$ord}";
+            $query = Executor::doit($sql);
+    
+            return self::many($query[0], new ProyectoModel());
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getByNombre($name){
-        $sql = "SELECT * FROM ".self::$tablename." WHERE nombre = '{$name}' LIMIT 1";
-        $query = Executor::doit($sql);
-
-        return self::one($query[0], new ProyectoModel());
+        try {
+            $sql = "SELECT * FROM " . self::$tablename . " WHERE nombre = '{$name}' LIMIT 1";
+            $query = Executor::doit($sql);
+    
+            return self::one($query[0], new ProyectoModel());
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function exist($name){
-        $sql = "SELECT * FROM ".self::$tablename." WHERE nombre = '{$name}' LIMIT 1";
-        $query = Executor::doit($sql);
-
-        return ($query[0]->num_rows > 0);
+        try {
+            $sql = "SELECT * FROM " . self::$tablename . " WHERE nombre = '{$name}' LIMIT 1";
+            $query = Executor::doit($sql);
+    
+            return ($query[0]->num_rows > 0);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 }

@@ -8,16 +8,15 @@ class PlanRequest{
     function Agregar(){
         $plan = new PlanEstudiosModel();
         if ($_POST['id'] != 0)
-            $plan = $plan->getById($_POST['id']);
-
-        $carrera = new CarreraModel();
-        $carrera = $carrera->getAll(); ?>
+            $plan = PlanEstudiosModel::getById($_POST['id']);
+        
+        $carrera = CarreraModel::getAll(); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/planestudios/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <div class="form-group">
                 <input type="hidden" name="id" value="<?= $plan->id; ?>">
                 <label for="nombre" class="col-sm-2">Nombre</label>
                 <div class="col-sm-4">
-                    <input type="text" name="nombre" id="nombre" value="<?= utf8_decode($plan->nombre); ?>" class="form-control" required>
+                    <input type="text" name="nombre" id="nombre" value="<?= ($plan->nombre); ?>" class="form-control" required>
                 </div>
 
                 <label for="carrera" class="col-sm-2">Carrera</label>
@@ -25,7 +24,7 @@ class PlanRequest{
                     <select name="id_carrera" id="carrera" class="form-control">
                         <?php foreach ($carrera as $c): ?>
                             <option value="<?=$c->id; ?>" <?=($c->id == $plan->id_carrera) ? 'selected' : '' ?>>
-                                <?=utf8_encode($c->nombre); ?> <?=($c->modalidad != 'Escolarizado') ? '- '.$c->modalidad : ''; ?>
+                                <?=($c->nombre); ?> <?=($c->modalidad != 'Escolarizado') ? '- '.$c->modalidad : ''; ?>
                             </option>
                         <?php endforeach; ?>
                     </select>
@@ -46,18 +45,17 @@ class PlanRequest{
     }
 
     function Eliminar(){
-        $plan = new PlanEstudiosModel();
-        $plan = $plan->getById($_POST['id']); ?>
+        $plan = PlanEstudiosModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/planestudios/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $plan->id; ?>">
-            <h5>Desea eliminar el plan de estudios '<?= utf8_decode($plan->nombre); ?>'?</h5>
+            <h5>Desea eliminar el plan de estudios '<?= ($plan->nombre); ?>'?</h5>
 
             <div class="form-group">
                 <div class="col-sm-12 text-right">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>
                         Cancelar
                     </button>
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Eliminar</button>
                 </div>
             </div>
         </form>
@@ -66,13 +64,12 @@ class PlanRequest{
 
     function Paginacion(){
         $p = 10 * ($_POST['page'] - 1);
-        $plan = new PlanEstudiosModel();
-        $plan = $plan->getRange($p, 10);
+        $plan = PlanEstudiosModel::getAll('', '', $p, 10);
         foreach ($plan as $pl) { ?>
             <tr>
                 <td><?= $pl->id; ?></td>
-                <td><?= utf8_encode($pl->nombre); ?></td>
-                <td><?= utf8_encode($pl->getCarrera()->nombre); ?> <?=$pl->getCarrera()->modalidad == 'Semiescolarizado' ? ' - '.$pl->getCarrera()->modalidad : ''; ?></td>
+                <td><?= ($pl->nombre); ?></td>
+                <td><?= ($pl->getCarrera()->nombre); ?> <?=$pl->getCarrera()->modalidad == 'Semiescolarizado' ? ' - '.$pl->getCarrera()->modalidad : ''; ?></td>
                 <td class="text-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                             data-target="#operationModal" data-id="<?= $pl->id; ?>" data-model="<?=$_POST['model']; ?>"
@@ -92,15 +89,14 @@ class PlanRequest{
 
     function Buscar(){
         $k = $_POST['key'];
-        $plan = new PlanEstudiosModel();
-        $plan = $plan->getSearch('nombre', $k);
+        $plan = PlanEstudiosModel:: getSearch('nombre', $k);
 
         if (count($plan) > 0) {
             foreach ($plan as $p) { ?>
                 <tr>
                     <td><?= $p->id; ?></td>
-                    <td><?= utf8_encode($p->nombre); ?></td>
-                    <td><?= utf8_encode($p->getCarrera()->nombre); ?> <?=$pl->getCarrera()->modalidad == 'Semiescolarizado' ? ' - '.$pl->getCarrera()->modalidad : ''; ?></td>
+                    <td><?= ($p->nombre); ?></td>
+                    <td><?= ($p->getCarrera()->nombre); ?> <?=$p->getCarrera()->modalidad == 'Semiescolarizado' ? ' - '.$p->getCarrera()->modalidad : ''; ?></td>
                     <td class="text-right">
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $p->id; ?>" data-model="<?=$_POST['model']; ?>"

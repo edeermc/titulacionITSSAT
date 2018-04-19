@@ -57,7 +57,7 @@ class CarreraRequest {
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $carrera->id; ?>">
             <h5>Desea eliminar la carrera
-                '<?= utf8_encode($carrera->nombre); ?><?= ($carrera->modalidad == 'Semiescolarizado') ? ' (Semiescolarizado)' : ''; ?>
+                '<?= ($carrera->nombre); ?><?= ($carrera->modalidad == 'Semiescolarizado') ? ' (Semiescolarizado)' : ''; ?>
                 '?</h5>
 
             <div class="form-group">

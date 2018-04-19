@@ -5,28 +5,14 @@ namespace App\Models;
 use App\Config\Executor;
 
 class TipoDocumentoModel extends Model{
-	public $id;
+	protected static $tablename = 'tipo_documento';
 	public $nombre;
 
-	function __construct(){
-		$this->nombre = '';
-		self::$tablename='tipo_documento';
-	}
-
-	public function add(){
-		$query = "INSERT INTO ".self::$tablename." (nombre) VALUES ('{$this->nombre}')";
-		$sql = Executor::doit($query);
-
-		return $sql[1];
-	}
-
-	public function update(){
-		$sql = "UPDATE ".self::$tablename." SET nombre='{$this->nombre}' WHERE id = {$this->id}";
-		Executor::doit($sql);
-	}
-
     public function isChecked($id){
-        $r = new OpcionDocumentoModel();
-        return $r->existOpcion($this->id, $id);
+        try {
+            return OpcionDocumentoModel::existOpcion($this->id, $id);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 }
