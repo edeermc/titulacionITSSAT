@@ -9,15 +9,13 @@ use App\Models\UsuarioModel;
 
 class UsuarioRequest {
     public function Agregar() {
-        $perfil = new PerfilModel();
-        $perfil = $perfil->getAll();
-        $docente = new DocenteModel();
-        $docente = $docente->getAll();
+        $perfil = PerfilModel::getAll();
+        $docente = DocenteModel::getAll();
 
         $usuario = new UsuarioModel();
 
         if($_POST['id'] != 0)
-            $usuario = $usuario->getById($_POST['id']);
+            $usuario = UsuarioModel::getById($_POST['id']);
         ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $usuario->id; ?>">
@@ -72,11 +70,10 @@ class UsuarioRequest {
     <?php
     }
     public function Eliminar(){
-        $u = new UsuarioModel();
-        $u = $u->getById($_POST['id']); ?>
+        $u = UsuarioModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $u->id; ?>">
-            <h5>Desea eliminar al usuario '<?= utf8_encode($u->nombre); ?>'?</h5>
+            <h5>Desea eliminar al usuario '<?= ($u->nombre); ?>'?</h5>
 
             <div class="form-group">
                 <div class="col-sm-12 text-right">
@@ -92,17 +89,16 @@ class UsuarioRequest {
 
     public function Buscar(){
         $k = $_POST['key'];
-        $usu = new UsuarioModel();
-        $usuario = $usu->getSearch('nombre', $k);
+        $usuario = UsuarioModel::getSearch('nombre', $k);
         if (count($usuario) > 0) {
             foreach ($usuario as $u) { ?>
                 <tr>
                     <td><?= $u->id; ?></td>
                     <td><?= $u->usuario; ?></td>
-                    <td><?= utf8_encode($u->nombre); ?></td>
+                    <td><?= ($u->nombre); ?></td>
                     <td><?= $u->correo; ?></td>
-                    <td><?= utf8_encode($u->getPerfil()->nombre); ?></td>
-                    <td><?= utf8_encode($u->getDocente()->nombre); ?></td>
+                    <td><?= ($u->getPerfil()->nombre); ?></td>
+                    <td><?= !empty($u->id_docente) ? $u->getDocente()->getNombreCompleto() : ''; ?></td>
                     <td class="text-right">
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $u->id; ?>" data-model="<?=$_POST['model']; ?>"
@@ -128,16 +124,15 @@ class UsuarioRequest {
 
     public function Paginacion(){
         $p = 10 * ($_POST['page'] - 1);
-        $usuario = new UsuarioModel();
-        $usuario = $usuario->getRange($p, 10);
+        $usuario = UsuarioModel::getAll('', '', $p, 10);
         foreach ($usuario as $u) { ?>
             <tr>
                 <td><?= $u->id; ?></td>
                 <td><?= $u->usuario; ?></td>
-                <td><?= utf8_encode($u->nombre); ?></td>
-                <td><?= $u->corre; ?></td>
-                <td><?= utf8_encode($u->getPerfil()->nombre); ?></td>
-                <td><?= utf8_encode($u->getDocente()->nombre); ?></td>
+                <td><?= $u->nombre; ?></td>
+                <td><?= $u->correo; ?></td>
+                <td><?= $u->getPerfil()->nombre; ?></td>
+                <td><?= !empty($u->id_docente) ? $u->getDocente()->getNombreCompleto() : ''; ?></td>
                 <td class="text-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                             data-target="#operationModal" data-id="<?= $u->id; ?>" data-model="<?=$_POST['model']; ?>"

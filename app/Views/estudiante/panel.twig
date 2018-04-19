@@ -5,11 +5,11 @@
 {% block body %}
     <div class="col-sm-6 col-md-4">
         <b>No de control: </b>
-        {{ egresado.id }}
+        {{ egresado.id | upper }}
     </div>
     <div class="col-sm-6 col-md-6">
         <b>Alumno: </b>
-        {{ egresado.getNombreCompleto|convert_encoding('UTF-8', 'ISO-8859-1') }}
+        {{ egresado.getNombreCompleto }}
     </div>
     <div class="col-sm-3 col-md-2">
         <b>Sexo: </b>
@@ -17,7 +17,7 @@
     </div>
     <div class="col-sm-12 col-md-6">
         <b>Dirección: </b>
-        {{ egresado.getDireccionCompleta|convert_encoding('UTF-8', 'ISO-8859-1') }}
+        {{ egresado.getDireccionCompleta }}
     </div>
     <div class="col-sm-6 col-md-3">
         <b>Teléfono: </b>
@@ -30,25 +30,25 @@
     <div class="clearfix"></div>
     <div class="col-sm-12 col-md-6">
         <b>Carrera: </b>
-        {{ egresado.getPlan.getCarrera.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}{{ egresado.getPlan.getCarrera.modalidad == 'Semiescolarizado' ? ' - Semiescolarizado' }}
+        {{ egresado.getPlan.getCarrera.nombre }}{{ egresado.getPlan.getCarrera.modalidad == 'Semiescolarizado' ? ' - Semiescolarizado' }}
     </div>
     <div class="col-sm-12 col-md-6">
         <b>Plan de estudios: </b>
-        {{ egresado.getPlan.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}
+        {{ egresado.getPlan.nombre }}
     </div>
 
     <form action="{{ route('egresado/save2') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
         <input type="hidden" name="id" value="{{ egresado.id }}">
         <datalist id="proyectos">
             {% for p in proyectos %}
-                <option value="{{ p.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}"></option>
+                <option value="{{ p.nombre }}"></option>
             {% endfor %}
         </datalist>
 
         <div class="form-group">
             <label for="proyecto" class="control-label col-sm-2">Proyecto</label>
             <div class="col-sm-10">
-                <input type="text" name="proyecto" id="proyecto" list="proyectos" value="{{ egresado.id_proyecto != null ? egresado.getProyecto.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}" class="form-control" {{ (egresado.id_proyecto != null) ? 'readonly' : 'autofocus' }} >
+                <input type="text" name="proyecto" id="proyecto" list="proyectos" value="{{ egresado.id_proyecto != null ? egresado.getProyecto.nombre }}" class="form-control" {{ (egresado.id_proyecto != null) ? 'readonly' : 'autofocus' }} >
             </div>
         </div>
 
@@ -57,7 +57,7 @@
             <div class="col-sm-5">
                 <select name="id_opciontitulacion" id="id_opciontitulacion" class="form-control" {{ (egresado.getProyecto.id_opcion != null) ? 'readonly' }}>
                     {% for o in opciones %}
-                        <option value="{{ o.id_opcion }}" {{ (o.id_opcion == egresado.getProyecto.id_opcion) ? 'selected' }}>{{ o.getOpcion.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</option>
+                        <option value="{{ o.id_opcion }}" {{ (o.id_opcion == egresado.getProyecto.id_opcion) ? 'selected' }}>{{ o.getOpcion.nombre }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -78,7 +78,7 @@
                 {% set p = 0 %}
                 {% set r = 0 %}
                 {% for doc in documentos %}
-                    <label for="id_documento" class="control-label col-sm-2">{{ doc.getDocumento.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</label>
+                    <label for="id_documento" class="control-label col-sm-2">{{ doc.getDocumento.nombre }}</label>
                     {% set a = 0 %}
                     {% for da in docAlumno %}
                         {% if(doc.id_documento == da.id_tipo_documento) %}

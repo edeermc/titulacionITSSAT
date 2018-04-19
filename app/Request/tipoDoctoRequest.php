@@ -7,13 +7,13 @@ class tipoDoctoRequest{
     function Agregar(){
         $tipoDocumento = new TipoDocumentoModel();
         if ($_POST['id'] != 0)
-            $tipoDocumento = $tipoDocumento->getById($_POST['id']); ?>
+            $tipoDocumento = TipoDocumentoModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/TipoDocumento/save'); ?>','tipoDocto')" id="form-submit">
             <input type="hidden" name="id" value="<?= $tipoDocumento->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
                 <div class="col-sm-6">
-                    <input type="text" name="nombre" id="nombre" value="<?= utf8_encode($tipoDocumento->nombre); ?>"
+                    <input type="text" name="nombre" id="nombre" value="<?= ($tipoDocumento->nombre); ?>"
                            class="form-control" required>
                 </div>
             </div>
@@ -32,11 +32,10 @@ class tipoDoctoRequest{
     }
 
     function Eliminar(){
-        $c = new TipoDocumentoModel();
-        $documento = $c->getById($_POST['id']); ?>
+        $documento = TipoDocumentoModel::getById($_POST['id']); ?>
         <form class="form-horizontal"  onsubmit="return sendForm('<?= route('cpanel/TipoDocumento/del'); ?>','tipoDocto')" id="form-submit">
             <input type="hidden" name="id" value="<?= $documento->id; ?>">
-            <h5>&#191;Desea eliminar el documento'<?= utf8_encode($documento->nombre); ?>'?</h5>
+            <h5>&#191;Desea eliminar el documento'<?= ($documento->nombre); ?>'?</h5>
 
             <div class="form-group">
                 <div class="col-sm-12 text-right">
@@ -52,14 +51,13 @@ class tipoDoctoRequest{
 
     function Buscar(){
         $k = $_POST['key'];
-        $docto = new TipoDocumentoModel();
-        $documento = $docto->getSearch('nombre', $k);
+        $documento = TipoDocumentoModel::getSearch('nombre', $k);
 
         if (count($documento) > 0) {
             foreach ($documento as $c) { ?>
                 <tr>
                     <td><?= $c->id; ?></td>
-                    <td><?= utf8_encode($c->nombre); ?></td>
+                    <td><?= ($c->nombre); ?></td>
                     <td class="text-right">
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $c->id; ?>" data-model="<?=$_POST['model']; ?>"
@@ -89,12 +87,11 @@ class tipoDoctoRequest{
 
     function Paginacion() {
         $p = 10 * ($_POST['page'] - 1);
-        $docto = new TipoDocumentoModel();
-        $documento = $docto->getRange($p, 10);
+        $documento = TipoDocumentoModel::getAll('', '', $p, 10);
         foreach ($documento as $c) { ?>
             <tr>
                 <td><?= $c->id; ?></td>
-                <td><?= utf8_encode($c->nombre); ?></td>
+                <td><?= ($c->nombre); ?></td>
                 <td class="text-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                             data-target="#operationModal" data-id="<?= $c->id; ?>" data-model="<?=$_POST['model']; ?>"

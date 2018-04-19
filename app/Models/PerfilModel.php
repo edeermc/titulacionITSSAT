@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Config\Executor;
-
-class PerfilModel {
+class PerfilModel extends Model {
 	protected static $tablename = 'perfil';
 	public $nombre;
 	public $modulo;

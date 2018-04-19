@@ -27,7 +27,7 @@ class PlanEstudiosModel extends Model {
             $sql = "SELECT * FROM " . self::$tablename . " WHERE id_carrera = {$id} ORDER BY {$ord}";
             $query = Executor::doit($sql);
     
-            return self::Many($query[0], new PlanEstudiosModel());
+            return self::Many($query, new PlanEstudiosModel());
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

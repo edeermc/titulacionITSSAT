@@ -69,7 +69,7 @@ abstract class Model {
     public static function getById($id){
         try {
             if (!empty($id)) {
-                $sql = "SELECT * FROM " . self::getTable() . " WHERE " . static::getPK() . " = {$id}";
+                $sql = "SELECT * FROM " . self::getTable() . " WHERE " . static::getPK() . " = '{$id}'";
                 $query = Executor::doit($sql);
                 
                 return self::one($query);

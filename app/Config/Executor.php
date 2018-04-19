@@ -35,7 +35,8 @@ class Executor {
                     return $query->fetchAll(PDO::FETCH_ASSOC);
                 } elseif (explode(' ', $sql)[0] == 'INSERT') {
                     if (DB_DRIVER == 'odbc')
-                        return 0; else
+                        return 0;
+                    else
                         return $con->lastInsertId();
                 } else {
                     return 1;

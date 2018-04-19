@@ -18,7 +18,7 @@ class UsuarioModel extends Model {
             $sql = "SELECT * FROM " . self::$tablename . " WHERE usuario = '{$user}' AND contrasena = '{$pass}' LIMIT 1";
             $query = Executor::doit($sql);
         
-            return Model::one($query[0], new UsuarioModel());
+            return Model::one($query, new UsuarioModel());
         } catch (\Exception $e) {
 	        throw new Exception($e->getMessage());
         }

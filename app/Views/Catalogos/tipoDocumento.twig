@@ -16,7 +16,7 @@
         {% for c in tipoDoc %}
             <tr>
                 <td>{{ c.id }}</td>
-                <td>{{ c.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
+                <td>{{ c.nombre }}</td>
                 <td class="text-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ c.id }}" data-model="{{ modelo }}" data-operation="Editar">
                         <i class="fa fa-edit"></i> Editar

@@ -2,42 +2,59 @@
 
 namespace App\Controllers;
 
+use App\Config\DB;
 use App\Models\TipoDocumentoModel;
 
 class TipoDocumentoController{
-    function index(){
-        $tipo = new TipoDocumentoModel();
-        $tipos = $tipo->getRange(0, 10);
-        $c = $tipo->getAll();
-        $p = round(count($c)/10) + (count($c)%10 < 5 ? 1 : 0);
-
-        return view('Catalogos/tipoDocumento.twig', ['tipoDoc' => $tipos, 'modelo' => 'tipoDocto', 'pag' => $p]);
+    public function index(){
+        try {
+            $tipos = TipoDocumentoModel::getAll('', '', 0, 10);
+            $c = TipoDocumentoModel::getNumRows();
+            $p = round($c / 10) + ($c % 10 < 5 ? 1 : 0);
+    
+            return view('Catalogos/tipoDocumento.twig', ['tipoDoc' => $tipos, 'modelo' => 'tipoDocto', 'pag' => $p]);
+        } catch (\Exception $e) {
+            redirect('500');
+        }
     }
 
     public function save(){
-        $reg = new TipoDocumentoModel();
-        if($_POST['id'] != 0){
-            $reg = $reg->getById($_POST['id']);
+        DB::startTransaction();
+        try {
+            $reg = new TipoDocumentoModel();
+            if ($_POST['id'] != 0) {
+                $reg = $reg->getById($_POST['id']);
+            }
+    
+            $reg->nombre = ($_POST['nombre']);
+    
+            if ($_POST['id'] == 0) {
+                $reg->add();
+                DB::commit();
+                
+                return 1;
+            } else {
+                $reg->update();
+                DB::commit();
+                
+                return 2;
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            return 0;
         }
-
-        $reg->nombre = utf8_decode($_POST['nombre']);
-
-        if($_POST['id'] == 0){
-            $reg->add();
-            return 1;
-        } else{
-            $reg->update();
-            return 2;
-        }
-
-        //redirect('cpanel/tipodocumento');
     }
 
     public function del(){
-        $tipoD = new TipoDocumentoModel();
-        $tipoD->delById($_POST['id']);
-
-        return 3;
-        //redirect('cpanel/tipodocumento');
+        DB::startTransaction();
+        try {
+            TipoDocumentoModel::delById($_POST['id']);
+            DB::commit();
+            
+            return 3;
+        } catch (\Exception $e) {
+            DB::rollback();
+            return 0;
+        }
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Config\Executor;
 
 class ProyectoModel extends Model {
-    public static $tablename = 'proyecto';
+    protected static $tablename = 'proyecto';
     
     public $nombre;
     public $id_opcion;
@@ -116,34 +116,34 @@ class ProyectoModel extends Model {
         }
     }
 
-    public function getByEstatus($stat = 'Abierto', $ord = 'id'){
+    public static function getByEstatus($stat = 'Abierto', $ord = 'id'){
         try {
             $sql = "SELECT * FROM " . self::$tablename . " WHERE estatus = '{$stat}' ORDER BY {$ord}";
             $query = Executor::doit($sql);
     
-            return self::many($query[0], new ProyectoModel());
+            return self::many($query, new ProyectoModel());
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public function getByNombre($name){
+    public static function getByNombre($name){
         try {
             $sql = "SELECT * FROM " . self::$tablename . " WHERE nombre = '{$name}' LIMIT 1";
             $query = Executor::doit($sql);
     
-            return self::one($query[0], new ProyectoModel());
+            return self::one($query, new ProyectoModel());
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public function exist($name){
+    public static function exist($name){
         try {
             $sql = "SELECT * FROM " . self::$tablename . " WHERE nombre = '{$name}' LIMIT 1";
-            $query = Executor::doit($sql);
+            $query = Executor::doit($sql, [], true);
     
-            return ($query[0]->num_rows > 0);
+            return ($query > 0);
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());
         }

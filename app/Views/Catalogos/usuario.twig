@@ -15,7 +15,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="table-content">
         {% for u in usuarios  %}
             <tr>
                 <td>{{ u.id }}</td>
@@ -23,7 +23,7 @@
                 <td>{{ u.nombre }}</td>
                 <td>{{ u.correo }}</td>
                 <td>{{ u.getPerfil.nombre }}</td>
-                <td>{{ u.getDocente.nombre }}</td>
+                <td>{{ u.getDocente.getNombreCompleto }}</td>
                 <td class="text-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ u.id }}" data-model="{{ modelo }}" data-operation="Editar">
                         <i class="fa fa-edit"></i> Editar
