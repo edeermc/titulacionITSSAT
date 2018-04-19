@@ -17,42 +17,64 @@ class DocenteModel extends Model {
     public $tipo;
 
 	function __construct(){
-		$this->nombre = '';
-		$this->apellido_paterno = '';
-		$this->apellido_materno = '';
 		$this->sexo = 'H';
-		$this->cedula_profesional = '';
 		$this->estatus = 'Si';
-		$this->id_division = '';
-		$this->id_carrera = '';
 		$this->tipo = "Docente";
 	}
 
 	public function getDivision(){
-		return DivisionModel::getById($this->id_division);
+	    try {
+            return DivisionModel::getById($this->id_division);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
 	}
 
 	public function getCarrera(){
-		return CarreraModel::getById($this->id_carrera);
+	    try {
+            return CarreraModel::getById($this->id_carrera);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
 	}
 
 	public function getNombreCompleto(){
-		return $this->nombre . ' ' . $this->apellido_paterno . ' ' . $this->apellido_materno;
+	    try {
+            return $this->nombre . ' ' . $this->apellido_paterno . ' ' . $this->apellido_materno;
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
 	}
 
 	public static function getByCarrera($id, $ord = 'id'){
-	    return self::getAll("id_carrera = '{$id}'", $ord);
+	    try {
+            return self::getAll("id_carrera = '{$id}'", $ord);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
 	}
 
     public static function getByDivision($id, $ord = 'id'){
-        return self::getAll("id_division = '{$id}'", $ord);
+	    try {
+            return self::getAll("id_division = '{$id}'", $ord);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public static function getByTipo($tipo, $ord = 'id'){
-        return self::getAll("tipo = '{$tipo}'", $ord);
+	    try {
+            return self::getAll("tipo = '{$tipo}'", $ord);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public static function getByEstatus($est = 'Si', $ord = 'id'){
-        return self::getAll("estatus = '{$est}'", $ord);
+	    try {
+            return self::getAll("estatus = '{$est}'", $ord);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 }

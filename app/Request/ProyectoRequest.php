@@ -8,7 +8,7 @@ class ProyectoRequest {
     function Agregar(){
         $proyecto = new ProyectoModel();
         if ($_POST['id'] != 0)
-            $proyecto = $proyecto->getById($_POST['id']); ?>
+            $proyecto = ProyectoModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $proyecto->id; ?>">
             <input type="hidden" name="estatus" value="<?= $proyecto->estatus; ?>">
@@ -27,7 +27,7 @@ class ProyectoRequest {
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
                 <div class="col-sm-6">
-                    <input type="text" name="nombre" id="nombre" value="<?= utf8_encode($proyecto->nombre); ?>"
+                    <input type="text" name="nombre" id="nombre" value="<?= ($proyecto->nombre); ?>"
                            class="form-control" required>
                 </div>
             </div>
@@ -35,7 +35,7 @@ class ProyectoRequest {
             <div class="form-group">
                 <label for="observaciones" class="col-sm-2 control-label">Observaciones</label>
                 <div class="col-sm-9">
-                    <textarea name="observaciones" id="observaciones" cols="30" rows="4" class="form-control"><?=(utf8_encode($proyecto->observaciones)); ?></textarea>
+                    <textarea name="observaciones" id="observaciones" cols="30" rows="4" class="form-control"><?=(($proyecto->observaciones)); ?></textarea>
                 </div>
             </div>
 
@@ -53,14 +53,13 @@ class ProyectoRequest {
     }
 
     function Alumnos(){
-        $proyecto = new ProyectoModel();
-        $proyecto = $proyecto->getById($_POST['id']); ?>
+        $proyecto = ProyectoModel::getById($_POST['id']); ?>
             <div class="row">
                 <div class="col-sm-12 text-center">
                     <h4>
                         <i class="fa fa-star"></i>
-                        <?=utf8_encode($proyecto->nombre); ?> <br>
-                        <small><b><?=utf8_encode($proyecto->getOpcion()->nombre); ?> <?=($proyecto->estatus == 'Abierto') ? '(En curso)' : '(Finalizado)'; ?></b></small>
+                        <?=($proyecto->nombre); ?> <br>
+                        <small><b><?=($proyecto->getOpcion()->nombre); ?> <?=($proyecto->estatus == 'Abierto') ? '(En curso)' : '(Finalizado)'; ?></b></small>
                     </h4>
                 </div>
                 <div class="clearfix"></div>
@@ -68,13 +67,13 @@ class ProyectoRequest {
                 <div class="col-sm-2 text-right"><b>Integrantes:</b></div>
                 <div class="col-sm-4">
                     <?php foreach ($proyecto->getAlumnos() as $a){ ?>
-                        <?=utf8_encode($a->getNombreCompleto()); ?><br>
+                        <?=($a->getNombreCompleto()); ?><br>
                     <?php } ?>
                 </div>
                 <div class="col-sm-2 text-right"><b>Asesor(es):</b></div>
                 <div class="col-sm-4">
-                    <?=utf8_encode($proyecto->getAsesor()->getNombreCompleto()); ?><br>
-                    <?=utf8_encode($proyecto->getAsesor2()->getNombreCompleto()); ?>
+                    <?=($proyecto->getAsesor()->getNombreCompleto()); ?><br>
+                    <?=($proyecto->getAsesor2()->getNombreCompleto()); ?>
                 </div>
                 <div class="clearfix"></div>
 
@@ -82,19 +81,19 @@ class ProyectoRequest {
                     <div class="page-header text-center"><b>COMITE REVISOR</b></div>
                     <div class="col-sm-2 text-right"><b>Presidente:</b></div>
                     <div class="col-sm-10">
-                        <?=utf8_encode($proyecto->getPresidente()->getNombreCompleto()); ?><br>
+                        <?=($proyecto->getPresidente()->getNombreCompleto()); ?><br>
                     </div>
                     <div class="col-sm-2 text-right"><b>Secretario:</b></div>
                     <div class="col-sm-10">
-                        <?=utf8_encode($proyecto->getSecretario()->getNombreCompleto()); ?><br>
+                        <?=($proyecto->getSecretario()->getNombreCompleto()); ?><br>
                     </div>
                     <div class="col-sm-2 text-right"><b>Vocal:</b></div>
                     <div class="col-sm-10">
-                        <?=utf8_encode($proyecto->getVocal()->getNombreCompleto()); ?><br>
+                        <?=($proyecto->getVocal()->getNombreCompleto()); ?><br>
                     </div>
                     <div class="col-sm-2 text-right"><b>Vocal suplente:</b></div>
                     <div class="col-sm-10">
-                        <?=utf8_encode($proyecto->getVocalSuplente()->getNombreCompleto()); ?><br>
+                        <?=($proyecto->getVocalSuplente()->getNombreCompleto()); ?><br>
                     </div>
                     <div class="clearfix"></div>
                 <?php } ?>
@@ -102,7 +101,7 @@ class ProyectoRequest {
                 <?php if(!empty($proyecto->observaciones)){ ?>
                     <div class="col-sm-2 text-right" style="margin-top: 25px"><b>Observaciones:</b></div>
                     <div class="col-sm-9" style="margin-top: 25px">
-                        <i><?=nl2br(utf8_encode($proyecto->observaciones)); ?></i>
+                        <i><?=nl2br(($proyecto->observaciones)); ?></i>
                     </div>
                     <div class="clearfix"></div>
                 <?php } ?>
@@ -111,22 +110,22 @@ class ProyectoRequest {
                 <div class="page-header" style="margin-top: 35px"></div>
                 <div class="col-sm-6 text-center">
                     <b>Presidente de Academia</b><br>
-                    <?=utf8_encode($proyecto->getPresidenteAcademia()->getNombreCompleto()); ?>
+                    <?=($proyecto->getPresidenteAcademia()->getNombreCompleto()); ?>
                 </div>
                 <div class="col-sm-6 text-center">
                     <b>Secretario de Academia</b><br>
-                    <?=utf8_encode($proyecto->getSecretarioAcademia()->getNombreCompleto()); ?>
+                    <?=($proyecto->getSecretarioAcademia()->getNombreCompleto()); ?>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-sm-12 text-center">
                     <b>Jefe de Carrera</b><br>
-                    <?=utf8_encode($proyecto->getJefeCarrera()->getNombreCompleto()); ?>
+                    <?=($proyecto->getJefeCarrera()->getNombreCompleto()); ?>
                 </div>
                 <div class="clearfix"></div>
 
                 <div class="col-sm-12 text-right">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>
-                        Cancelar
+                        Cerrar
                     </button>
                 </div>
             </div>
@@ -134,12 +133,11 @@ class ProyectoRequest {
     }
 
     function Dictamen(){
-        $proyecto = new ProyectoModel();
-        $proyecto = $proyecto->getById($_POST['id']);?>
+        $proyecto = ProyectoModel::getById($_POST['id']);?>
         <div class="row">
             <div class="col-sm-12 text-right">
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-remove"></i>
-                    Cancelar
+                    Cerrar
                 </button>
             </div>
         </div>
@@ -147,8 +145,7 @@ class ProyectoRequest {
     }
 
     function Eliminar(){
-        $proyecto = new ProyectoModel();
-        $proyecto = $proyecto->getById($_POST['id']); ?>
+        $proyecto = ProyectoModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $proyecto->id; ?>">
             <h5>Desea eliminar el proyecto '<?= utf8_encode($proyecto->nombre); ?>'?</h5>
@@ -167,12 +164,11 @@ class ProyectoRequest {
 
     function Paginacion(){
         $p = 10 * ($_POST['page'] - 1);
-        $proyecto = new ProyectoModel();
-        $proyecto = $proyecto->getRange($p, 10);
+        $proyecto = ProyectoModel::getAll('', '', $p, 10);
         foreach ($proyecto as $pr) { ?>
             <tr>
                 <td><?= $pr->id; ?></td>
-                <td><?= utf8_encode($pr->nombre); ?></td>
+                <td><?= ($pr->nombre); ?></td>
                 <td class="text-right">
                     <?php if(count($pr->getAlumnos()) > 0){ ?>
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
@@ -207,14 +203,13 @@ class ProyectoRequest {
 
     function Buscar(){
         $k = $_POST['key'];
-        $proyecto = new ProyectoModel();
-        $proyecto = $proyecto->getSearch('nombre', $k);
+        $proyecto = ProyectoModel::getSearch('nombre', $k);
 
         if (count($proyecto) > 0) {
             foreach ($proyecto as $p) { ?>
                 <tr>
                     <td><?= $p->id; ?></td>
-                    <td><?= utf8_encode($p->nombre); ?></td>
+                    <td><?= ($p->nombre); ?></td>
                     <td class="text-right">
                         <?php if(count($p->getAlumnos()) > 0){ ?>
                             <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"

@@ -30,39 +30,32 @@ class EgresadosModel extends Model {
     public $estatus;
 
     function __construct(){
-        $this->nombre = '';
-        $this->apellido_paterno = '';
-        $this->apellido_materno = '';
         $this->sexo = 'H';
-        $this->id_plan = '';
-        $this->calle = '';
-        $this->colonia = '';
-        $this->cp = '';
-        $this->ciudad = '';
-        $this->municipio = '';
-        $this->estado = '';
-        $this->telefono = '';
-        $this->correo = '';
-        $this->contrasena = '';
-        $this->id_proyecto = 'null';
-        $this->numero_libro = 'null';
-        $this->numero_foja = 'null';
-        $this->periodo_ingreso = '';
-        $this->periodo_egreso = '';
-        $this->token = '';
         $this->estatus = 'Registro';
     }
 
     public function getPlan(){
-        return PlanEstudiosModel::getById($this->id_plan);
+        try {
+            return PlanEstudiosModel::getById($this->id_plan);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getProyecto(){
-        return ProyectoModel::getById($this->id_proyecto);
+        try {
+            return ProyectoModel::getById($this->id_proyecto);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getDoctos(){
-        return DocumentoAlumnoModel::getByAlumno($this->id);
+        try {
+            return DocumentoAlumnoModel::getByAlumno($this->id);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function getNombreCompleto(){
@@ -74,25 +67,45 @@ class EgresadosModel extends Model {
     }
 
     public static function getByProyecto($id, $ord = 'id'){
-        return self::getAll("id_proyecto = {$id}", $ord);
+        try {
+            return self::getAll("id_proyecto = {$id}", $ord);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public static function getByPlan($id, $ord = 'id'){
-        return self::getAll("id_plan = {$id}", $ord);
+        try {
+            return self::getAll("id_plan = {$id}", $ord);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public static function getByEstatus($stat = 'Registro', $ord = 'id'){
-        return self::getAll("estatus = {$stat}", $ord);
+        try {
+            return self::getAll("estatus = {$stat}", $ord);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public static function getByToken($token){
-        return self::getAll("token = {$token}");
+        try {
+            return self::getAll("token = {$token}");
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 
     public static function exist($id){
-        $sql = "SELECT * FROM " . self::getTable() . " WHERE id = '{$id}'";
-        $n = Executor::doit($sql, [], true);
-
-        return ($n > 0);
+        try {
+            $sql = "SELECT * FROM " . self::getTable() . " WHERE id = '{$id}'";
+            $n = Executor::doit($sql, [], true);
+    
+            return ($n > 0);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 }

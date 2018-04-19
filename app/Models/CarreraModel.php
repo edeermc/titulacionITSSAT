@@ -5,7 +5,6 @@ namespace App\Models;
 class CarreraModel extends Model {
     public static $tablename = 'carrera';
     
-    public $id;
 	public $nombre;
     public $siglas;
     public $modalidad;
