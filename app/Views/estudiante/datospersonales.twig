@@ -9,7 +9,7 @@
     </div>
     <div class="col-sm-6 col-md-6">
         <b>Alumno: </b>
-        {{ egresado.getNombreCompleto|convert_encoding('UTF-8', 'ISO-8859-1') }}
+        {{ egresado.getNombreCompleto }}
     </div>
     <div class="col-sm-3 col-md-2">
         <b>Sexo: </b>
@@ -22,14 +22,14 @@
             <div class="page-header text-center"><h4>Dirección personal</h4></div>
             <label for="calle" class="control-label col-sm-2 col-md-1">Calle:</label>
             <div class="col-sm-10 col-md-11">
-                <input type="text" id="calle" name="calle" class="form-control" value="{{ egresado.calle|convert_encoding('UTF-8', 'ISO-8859-1') }}" required autofocus>
+                <input type="text" id="calle" name="calle" class="form-control" value="{{ egresado.calle }}" required autofocus>
             </div>
         </div>
 
         <div class="form-group">
             <label for="colonia" class="control-label col-sm-2 col-md-1">Colonia:</label>
             <div class="col-sm-5 col-md-6">
-                <input type="text" id="colonia" name="colonia" class="form-control" value="{{ egresado.colonia|convert_encoding('UTF-8', 'ISO-8859-1') }}" required>
+                <input type="text" id="colonia" name="colonia" class="form-control" value="{{ egresado.colonia }}" required>
             </div>
 
             <label for="cp" class="control-label col-sm-2 col-md-1">C.P.:</label>
@@ -41,19 +41,19 @@
         <div class="form-group">
             <label for="ciudad" class="control-label col-sm-2 col-md-1">Ciudad:</label>
             <div class="col-sm-4 col-md-5">
-                <input type="text" id="ciudad" name="ciudad" class="form-control" value="{{ egresado.ciudad|convert_encoding('UTF-8', 'ISO-8859-1') }}" required>
+                <input type="text" id="ciudad" name="ciudad" class="form-control" value="{{ egresado.ciudad }}" required>
             </div>
 
             <label for="municipio" class="control-label col-sm-2 col-md-1">Municipio:</label>
             <div class="col-sm-4 col-md-5">
-                <input type="text" id="municipio" name="municipio" class="form-control" value="{{ egresado.municipio|convert_encoding('UTF-8', 'ISO-8859-1') }}" required>
+                <input type="text" id="municipio" name="municipio" class="form-control" value="{{ egresado.municipio }}" required>
             </div>
         </div>
 
         <div class="form-group">
             <label for="estado" class="control-label col-sm-2 col-md-1">Estado:</label>
             <div class="col-sm-4 col-md-5">
-                <input type="text" id="estado" name="estado" class="form-control" value="{{ egresado.estado|convert_encoding('UTF-8', 'ISO-8859-1') }}" required>
+                <input type="text" id="estado" name="estado" class="form-control" value="{{ egresado.estado }}" required>
             </div>
         </div>
 

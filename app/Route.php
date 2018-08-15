@@ -39,6 +39,7 @@ class Route{
 
             /* Alumnos */
             ['url' => 'cpanel/egresado',			        'ctrl' => 'EgresadoController@index',		    	        'type' => 'guest'],
+            ['url' => 'cpanel/egresado/validatedoctos',     'ctrl' => 'EgresadoController@validatedoctos',    	        'type' => 'guest'],
             ['url' => 'cpanel/egresado/save',		        'ctrl' => 'EgresadoController@save',	    	            'type' => 'guest'],
             ['url' => 'cpanel/egresado/del',		        'ctrl' => 'EgresadoController@del',	    			        'type' => 'guest'],
 

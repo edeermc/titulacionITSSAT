@@ -11,7 +11,7 @@ class OpcionDocumentoModel extends Model {
     public $id_opcion;
 
 
-    public function delByOpcion($id){
+    public static function delByOpcion($id){
         try {
             $sql = "DELETE FROM " . self::getTable() . " WHERE id_opcion = {$id}";
             Executor::doit($sql);

@@ -9,29 +9,27 @@ class DocenteRequest{
     function Agregar(){
         $docente = new DocenteModel();
         if ($_POST['id'] != 0)
-            $docente = $docente->getById($_POST['id']);
+            $docente = DocenteModel::getById($_POST['id']);
 
-        $carreras = new CarreraModel();
-        $carreras = $carreras->getAll();
+        $carreras = CarreraModel::getAll();
 
-        $divisiones = new DivisionModel();
-        $divisiones = $divisiones->getAll(); ?>
+        $divisiones = DivisionModel::getAll(); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $docente->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
                 <div class="col-sm-4">
-                    <input type="text" name="nombre" id="nombre" value="<?= utf8_encode($docente->nombre); ?>"
+                    <input type="text" name="nombre" id="nombre" value="<?= $docente->nombre; ?>"
                            class="form-control" placeholder="Nombre" required>
                 </div>
                 <div class="col-sm-3">
                     <input type="text" name="apellido_paterno" id="apellido_paterno"
-                           value="<?= utf8_encode($docente->apellido_paterno); ?>" class="form-control"
+                           value="<?= $docente->apellido_paterno; ?>" class="form-control"
                            placeholder="A Paterno" required>
                 </div>
                 <div class="col-sm-3">
                     <input type="text" name="apellido_materno" id="apellido_materno"
-                           value="<?= utf8_encode($docente->apellido_materno); ?>" class="form-control"
+                           value="<?= $docente->apellido_materno; ?>" class="form-control"
                            placeholder="A Materno" required>
                 </div>
             </div>
@@ -46,7 +44,7 @@ class DocenteRequest{
                 <label for="cedula" class="col-sm-4 control-label">Cédula profesional</label>
                 <div class="col-sm-4">
                     <input type="text" name="cedula_profesional" id="cedula"
-                           value="<?= utf8_encode($docente->cedula_profesional); ?>" class="form-control" required>
+                           value="<?= $docente->cedula_profesional; ?>" class="form-control" required>
                 </div>
             </div>
             <div class="form-group">
@@ -54,7 +52,7 @@ class DocenteRequest{
                 <div class="col-sm-4">
                     <select name="division" id="division" class="form-control">
                         <?php foreach ($divisiones as $d): ?>
-                            <option value="<?= $d->id; ?>"<?= ($docente->id_division == $d->id) ? ' selected' : ''; ?>><?= utf8_encode($d->nombre); ?></option>
+                            <option value="<?= $d->id; ?>"<?= ($docente->id_division == $d->id) ? ' selected' : ''; ?>><?= $d->nombre; ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -62,7 +60,7 @@ class DocenteRequest{
                 <div class="col-sm-4">
                     <select name="carrera" id="carrera" class="form-control">
                         <?php foreach ($carreras as $c): ?>
-                            <option value="<?= $c->id; ?>"<?= ($docente->id_carrera == $c->id) ? ' selected' : ''; ?>><?= utf8_encode($c->nombre) . ($c->modalidad == 'Semiescolarizado' ? ' - Semiescolarizado' : ''); ?></option>
+                            <option value="<?= $c->id; ?>"<?= ($docente->id_carrera == $c->id) ? ' selected' : ''; ?>><?= $c->nombre . ($c->modalidad == 'Semiescolarizado' ? ' - Semiescolarizado' : ''); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -101,11 +99,10 @@ class DocenteRequest{
     }
 
     function Eliminar(){
-        $d = new DocenteModel();
-        $d = $d->getById($_POST['id']); ?>
+        $d = DocenteModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $d->id; ?>">
-            <h5>Desea eliminar al docente '<?= utf8_encode($d->getNombreCompleto()); ?>'?</h5>
+            <h5>Desea eliminar al docente '<?= $d->getNombreCompleto(); ?>'?</h5>
 
             <div class="form-group">
                 <div class="col-sm-12 text-right">
@@ -121,17 +118,16 @@ class DocenteRequest{
 
     function Buscar(){
         $k = $_POST['key'];
-        $docente = new DocenteModel();
-        $docente = $docente->getSearch('CONCAT(nombre,\' \',apellido_paterno,\' \',apellido_materno)', $k);
+        $docente = DocenteModel::getAll("CONCAT(nombre,' ',apellido_paterno,' ',apellido_materno) LIKE '%{$k}%'");
         if (count($docente) > 0) {
             foreach ($docente as $d) { ?>
                 <tr>
                     <td><?= $d->id; ?></td>
-                    <td><?= utf8_encode($d->getNombreCompleto()); ?></td>
+                    <td><?= $d->getNombreCompleto(); ?></td>
                     <td class="text-center"><?= $d->sexo; ?></td>
                     <td><?= $d->cedula_profesional; ?></td>
-                    <td><?= utf8_encode($d->getDivision()->nombre); ?></td>
-                    <td><?= utf8_encode($d->getCarrera()->nombre); ?></td>
+                    <td><?= $d->getDivision()->nombre; ?></td>
+                    <td><?= $d->getCarrera()->nombre; ?></td>
                     <td class="text-center"><i
                                 class="fa fa-check <?= ($d->estatus == 'Si') ? 'text-primary' : 'text-muted'; ?>"></i>
                     </td>
@@ -160,16 +156,15 @@ class DocenteRequest{
 
     function Paginacion(){
         $p = 10 * ($_POST['page'] - 1);
-        $docente = new DocenteModel();
-        $docente = $docente->getRange($p, 10);
+        $docente = DocenteModel::getAll('', '', $p, 10);
         foreach ($docente as $d) { ?>
             <tr>
                 <td><?= $d->id; ?></td>
-                <td><?= utf8_encode($d->getNombreCompleto()); ?></td>
+                <td><?= $d->getNombreCompleto(); ?></td>
                 <td class="text-center"><?= $d->sexo; ?></td>
                 <td><?= $d->cedula_profesional; ?></td>
-                <td><?= utf8_encode($d->getDivision()->nombre); ?></td>
-                <td><?= utf8_encode($d->getCarrera()->nombre); ?></td>
+                <td><?= $d->getDivision()->nombre; ?></td>
+                <td><?= $d->getCarrera()->nombre; ?></td>
                 <td class="text-center"><i
                             class="fa fa-check <?= ($d->estatus == 'Si') ? 'text-primary' : 'text-muted'; ?>"></i></td>
                 <td class="text-right">

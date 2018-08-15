@@ -31,7 +31,7 @@ abstract class Model {
         try {
             $sql = "INSERT INTO " . self::getTable() . "(" . $this->getParams(3) . ")
             VALUES (" . $this->getParams() . ")";
-            
+
             return $this->executeSQL($sql);
         } catch (\Exception $e){
             throw new \Exception($e->getMessage());
@@ -50,7 +50,7 @@ abstract class Model {
     
     public static function delById($id){
         try {
-            $sql = "DELETE FROM " . self::getTable()  . " WHERE " . static::getPK() . " = {$id}";
+            $sql = "DELETE FROM " . self::getTable()  . " WHERE " . static::getPK() . " = '{$id}''";
             return Executor::doit($sql);
         } catch (\Exception $e){
             throw new \Exception($e->getMessage());
@@ -71,7 +71,7 @@ abstract class Model {
             if (!empty($id)) {
                 $sql = "SELECT * FROM " . self::getTable() . " WHERE " . static::getPK() . " = '{$id}'";
                 $query = Executor::doit($sql);
-                
+
                 return self::one($query);
             } else
                 return array();
@@ -88,7 +88,6 @@ abstract class Model {
             
             return self::many($query);
         } catch (\Exception $e){
-            echo $sql;
             throw new \Exception($e->getMessage());
         }
     }
@@ -183,6 +182,7 @@ abstract class Model {
      * @param int $mode
      *      1 .- Listado de parametros dividido por comas
      *      2 .- Listado con asignacion de campo a parametro
+     *      3 .- Listado de campos divididos por comas
      * @return string - Listado de parametros
      */
     private function getParams($mode = 1){

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Config\Executor;
+
 class DocenteModel extends Model {
     public static $tablename = 'docente';
     
@@ -26,7 +28,7 @@ class DocenteModel extends Model {
 	    try {
             return DivisionModel::getById($this->id_division);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
 	}
 
@@ -34,7 +36,7 @@ class DocenteModel extends Model {
 	    try {
             return CarreraModel::getById($this->id_carrera);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
 	}
 
@@ -42,15 +44,23 @@ class DocenteModel extends Model {
 	    try {
             return $this->nombre . ' ' . $this->apellido_paterno . ' ' . $this->apellido_materno;
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
 	}
+
+    public function getDoctos() {
+        try {
+            return DocumentoAlumnoModel::getAll("n_control = '{$this->id}'");
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
 
 	public static function getByCarrera($id, $ord = 'id'){
 	    try {
             return self::getAll("id_carrera = '{$id}'", $ord);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
 	}
 
@@ -58,7 +68,7 @@ class DocenteModel extends Model {
 	    try {
             return self::getAll("id_division = '{$id}'", $ord);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -66,7 +76,7 @@ class DocenteModel extends Model {
 	    try {
             return self::getAll("tipo = '{$tipo}'", $ord);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -74,7 +84,32 @@ class DocenteModel extends Model {
 	    try {
             return self::getAll("estatus = '{$est}'", $ord);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public static function getCargoAcademia($id_career, $type = 1) {
+        switch ($type) {
+            case 1:
+                $type = 'Presidente';
+                break;
+            case 2:
+                $type = 'Secretario';
+                break;
+            case 3:
+                $type = 'JefeCarrera';
+                break;
+            default:
+                $type = 'Docente';
+        }
+
+        try {
+            $sql = "SELECT * FROM " . self::getTable() . " WHERE id_carrera = {$id_career} AND tipo = '{$type}' LIMIT 1";
+            $query = Executor::doit($sql);
+
+            return Model::one($query, new DocenteModel());
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
     }
 }

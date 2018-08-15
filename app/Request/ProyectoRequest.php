@@ -11,19 +11,6 @@ class ProyectoRequest {
             $proyecto = ProyectoModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $proyecto->id; ?>">
-            <input type="hidden" name="estatus" value="<?= $proyecto->estatus; ?>">
-            <input type="hidden" name="id_opcion" value="<?= $proyecto->id_opcion; ?>">
-            <input type="hidden" name="id_presidente" value="<?= $proyecto->id_presidente; ?>">
-            <input type="hidden" name="id_secretario" value="<?= $proyecto->id_secretario; ?>">
-            <input type="hidden" name="id_vocal" value="<?= $proyecto->id_vocal; ?>">
-            <input type="hidden" name="id_vocal_suplente" value="<?= $proyecto->id_vocal_suplente; ?>">
-            <input type="hidden" name="id_asesor" value="<?= $proyecto->id_asesor; ?>">
-            <input type="hidden" name="id_asesor2" value="<?= $proyecto->id_asesor2; ?>">
-            <input type="hidden" name="id_presidenteacademia" value="<?= $proyecto->id_presidenteacademia; ?>">
-            <input type="hidden" name="id_secretarioacademia" value="<?= $proyecto->id_secretarioacademia; ?>">
-            <input type="hidden" name="id_jefecarrera" value="<?= $proyecto->id_jefecarrera; ?>">
-            <input type="hidden" name="fecha_notificacion" value="<?= $proyecto->fecha_notificacion; ?>">
-            <input type="hidden" name="fecha_liberacion" value="<?= $proyecto->fecha_liberacion; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
                 <div class="col-sm-6">
@@ -67,13 +54,13 @@ class ProyectoRequest {
                 <div class="col-sm-2 text-right"><b>Integrantes:</b></div>
                 <div class="col-sm-4">
                     <?php foreach ($proyecto->getAlumnos() as $a){ ?>
-                        <?=($a->getNombreCompleto()); ?><br>
+                        <?=$a->getNombreCompleto(); ?><br>
                     <?php } ?>
                 </div>
                 <div class="col-sm-2 text-right"><b>Asesor(es):</b></div>
                 <div class="col-sm-4">
-                    <?=($proyecto->getAsesor()->getNombreCompleto()); ?><br>
-                    <?=($proyecto->getAsesor2()->getNombreCompleto()); ?>
+                    <?=(!empty($proyecto->id_asesor)) ? $proyecto->getAsesor()->getNombreCompleto() : 'Sin asignar'; ?><br>
+                    <?=(!empty($proyecto->id_asesor2)) ? $proyecto->getAsesor2()->getNombreCompleto() : ''; ?>
                 </div>
                 <div class="clearfix"></div>
 
@@ -148,7 +135,7 @@ class ProyectoRequest {
         $proyecto = ProyectoModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $proyecto->id; ?>">
-            <h5>Desea eliminar el proyecto '<?= utf8_encode($proyecto->nombre); ?>'?</h5>
+            <h5>Desea eliminar el proyecto '<?= $proyecto->nombre; ?>'?</h5>
 
             <div class="form-group">
                 <div class="col-sm-12 text-right">
@@ -168,7 +155,7 @@ class ProyectoRequest {
         foreach ($proyecto as $pr) { ?>
             <tr>
                 <td><?= $pr->id; ?></td>
-                <td><?= ($pr->nombre); ?></td>
+                <td><?= $pr->nombre; ?></td>
                 <td class="text-right">
                     <?php if(count($pr->getAlumnos()) > 0){ ?>
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
@@ -177,12 +164,12 @@ class ProyectoRequest {
                             <i class="fa fa-users"></i> Ver alumnos
                         </button>
                     <?php } ?>
-                    <?php if(count($pr->getPresidente()) > 0){ ?>
-                        <!-- <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
+                    <?php if(count($pr->getAlumnos()) > 0){ ?>
+                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $pr->id; ?>" data-model="<?=$_POST['model']; ?>"
                                 data-operation="Dictamen">
                             <i class="fa fa-graduation-cap"></i> Dictamen
-                        </button> -->
+                        </button>
                     <?php } ?>
 
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
@@ -209,7 +196,7 @@ class ProyectoRequest {
             foreach ($proyecto as $p) { ?>
                 <tr>
                     <td><?= $p->id; ?></td>
-                    <td><?= ($p->nombre); ?></td>
+                    <td><?= $p->nombre; ?></td>
                     <td class="text-right">
                         <?php if(count($p->getAlumnos()) > 0){ ?>
                             <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
@@ -218,12 +205,12 @@ class ProyectoRequest {
                                 <i class="fa fa-users"></i> Ver alumnos
                             </button>
                         <?php } ?>
-                        <?php if(count($p->getPresidente()) > 0){ ?>
-                            <!-- <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
+                        <?php if(count($p->getAlumnos()) > 0){ ?>
+                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                     data-target="#operationModal" data-id="<?= $p->id; ?>" data-model="<?=$_POST['model']; ?>"
                                     data-operation="Dictamen">
                                 <i class="fa fa-users"></i> Dictamen
-                            </button> -->
+                            </button>
                         <?php } ?>
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $p->id; ?>" data-model="<?=$_POST['model']; ?>"

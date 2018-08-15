@@ -32,7 +32,7 @@ class ProyectoModel extends Model {
         try {
             return OpcionTitulacionModel::getById($this->id_opcion);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -40,7 +40,7 @@ class ProyectoModel extends Model {
         try {
             return DocenteModel::getById($this->id_presidente);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ class ProyectoModel extends Model {
         try {
             return DocenteModel::getById($this->id_secretario);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -56,7 +56,7 @@ class ProyectoModel extends Model {
         try {
             return DocenteModel::getById($this->id_vocal);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -64,7 +64,7 @@ class ProyectoModel extends Model {
         try {
             return DocenteModel::getById($this->id_vocal_suplente);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ class ProyectoModel extends Model {
         try {
             return DocenteModel::getById($this->id_asesor);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -80,7 +80,7 @@ class ProyectoModel extends Model {
         try {
             return DocenteModel::getById($this->id_asesor2);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -88,7 +88,7 @@ class ProyectoModel extends Model {
         try {
             return DocenteModel::getById($this->id_presidenteacademia);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -96,7 +96,7 @@ class ProyectoModel extends Model {
         try {
             return DocenteModel::getById($this->id_secretarioacademia);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -104,7 +104,7 @@ class ProyectoModel extends Model {
         try {
             return DocenteModel::getById($this->id_jefecarrera);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -112,7 +112,7 @@ class ProyectoModel extends Model {
         try {
             return EgresadosModel::getByProyecto($this->id);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -123,7 +123,7 @@ class ProyectoModel extends Model {
     
             return self::many($query, new ProyectoModel());
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -134,7 +134,7 @@ class ProyectoModel extends Model {
     
             return self::one($query, new ProyectoModel());
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -145,7 +145,7 @@ class ProyectoModel extends Model {
     
             return ($query > 0);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 }

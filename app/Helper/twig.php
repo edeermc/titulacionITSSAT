@@ -13,6 +13,10 @@ function route( $val ) {
     return $url;
 }
 
+function to_md5( $val ) {
+    return md5($val);
+}
+
 function twig() {
     $loader     = new \Twig_Loader_Filesystem( 'app/Views' );
     $twig       = new \Twig_Environment( $loader );
@@ -32,11 +36,16 @@ function twig() {
     $user_id  = new Twig_SimpleFunction( 'user_id', function() {
 		return @$_SESSION['id'];
 	} );
+
+    $to_md5  = new Twig_SimpleFunction( 'to_md5', function( $val ) {
+        return to_md5( $val );
+    } );
 	
     $twig->addFunction( $resource );
     $twig->addFunction( $router );
     $twig->addFunction( $user_nick );
     $twig->addFunction( $user_id );
+    $twig->addFunction( $to_md5 );
 	return $twig;
 }
 

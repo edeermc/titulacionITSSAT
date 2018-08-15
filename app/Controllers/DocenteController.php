@@ -2,49 +2,70 @@
 
 namespace App\Controllers;
 
+use App\Config\DB;
 use App\Models\DocenteModel;
 
 class DocenteController {
 	public function index(){
-		$docente = new DocenteModel();
-		$docentes = $docente->getRange(0, 10);
-		$c = $docente->getAll();
-		$p = round(count($c)/10) + (count($c)%10 < 5 ? 1 : 0);
+	    try {
+            $docentes = DocenteModel::getAll('', '', 0, 10);
+            $c = DocenteModel::getNumRows();
+            $p = round($c / 10) + ($c % 10 < 5 ? 1 : 0);
 
-		return view('Catalogos/docente.twig', ['docentes' => $docentes, 'modelo' => 'Docente', 'pag' => $p]);
+            return view('Catalogos/docente.twig', ['docentes' => $docentes, 'modelo' => 'Docente', 'pag' => $p]);
+        } catch (\Exception $e) {
+            redirect('500');
+        }
 	}
 
 	public function save(){
-		$reg = new DocenteModel();
-		if($_POST['id'] != 0){
-			$reg = $reg->getById($_POST['id']);
-		}
+	    DB::startTransaction();
+	    try {
+            $reg = new DocenteModel();
+            if ($_POST['id'] != 0) {
+                $reg = DocenteModel::getById($_POST['id']);
+            }
 
-		$reg->nombre = utf8_decode($_POST['nombre']);
-		$reg->apellido_paterno = utf8_decode($_POST['apellido_paterno']);
-		$reg->apellido_materno = utf8_decode($_POST['apellido_materno']);
-		$reg->sexo = $_POST['sexo'];
-		$reg->cedula_profesional = $_POST['cedula_profesional'];
-		$reg->id_division = $_POST['division'];
-		$reg->id_carrera = $_POST['carrera'];
-		$reg->estatus = $_POST['estatus'];
-		$reg->tipo = $_POST['tipo'];
+            $reg->nombre = $_POST['nombre'];
+            $reg->apellido_paterno = $_POST['apellido_paterno'];
+            $reg->apellido_materno = $_POST['apellido_materno'];
+            $reg->sexo = $_POST['sexo'];
+            $reg->cedula_profesional = $_POST['cedula_profesional'];
+            $reg->id_division = $_POST['division'];
+            $reg->id_carrera = $_POST['carrera'];
+            $reg->estatus = $_POST['estatus'];
+            $reg->tipo = $_POST['tipo'];
 
-		if($_POST['id'] == 0){
-			$reg->add();
-			return 1;
-		} else{
-			$reg->update();
-			return 2;
-		}
+            if ($_POST['id'] == 0) {
+                $reg->add();
+                DB::commit();
+
+                return 1;
+            } else {
+                $reg->update();
+                DB::commit();
+
+                return 2;
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            return 0;
+        }
 
 		//redirect('cpanel/docente');
 	}
 
 	public function del(){
-		$carrera = new DocenteModel();
-		$carrera->delById($_POST['id']);
-        return 3;
+	    DB::startTransaction();
+	    try {
+            DocenteModel::delById($_POST['id']);
+            DB::commit();
+
+            return 3;
+        } catch (\Exception $e) {
+	        DB::rollback();
+	        return 0;
+        }
 
 		//redirect('cpanel/docente');
 	}

@@ -19,11 +19,28 @@
         {% for d in egresados %}
             <tr>
                 <td>{{ d.id }}</td>
-                <td>{{ d.getNombreCompleto|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
+                <td>{{ d.getNombreCompleto }}</td>
                 <td class="text-center">{{ d.sexo }}</td>
-                <td>{{ d.getPlan.getCarrera.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
-                <td>{{ d.getPlan.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
+                <td>{{ d.getPlan.getCarrera.nombre }}</td>
+                <td>{{ d.getPlan.nombre }}</td>
                 <td class="text-right">
+                    {% if (d.getDocumentos|length > 0) %}
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-xs btn-warning">Documentos</button>
+                            <button type="button" class="btn btn-xs btn-warning dropdown-toggle" data-toggle="dropdown">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                {% for f in d.getDocumentos %}
+                                    <li><a href="{{ resource('documentos/') }}{{ to_md5(f.n_control) }}/{{ f.ruta }}" target="_blank">{{ f.getDocumento.nombre }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Documentos">
+                        <i class="fa fa-book"></i> Documentos
+                    </button>
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Editar">
                         <i class="fa fa-edit"></i> Editar
                     </button>

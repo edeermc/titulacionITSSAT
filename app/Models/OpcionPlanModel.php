@@ -15,7 +15,7 @@ class OpcionPlanModel extends Model {
         $this->id_opcion = '';
     }
 
-    public function delByOpcion($id){
+    public static function delByOpcion($id){
         $sql = "DELETE FROM ".self::getTable()." WHERE id_opcion = {$id}";
         Executor::doit($sql);
     }

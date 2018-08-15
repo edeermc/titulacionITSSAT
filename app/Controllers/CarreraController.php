@@ -23,7 +23,7 @@ class CarreraController {
 	    try {
             $reg = new CarreraModel();
             if ($_POST['id'] != 0) {
-                $reg = $reg->getById($_POST['id']);
+                $reg = CarreraModel::getById($_POST['id']);
             }
         
             $reg->nombre = $_POST['nombre'];
@@ -52,8 +52,7 @@ class CarreraController {
 	public function del(){
 	    DB::startTransaction();
 	    try {
-            $carrera = new CarreraModel();
-            $carrera->delById($_POST['id']);
+            CarreraModel::delById($_POST['id']);
             DB::commit();
             
             return 3;

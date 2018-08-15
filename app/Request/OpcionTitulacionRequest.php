@@ -9,17 +9,13 @@ class OpcionTitulacionRequest{
     function Agregar(){
         $opc = new OpcionTitulacionModel();
         if ($_POST['id'] != 0)
-            $opc = $opc->getById($_POST['id']);
-
-        $carreras = new CarreraModel();
-        $carreras = $carreras->getAll(); ?>
+            $opc = OpcionTitulacionModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/save'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $opc->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
                 <div class="col-sm-6">
-                    <input type="text" name="nombre" id="nombre" value="<?= utf8_encode($opc->nombre); ?>"
-                           class="form-control" required>
+                    <input type="text" name="nombre" id="nombre" value="<?= $opc->nombre; ?>" class="form-control" required>
                 </div>
             </div>
 
@@ -41,15 +37,13 @@ class OpcionTitulacionRequest{
         if ($_POST['id'] != 0)
             $opc = $opc->getById($_POST['id']);
 
-        $doctos = new TipoDocumentoModel();
-        $doctos = $doctos->getAll(); ?>
+        $doctos = TipoDocumentoModel::getAll(); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/saveD'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $opc->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
                 <div class="col-sm-6">
-                    <input type="text" name="nombre" id="nombre" value="<?= utf8_encode($opc->nombre); ?>"
-                           class="form-control" readonly>
+                    <input type="text" name="nombre" id="nombre" value="<?= $opc->nombre; ?>" class="form-control" readonly>
                 </div>
             </div>
 
@@ -58,9 +52,8 @@ class OpcionTitulacionRequest{
                 <?php foreach ($doctos as $d): ?>
                     <div class="col-sm-4">
                         <label class="checkbox-inline">
-                            <input type="checkbox" name="id_docto[]"
-                                   value="<?= $d->id; ?>"<?= $d->isChecked($opc->id) ? ' checked' : ''; ?>>
-                            <?= utf8_encode($d->nombre); ?>
+                            <input type="checkbox" name="id_docto[]" value="<?= $d->id; ?>"<?= $d->isChecked($opc->id) ? ' checked' : ''; ?>>
+                            <?= $d->nombre; ?>
                         </label>
                     </div>
                 <?php endforeach; ?>
@@ -84,15 +77,13 @@ class OpcionTitulacionRequest{
         if ($_POST['id'] != 0)
             $opc = $opc->getById($_POST['id']);
 
-        $carreras = new CarreraModel();
-        $carreras = $carreras->getAll(); ?>
+        $carreras = CarreraModel::getAll(); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/saveP'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $opc->id; ?>">
             <div class="form-group">
                 <label for="nombre" class="col-sm-2 control-label">Nombre</label>
                 <div class="col-sm-6">
-                    <input type="text" name="nombre" id="nombre" value="<?= utf8_encode($opc->nombre); ?>"
-                           class="form-control" readonly>
+                    <input type="text" name="nombre" id="nombre" value="<?= $opc->nombre; ?>" class="form-control" readonly>
                 </div>
             </div>
 
@@ -100,7 +91,7 @@ class OpcionTitulacionRequest{
             <?php foreach ($carreras as $c): ?>
                 <?php if (count($c->getPlanes()) > 0): ?>
                     <h5 class="text-center" style="margin: 0">
-                        <b><?= utf8_encode($c->nombre); ?></b>
+                        <b><?= $c->nombre; ?></b>
                         <small>
                             ( <label><input type="checkbox" id="todo<?= $c->id; ?>"> Todas</label> )
                         </small>
@@ -109,8 +100,7 @@ class OpcionTitulacionRequest{
                         <?php foreach ($c->getPlanes() as $p): ?>
                             <div class="col-sm-4">
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" name="id_plan[]"
-                                           value="<?= $p->id; ?>"<?= $p->isChecked($opc->id) ? ' checked' : ''; ?>>
+                                    <input type="checkbox" name="id_plan[]" value="<?= $p->id; ?>"<?= $p->isChecked($opc->id) ? ' checked' : ''; ?>>
                                     <?= $p->nombre; ?>
                                 </label>
                             </div>
@@ -136,11 +126,10 @@ class OpcionTitulacionRequest{
     }
 
     function Eliminar(){
-        $opc = new OpcionTitulacionModel();
-        $opc = $opc->getById($_POST['id']); ?>
+        $opc = OpcionTitulacionModel::getById($_POST['id']); ?>
         <form class="form-horizontal" onsubmit="return sendForm('<?= route('cpanel/' . $_POST['model'] . '/del'); ?>','<?=$_POST['model']; ?>')" id="form-submit">
             <input type="hidden" name="id" value="<?= $opc->id; ?>">
-            <h5>Desea eliminar la opción '<?= utf8_encode($opc->nombre); ?>'?</h5>
+            <h5>Desea eliminar la opción '<?= $opc->nombre; ?>'?</h5>
 
             <div class="form-group">
                 <div class="col-sm-12 text-right">
@@ -156,12 +145,11 @@ class OpcionTitulacionRequest{
 
     function Paginacion(){
         $p = 10 * ($_POST['page'] - 1);
-        $opc = new OpcionTitulacionModel();
-        $opc = $opc->getRange($p, 10);
+        $opc = OpcionTitulacionModel::getAll('', '', $p, 10);
         foreach ($opc as $o) { ?>
             <tr>
                 <td><?= $o->id; ?></td>
-                <td><?= utf8_encode($o->nombre); ?></td>
+                <td><?= $o->nombre; ?></td>
                 <td class="text-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                             data-target="#operationModal" data-id="<?= $o->id; ?>" data-model="<?=$_POST['model']; ?>"
@@ -191,14 +179,13 @@ class OpcionTitulacionRequest{
 
     function Buscar(){
         $k = $_POST['key'];
-        $opc = new OpcionTitulacionModel();
-        $opc = $opc->getSearch('nombre', $k);
+        $opc = OpcionTitulacionModel::getSearch('nombre', $k);
 
         if (count($opc) > 0) {
             foreach ($opc as $o) { ?>
                 <tr>
                     <td><?= $o->id; ?></td>
-                    <td><?= utf8_encode($o->nombre); ?></td>
+                    <td><?= $o->nombre; ?></td>
                     <td class="text-right">
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $o->id; ?>" data-model="<?=$_POST['model']; ?>"

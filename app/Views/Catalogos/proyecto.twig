@@ -35,7 +35,7 @@
                     <i class="fa fa-square-o status-uncheck"></i>
                 </td> -->
                 <td>{{ p.id }}</td>
-                <td>{{ p.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
+                <td>{{ p.nombre }}</td>
                 <td class="text-right">
                     {% if((p.getAlumnos|length) > 0) %}
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ p.id }}" data-model="{{ modelo }}" data-operation="Alumnos">

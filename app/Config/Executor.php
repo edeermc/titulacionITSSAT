@@ -11,7 +11,7 @@ class Executor {
         try {
             $query = $con->prepare($sql);
             
-            if (count($values) != 0) {
+            if (count($values) > 0) {
                 foreach ($values as $property => $val) {
                     $type = null;
                     if ((!empty($val) || $val == 0) && strpos($sql, ':' . $property)) {

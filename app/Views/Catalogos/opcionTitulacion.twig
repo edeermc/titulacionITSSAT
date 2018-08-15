@@ -16,7 +16,7 @@
         {% for o in opc %}
             <tr>
                 <td>{{ o.id }}</td>
-                <td>{{ o.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
+                <td>{{ o.nombre }}</td>
                 <td class="text-right">
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ o.id }}" data-model="{{ modelo }}" data-operation="Planes">
                         <i class="fa fa-book"></i> Planes de estudio

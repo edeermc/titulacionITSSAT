@@ -6,7 +6,8 @@ use App\Config\Executor;
 
 class EgresadosModel extends Model {
     public static $tablename = 'egresados';
-    
+
+    public $id;
     public $nombre;
     public $apellido_paterno;
     public $apellido_materno;
@@ -34,11 +35,23 @@ class EgresadosModel extends Model {
         $this->estatus = 'Registro';
     }
 
+    public function add() {
+        try {
+            $sql = "INSERT INTO `egresados`(`id`, `nombre`, `apellido_paterno`, `apellido_materno`, `sexo`, `id_plan`, `calle`, `colonia`, `cp`, `ciudad`, `municipio`, `estado`, `telefono`, `correo`, `contrasena`, `id_proyecto`, `numero_libro`, `numero_foja`, `periodo_ingreso`, `periodo_egreso`, `token`, `estatus`)
+                                    VALUES (:id, :nombre, :apellido_paterno, :apellido_materno, :sexo, :id_plan, :calle, :colonia, :cp, :ciudad, :municipio, :estado, :telefono, :correo, :contrasena, :id_proyecto, :numero_libro, :numero_foja, :periodo_ingreso, :periodo_egreso, :token, :estatus)";
+
+            $id = Executor::doit($sql, (array)$this);
+            return $id;
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
     public function getPlan(){
         try {
             return PlanEstudiosModel::getById($this->id_plan);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -46,15 +59,15 @@ class EgresadosModel extends Model {
         try {
             return ProyectoModel::getById($this->id_proyecto);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
-    public function getDoctos(){
+    public function getDocumentos(){
         try {
             return DocumentoAlumnoModel::getByAlumno($this->id);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -70,7 +83,7 @@ class EgresadosModel extends Model {
         try {
             return self::getAll("id_proyecto = {$id}", $ord);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -78,7 +91,7 @@ class EgresadosModel extends Model {
         try {
             return self::getAll("id_plan = {$id}", $ord);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -86,7 +99,7 @@ class EgresadosModel extends Model {
         try {
             return self::getAll("estatus = {$stat}", $ord);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -94,7 +107,7 @@ class EgresadosModel extends Model {
         try {
             return self::getAll("token = {$token}");
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 
@@ -105,7 +118,7 @@ class EgresadosModel extends Model {
     
             return ($n > 0);
         } catch (\Exception $e) {
-            throw new Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
         }
     }
 }

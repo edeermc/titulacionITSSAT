@@ -8,6 +8,7 @@ use App\Models\EgresadosModel;
 use App\Models\OpcionDocumentoModel;
 use App\Models\OpcionPlanModel;
 use App\Models\ProyectoModel;
+use App\Models\DocenteModel;
 
 class EgresadoController {
     public function index(){
@@ -78,10 +79,10 @@ class EgresadoController {
 
     public function panel(){
         try {
-            $egresado = EgresadosModel::getById('121U0229');
+            $egresado = EgresadosModel::getById('121u0123');
     
             if (!empty($egresado->calle)) {
-                $doctosE = $egresado->getDoctos();
+                $doctosE = $egresado->getDocumentos();
                 $proyectos = ProyectoModel::getByEstatus();
                 $opciones = OpcionPlanModel::getByPlan($egresado->id_plan);
         
@@ -102,7 +103,7 @@ class EgresadoController {
 
     public function config(){
         try {
-            $egresado = EgresadosModel::getById('121U0229');
+            $egresado = EgresadosModel::getById('121u0123');
     
             return view('estudiante/datospersonales.twig', ['egresado' => $egresado]);
         } catch (\Exception $e) {
@@ -119,25 +120,21 @@ class EgresadoController {
         try {
             $reg = EgresadosModel::getById($_POST['id']);
     
-            // $reg->id_proyecto = (!empty($reg->id_proyecto)) ? $reg->id_proyecto : 'null';
-            // $reg->numero_foja = (!empty($reg->numero_foja)) ? $reg->numero_foja : 'null';
-            // $reg->numero_libro = (!empty($reg->numero_libro)) ? $reg->numero_libro : 'null';
-            $reg->calle = utf8_decode($_POST['calle']);
-            $reg->colonia = utf8_decode($_POST['colonia']);
-            $reg->cp = utf8_decode($_POST['cp']);
-            $reg->ciudad = utf8_decode($_POST['ciudad']);
-            $reg->municipio = utf8_decode($_POST['municipio']);
-            $reg->estado = utf8_decode($_POST['estado']);
+            $reg->calle = $_POST['calle'];
+            $reg->colonia = $_POST['colonia'];
+            $reg->cp = $_POST['cp'];
+            $reg->ciudad = $_POST['ciudad'];
+            $reg->municipio = $_POST['municipio'];
+            $reg->estado = $_POST['estado'];
             $reg->telefono = $_POST['telefono'];
-            //$reg->correo = $_POST['correo'];
-    
+
             $reg->update();
             DB::commit();
             
             redirect('egresado');
         } catch (\Exception $e) {
             DB::rollback();
-            return 0;
+            return $e->getMessage();
         }
     }
 
@@ -145,32 +142,32 @@ class EgresadoController {
         DB::startTransaction();
         $proy = new ProyectoModel();
         try {
-            if (ProyectoModel::exist(utf8_decode($_POST['proyecto']))) {
-                $proy = ProyectoModel::getByNombre(utf8_decode($_POST['proyecto']));
-        
+            $reg = EgresadosModel::getById($_POST['id']);
+            if (ProyectoModel::exist($_POST['proyecto'])) {
+                $proy = ProyectoModel::getByNombre($_POST['proyecto']);
+
                 $id_proy = $proy->id;
                 $proy->id_opcion = $_POST['id_opciontitulacion'];
-                // $proy->id_presidente = (!empty($proy->id_presidente)) ? $proy->id_presidenteacademia : 'null';
-                // $proy->id_secretario = (!empty($proy->id_secretario)) ? $proy->id_secretario : 'null';
-                // $proy->id_vocal = (!empty($proy->id_vocal)) ? $proy->id_vocal : 'null';
-                // $proy->id_vocal_suplente = (!empty($proy->id_vocal_suplente)) ? $proy->id_vocal_suplente : 'null';
-                // $proy->id_asesor = (!empty($proy->id_asesor)) ? $proy->id_asesor : 'null';
-                // $proy->id_asesor2 = (!empty($proy->id_asesor2)) ? $proy->id_asesor2 : 'null';
-                // $proy->id_presidenteacademia = (!empty($proy->id_presidenteacademia)) ? $proy->id_presidenteacademia : 'null';
-                // $proy->id_secretarioacademia = (!empty($proy->id_secretarioacademia)) ? $proy->id_secretarioacademia : 'null';
-                // $proy->id_jefecarrera = (!empty($proy->id_jefecarrera)) ? $proy->id_jefecarrera : 'null';
+
+                $id_career = $reg->getPlan()->id_carrera;
+                if(empty($proy->id_presidenteacademia))
+                    $proy->id_presidenteacademia =  DocenteModel::getCargoAcademia($id_career, 1)->id;
+                if(empty($proy->id_secretarioacademia))
+                    $proy->id_secretarioacademia = DocenteModel::getCargoAcademia($id_career, 2)->id;
+                if(empty($proy->id_jefecarrera))
+                    $proy->id_jefecarrera = DocenteModel::getCargoAcademia($id_career, 3)->id;
+
                 $proy->update();
             } else {
-                $proy->nombre = ($_POST['proyecto']);
+                $proy->nombre = $_POST['proyecto'];
                 $proy->id_opcion = $_POST['id_opciontitulacion'];
+                $proy->id_presidenteacademia =  DocenteModel::getCargoAcademia($reg->getPlan()->id_carrera, 1)->id;
+                $proy->id_secretarioacademia = DocenteModel::getCargoAcademia($reg->getPlan()->id_carrera, 2)->id;
+                $proy->id_jefecarrera = DocenteModel::getCargoAcademia($reg->getPlan()->id_carrera, 3)->id;
                 $id_proy = $proy->add();
             }
-    
-            $reg = EgresadosModel::getById($_POST['id']);
-            // $reg->numero_foja = (!empty($reg->numero_foja)) ? $reg->numero_foja : 'null';
-            // $reg->numero_libro = (!empty($reg->numero_libro)) ? $reg->numero_libro : 'null';
+
             $reg->id_proyecto = $id_proy;
-    
             $reg->update();
             DB::commit();
     
@@ -195,7 +192,7 @@ class EgresadoController {
                     $da->estatus = 'Pendiente';
                     $da->ruta = md5($_POST['id'] . '-' . $d->id_documento) . '.pdf'; // <------- Guardar aqui
             
-                    $dir = $_SERVER["DOCUMENT_ROOT"] . '/titulacion/public/documentos/' . md5($da->n_control);
+                    $dir = $_SERVER["DOCUMENT_ROOT"] . '/titulacionITSSAT/public/documentos/' . md5($da->n_control);
                     if (!file_exists($dir))
                         mkdir($dir, 0777, true);
             
@@ -207,6 +204,30 @@ class EgresadoController {
             DB::commit();
     
             redirect('egresado');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return 0;
+        }
+    }
+
+    public function validatedoctos() {
+        DB::startTransaction();
+        try {
+            $files = array();
+            foreach ($_POST as $file => $status) {
+                if ($file != "id") {
+                    $files[] = ['id' => explode('_', $file)[1], 'stat' => $status];
+                }
+            }
+
+            foreach ($files as $f) {
+                $tmp = DocumentoAlumnoModel::getById($f['id']);
+                $tmp->estatus = $f['stat'];
+                $tmp->update();
+            }
+
+            DB::commit();
+            return 2;
         } catch (\Exception $e) {
             DB::rollback();
             return 0;

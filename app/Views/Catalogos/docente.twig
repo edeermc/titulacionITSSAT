@@ -21,11 +21,11 @@
             {% for d in docentes %}
                 <tr>
                     <td>{{ d.id }}</td>
-                    <td>{{ d.getNombreCompleto|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
+                    <td>{{ d.getNombreCompleto }}</td>
                     <td class="text-center">{{ d.sexo }}</td>
                     <td>{{ d.cedula_profesional }}</td>
-                    <td>{{ d.getDivision.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
-                    <td>{{ d.getCarrera.nombre|convert_encoding('UTF-8', 'ISO-8859-1') }}</td>
+                    <td>{{ d.getDivision.nombre }}</td>
+                    <td>{{ d.getCarrera.nombre }}</td>
                     <td class="text-center"><i class="fa fa-check {{ (d.estatus == 'Si') ? 'text-primary' : 'text-muted' }}"></i></td>
                     <td class="text-right">
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Editar">
