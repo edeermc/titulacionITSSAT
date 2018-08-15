@@ -12,3 +12,7 @@ define("APPLICATION_ROOT", "http://localhost/titulacionITSSAT");
 
 //CONFIGURACION DE LA ZONA HORARIA
 date_default_timezone_set('America/Mexico_City');
+
+//CONFIGURACIÓN PARA GUARDAR ARCHIVOS
+define("FILES_DIR", $_SERVER["DOCUMENT_ROOT"] . '/titulacionITSSAT/public/documentos/');
+define("IMAGES_DIR", $_SERVER["DOCUMENT_ROOT"] . '/titulacionITSSAT/public/img/');

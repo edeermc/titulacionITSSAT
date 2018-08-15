@@ -125,6 +125,7 @@ class EgresadoRequest{
                                         <option value="Pendiente" <?=$f->estatus == "Pendiente" ? 'selected' : ''; ?>>Pendiente</option>
                                         <option value="Aprobado" <?=$f->estatus == "Aprobado" ? 'selected' : ''; ?>>Aprobado</option>
                                         <option value="Rechazado" <?=$f->estatus == "Rechazado" ? 'selected' : ''; ?>>Rechazado</option>
+                                        <option value="Eliminar">Eliminar</option>
                                     </select>
                                 </td>
                             </tr>

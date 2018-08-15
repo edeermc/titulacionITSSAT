@@ -10,4 +10,8 @@ class ErrorController{
     public function error403() {
         return view('error/403.twig');
     }
+
+    public function error500() {
+        return view('error/500.twig');
+    }
 }

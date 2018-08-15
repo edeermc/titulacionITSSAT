@@ -79,7 +79,7 @@ class EgresadoController {
 
     public function panel(){
         try {
-            $egresado = EgresadosModel::getById('121u0123');
+            $egresado = EgresadosModel::getById('151U0254');
     
             if (!empty($egresado->calle)) {
                 $doctosE = $egresado->getDocumentos();
@@ -103,7 +103,7 @@ class EgresadoController {
 
     public function config(){
         try {
-            $egresado = EgresadosModel::getById('121u0123');
+            $egresado = EgresadosModel::getById('151U0254');
     
             return view('estudiante/datospersonales.twig', ['egresado' => $egresado]);
         } catch (\Exception $e) {
@@ -192,7 +192,7 @@ class EgresadoController {
                     $da->estatus = 'Pendiente';
                     $da->ruta = md5($_POST['id'] . '-' . $d->id_documento) . '.pdf'; // <------- Guardar aqui
             
-                    $dir = $_SERVER["DOCUMENT_ROOT"] . '/titulacionITSSAT/public/documentos/' . md5($da->n_control);
+                    $dir = FILES_DIR . md5($da->n_control);
                     if (!file_exists($dir))
                         mkdir($dir, 0777, true);
             
@@ -222,8 +222,13 @@ class EgresadoController {
 
             foreach ($files as $f) {
                 $tmp = DocumentoAlumnoModel::getById($f['id']);
-                $tmp->estatus = $f['stat'];
-                $tmp->update();
+                if ($f['stat'] == "Eliminar") {
+                    if (unlink(FILES_DIR . md5($tmp->n_control) . '/' . $tmp->ruta))
+                        $tmp->del();
+                } else {
+                    $tmp->estatus = $f['stat'];
+                    $tmp->update();
+                }
             }
 
             DB::commit();

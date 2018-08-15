@@ -2,12 +2,11 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- <link rel="stylesheet" href="{{ resource('bootstrap/css/bootstrap.css') }}">
       <link rel="stylesheet" href="{{ resource('css/custom-siderbar.css') }}"> 
     <link rel="stylesheet" href="{{ resource('font-awesome/css/font-awesome.min.css') }}">-->
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="{{ resource('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
@@ -18,15 +17,11 @@
     <link rel="stylesheet" href="{{ resource('dist/css/AdminLTE.min.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{{ resource('dist/css/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="{{ resource('dist/css/skins/skin-blue.min.css') }}">
     <!-- jvectormap -->
     <link rel="stylesheet" href="{{ resource('bower_components/jvectormap/jquery-jvectormap.css') }}">
     <!-- Date Picker -->
     <link rel="stylesheet" href="{{ resource('bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{ resource('bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
-    <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="{{ resource('plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,33 +37,35 @@
     <title>{% block title %} {% endblock %} | SYGPROF</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini fixed">
-    {% include 'template/navbar.twig' %}
+    <div class="wrapper">
+        {% include 'template/navbar.twig' %}
 
-    <div class="row">
-        {% include 'template/siderbar.twig' %}
-        <div class="wrapper">
-            <div class="content-wrapper">
-                <section class="content">
-                    <div class="container-fluid">
-                        <div class="side-body">
-                            <section class="content-header">
-                                <h1 class="text-center">{{ block('title') }}</h1>
-                            </section>
-                            <section class="content">
-                                <div class="box">
-                                    <div class="box-body">
-                                        {% block body %} {% endblock %}
+        <div class="row">
+            {% include 'template/siderbar.twig' %}
+            <div class="wrapper">
+                <div class="content-wrapper">
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="side-body">
+                                <section class="content-header">
+                                    <h1 class="text-center">{{ block('title') }}</h1>
+                                </section>
+                                <section class="content">
+                                    <div class="box">
+                                        <div class="box-body">
+                                            {% block body %} {% endblock %}
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
+                                </section>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                </div>
             </div>
         </div>
-    </div>
 
-    {% include 'template/footer.twig' %}
+        {% include 'template/footer.twig' %}
+    </div>
 
     <script type="text/javascript" src="{{ resource('jquery/jquery.min.js') }}"></script>
     <!-- jQuery 3 -->

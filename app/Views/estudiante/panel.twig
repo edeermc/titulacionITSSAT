@@ -37,6 +37,7 @@
         {{ egresado.getPlan.nombre }}
     </div>
 
+    <br><br>
     <form action="{{ route('egresado/save2') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
         <input type="hidden" name="id" value="{{ egresado.id }}">
         <datalist id="proyectos">
