@@ -1,0 +1,2 @@
+15-08-2018 13:00:06 - ERROR - A template that extends another one cannot have a body in "error/404.twig" at line 1.
+15-08-2018 13:01:42 - ERROR - Unable to find template "template/main.twig" (looked into: app/Views) in "error/403.twig" at line 1.

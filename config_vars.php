@@ -16,3 +16,12 @@ date_default_timezone_set('America/Mexico_City');
 //CONFIGURACIÓN PARA GUARDAR ARCHIVOS
 define("FILES_DIR", $_SERVER["DOCUMENT_ROOT"] . '/titulacionITSSAT/public/documentos/');
 define("IMAGES_DIR", $_SERVER["DOCUMENT_ROOT"] . '/titulacionITSSAT/public/img/');
+
+//CONFIGURACION PARA EL MANEJO DE ERRORES
+define("DEBUG_LOGGER", true);
+define("ERROR_LOGGER", true);
+define("LOG_DIR", $_SERVER["DOCUMENT_ROOT"] . '/titulacionITSSAT/');
+
+define("APP_ERROR", 1);
+define("APP_WARNING", 2);
+define("APP_INFO", 3);

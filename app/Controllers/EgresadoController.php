@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Config\DB;
+use App\Config\Logger;
 use App\Models\DocumentoAlumnoModel;
 use App\Models\EgresadosModel;
 use App\Models\OpcionDocumentoModel;
@@ -19,6 +20,7 @@ class EgresadoController {
     
             return view('Catalogos/alumno.twig', ['egresados' => $egresados, 'modelo' => 'Egresado', 'pag' => $p]);
         } catch (\Exception $e) {
+            Logger::WriteLog($e);
             redirect('500');
         }
     }
@@ -60,6 +62,7 @@ class EgresadoController {
             }
         } catch (\Exception $e) {
             DB::rollback();
+            Logger::WriteLog($e);
             return 0;
         }
     }
@@ -73,6 +76,7 @@ class EgresadoController {
             return 3;
         } catch (\Exception $e) {
             DB::rollback();
+            Logger::WriteLog($e);
             return 0;
         }
     }
@@ -97,6 +101,7 @@ class EgresadoController {
                 redirect('egresado/datospersonales');
             }
         } catch (\Exception $e) {
+            Logger::WriteLog($e);
             redirect('500');
         }
     }
@@ -107,6 +112,7 @@ class EgresadoController {
     
             return view('estudiante/datospersonales.twig', ['egresado' => $egresado]);
         } catch (\Exception $e) {
+            Logger::WriteLog($e);
             redirect('500');
         }
     }
@@ -134,7 +140,8 @@ class EgresadoController {
             redirect('egresado');
         } catch (\Exception $e) {
             DB::rollback();
-            return $e->getMessage();
+            Logger::WriteLog($e);
+            return 0;
         }
     }
 
@@ -174,6 +181,7 @@ class EgresadoController {
             redirect('egresado');
         } catch (\Exception $e) {
             DB::rollback();
+            Logger::WriteLog($e);
             return 0;
         }
     }
@@ -206,6 +214,7 @@ class EgresadoController {
             redirect('egresado');
         } catch (\Exception $e) {
             DB::rollback();
+            Logger::WriteLog($e);
             return 0;
         }
     }
@@ -235,6 +244,7 @@ class EgresadoController {
             return 2;
         } catch (\Exception $e) {
             DB::rollback();
+            Logger::WriteLog($e);
             return 0;
         }
     }

@@ -50,6 +50,11 @@ function twig() {
 }
 
 function view( $val, $array = [] ) {
-    $t = twig();
-    return $t->render( $val, $array );
+    try {
+        $t = twig();
+        return $t->render($val, $array);
+    } catch (\Exception $e){
+        \App\Config\Logger::WriteLog($e->getMessage());
+        redirect('500');
+    }
 }
