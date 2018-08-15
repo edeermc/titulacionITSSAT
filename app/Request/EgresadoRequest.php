@@ -111,7 +111,7 @@ class EgresadoRequest{
                     <thead>
                     <tr>
                         <th>Documento</th>
-                        <th width="20%">Status</th>
+                        <th width="20%">Estatus</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -158,18 +158,11 @@ class EgresadoRequest{
                     <td><?= $a->getPlan()->nombre; ?></td>
                     <td class="text-right">
                         <?php if (count($a->getDocumentos()) > 0): ?>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-warning">Documentos</button>
-                            <button type="button" class="btn btn-xs btn-warning dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
+                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
+                                data-target="#operationModal" data-id="<?= $a->id; ?>" data-model="<?=$_POST['model']; ?>"
+                                data-operation="Documentos">
+                                <i class="fa fa-book"></i> Documentos
                             </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <?php foreach ($a->getDocumentos() as $f): ?>
-                                    <li><a href="<?=resource('documentos/') . to_md5($f->n_control) ."/" . $f->ruta; ?>" target="_blank"><?=$f->getDocumento()->nombre; ?></a></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
                         <?php endif; ?>
                         <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                                 data-target="#operationModal" data-id="<?= $a->id; ?>" data-model="<?=$_POST['model']; ?>"
@@ -205,18 +198,11 @@ class EgresadoRequest{
                 <td><?= $a->getPlan()->nombre; ?></td>
                 <td class="text-right">
                     <?php if (count($a->getDocumentos()) > 0): ?>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-warning">Documentos</button>
-                            <button type="button" class="btn btn-xs btn-warning dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <?php foreach ($a->getDocumentos() as $f): ?>
-                                    <li><a href="<?=resource('documentos/') . to_md5($f->n_control) ."/" . $f->ruta; ?>" target="_blank"><?=$f->getDocumento()->nombre; ?></a></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
+                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
+                                data-target="#operationModal" data-id="<?= $a->id; ?>" data-model="<?=$_POST['model']; ?>"
+                                data-operation="Documentos">
+                            <i class="fa fa-book"></i> Documentos
+                        </button>
                     <?php endif; ?>
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal"
                             data-target="#operationModal" data-id="<?= $a->id; ?>" data-model="<?=$_POST['model']; ?>"
