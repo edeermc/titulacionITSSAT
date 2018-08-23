@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Config\Executor;
+use App\Config\Logger;
 
 /**
  * Class Model - Clase generica para generar consultas a la base de datos
@@ -20,7 +21,7 @@ abstract class Model {
     protected static $tablename;
     
     /**
-     * @var $idField - Nombre del campo con clave primaria, sirve para hacer los dedById, getById, update, etc...
+     * @var $idField - Nombre de los campos en un arreglo inidicando la llave primaria compuesta o el nombre del campo llave  en una cadena, sirve para hacer los dedById, getById, update, etc...
      */
     protected static $idField = 'id';
     
@@ -29,7 +30,7 @@ abstract class Model {
     
     public function add(){
         try {
-            $sql = "INSERT INTO " . self::getTable() . "(" . $this->getParams(3) . ")
+            $sql = "INSERT INTO " . self::getTable() . " (" . $this->getParams(3) . ")
             VALUES (" . $this->getParams() . ")";
 
             return $this->executeSQL($sql);
@@ -50,7 +51,7 @@ abstract class Model {
     
     public static function delById($id){
         try {
-            $sql = "DELETE FROM " . self::getTable()  . " WHERE " . static::getPK() . " = '{$id}''";
+            $sql = "DELETE FROM " . self::getTable()  . " WHERE " . static::getPK() . " = '{$id}'";
             return Executor::doit($sql);
         } catch (\Exception $e){
             throw new \Exception($e->getMessage());
@@ -59,7 +60,7 @@ abstract class Model {
     
     public function del(){
         try {
-            $sql = "DELETE FROM " . self::getTable() . " WHERE " . static::getPK() . " = :".static::$idField;
+            $sql = "DELETE FROM " . self::getTable() . " WHERE " . static::getPK() . " = :" . static::$idField;
             return $this->executeSQL($sql);
         } catch (\Exception $e){
             throw new \Exception($e->getMessage());
@@ -211,8 +212,29 @@ abstract class Model {
             return self::$tmarks . static::$tablename . self::$tmarks;
     }
     
-    protected static function getPK(){
-        return self::$tmarks . static::$idField . self::$tmarks;
+    protected static function getPK($val = ''){
+        try {
+            if (is_array(static::$idField)) {
+                $aux = '';
+                $i = 0;
+                foreach (static::$idField as $f) {
+                    if (empty($val)) {
+                        $aux .= self::getField($f);
+                    } else {
+                        $aux .= self::getField($f) . " = '" . $val[$i] . "'";
+                        $i++;
+                    }
+                }
+            } else {
+                if (empty($val)) {
+                    return self::getField(static::$idField);
+                } else {
+                    return self::getField(static::$idField) . " = '" . static::$idField . "'";
+                }
+            }
+        } catch (\Exception $e) {
+            Logger::WriteLog($e->getMessage());
+        }
     }
     
     protected static function getField($f){

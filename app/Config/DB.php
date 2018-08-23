@@ -31,8 +31,8 @@ class DB {
                 $con->query("SET NAMES '". DB_CHARSET . "'");
             
             return $con;
-        } catch (PDOException $e) {
-            echo 'Falló la conexión: ' . $e->getMessage();
+        } catch (\Exception $e) {
+            Logger::WriteLog('Falló la conexión: ' . $e->getMessage());
         }
     }
     
@@ -49,18 +49,26 @@ class DB {
             self::$db = new DB();
             self::$con = self::$db->connect();
         }
-        self::$con->beginTransaction();
+
+        if (!self::$con->inTransaction()) {
+            self::$con->beginTransaction();
+            Logger::WriteLog('- - - Inicia transacción - - - - ', APP_DEBUG);
+        }
     }
     
     public static function commit(){
         if(self::$con != null && self::$db != null && self::$con->inTransaction()){
             self::$con->commit();
+
+            Logger::WriteLog('- - - Consolidando cambios en la base de datos. - - - - ', APP_DEBUG);
         }
     }
     
     public static function rollback(){
         if(self::$con != null && self::$db != null && self::$con->inTransaction()){
             self::$con->rollback();
+
+            Logger::WriteLog('- - - Revirtiendo cambios en la base de datos. - - - - ', APP_DEBUG);
         }
     }
 }

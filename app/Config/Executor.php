@@ -26,7 +26,25 @@ class Executor {
                     }
                 }
             }
-            
+
+            $action = $table = "";
+            switch (strtoupper(explode(' ', $sql)[0])) {
+                case 'INSERT':
+                    $action = 'insertado';
+                    $table = strtolower(explode(' ', $sql)[2]);
+                    break;
+                case 'UPDATE':
+                    $action = 'actualizado';
+                    $table = strtolower(explode(' ', $sql)[1]);
+                    break;
+                case 'DELETE':
+                    $action = 'eliminado';
+                    $table = strtolower(explode(' ', $sql)[2]);
+                    break;
+            }
+            if (!empty($action))
+                Logger::WriteLog("Se ha {$action} un registro en la tabla {$table} por el usuario {$_SESSION['id']}.", APP_WARNING);
+
             $query->execute();
             if ($is_counter)
                 return $query->rowCount();

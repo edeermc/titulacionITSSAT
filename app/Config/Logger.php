@@ -16,7 +16,7 @@ class Logger {
             }
 
             $file = fopen($path . $name, 'a');
-            $level = ($type != APP_ERROR) ? (($type != APP_WARNING) ? 'INFO' : 'WARNING') : 'ERROR';
+            $level = ($type != APP_ERROR) ? (($type != APP_WARNING) ? 'INFO' : 'DEBUG') : 'ERROR';
             fwrite($file, date("d-m-Y H:i:s") . " - " . $level . " - " . $message . PHP_EOL);
             fclose($file);
         }
