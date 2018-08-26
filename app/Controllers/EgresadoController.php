@@ -179,6 +179,10 @@ class EgresadoController {
         }
     }
 
+    public function recupera(){
+        return view('estudiante/recuperar.twig');
+    }
+
     public function recover(){
         DB::startTransaction();
         try {

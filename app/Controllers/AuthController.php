@@ -16,9 +16,9 @@ class AuthController {
 
     public function index() {
         if(isset($_GET['msg'])) {
-            return view('login.twig', ['msg' => $_GET['msg']]);
+            return view('estudiante\login.twig', ['msg' => $_GET['msg']]);
         } elseif(!isset($_SESSION['no_control'])) {
-            return view('login.twig');
+            return view('estudiante\login.twig');
         } else {
             redirect('egresado');
         }
