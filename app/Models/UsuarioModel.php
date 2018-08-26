@@ -12,6 +12,7 @@ class UsuarioModel extends Model {
 	public $correo;
 	public $id_perfil;
 	public $id_docente;
+	public $last_login;
 
 	public static function getByUser($user, $pass){
 	    try {

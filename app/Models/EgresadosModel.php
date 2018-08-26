@@ -29,6 +29,7 @@ class EgresadosModel extends Model {
     public $periodo_egreso;
     public $token;
     public $estatus;
+    public $last_login;
 
     function __construct(){
         $this->sexo = 'H';

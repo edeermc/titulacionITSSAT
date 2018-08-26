@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="{{ resource('bootstrap/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ resource('css/custom-siderbar.css') }}">
+    <link rel="stylesheet" href="{{ resource('font-awesome/css/font-awesome.min.css') }}">
+
+    <link rel="icon" type="image/png" href="{{ resource('img/logo.png') }}">
+    <title>Registrar nuevo usuario | cPanel SYCPROF</title>
+    <style> body{  background-color: #262626;  } </style>
+</head>
+
+<body>
+<div class="container" style="margin-top: 180px;">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading text-center">
+                    <h4>
+                        {% if (msg == 'ok-register') %}
+                            <strong>Genial!</strong> Cuenta activada exitosamente.
+                        {% elseif (msg == 'ok-recover') %}
+                            <strong>Genial!</strong> Cuenta recuperada exitosamente.
+                        {% elseif (msg == 'fail-register') %}
+                            El usuario que desea crear ya existe o el correo ha sido ocupado.
+                        {% elseif (msg == 'fail-recover') %}
+                            El usuario que desea recuperar no existe, ya se encuentra en proceso de recuperación o no ha sido dado de alta.
+                        {% elseif (msg == 'register') %}
+                            <strong>Ya casi!</strong> Ahora debemos activar su cuenta.
+                        {% elseif (msg == 'recover') %}
+                            <strong>Ya casi!</strong> Ahora debemos cambiar las credenciales de su cuenta.
+                        {% endif %}
+                    </h4>
+                </div>
+                <div class="panel-body text-center">
+                    {% if (msg == 'ok-register') %}
+                        Inicia sesión dando click <a href="{{ route('login') }}">aquí</a>.
+                    {% elseif (msg == 'ok-recover') %}
+                        Inicia sesión dando click <a href="{{ route('login') }}">aquí</a>.
+                    {% elseif (msg == 'fail-register') %}
+                        Intente de nuevo con otro dirección de correo electrónico dando click <a href="{{ route('egresado/registro') }}">aquí</a> o recupere su cuenta <a href="{{ route('egresado/recuperar') }}">aquí</a>.
+                    {% elseif (msg == 'fail-recover') %}
+                        Intente de nuevo con otro usuario dando click <a href="{{ route('egresado/recuperar') }}">aquí</a> o registrese <a href="{{ route('egresado/registro') }}">aquí</a>.
+                    {% elseif (msg == 'register') %}
+                        En breve le llegará un correo con un link para validar su cuenta, necesita activarlo para poder iniciar sesión.
+                    {% elseif (msg == 'recover') %}
+                        En breve le llegará un correo con un link para recuperar su cuenta, entre al enlace proporcionado para proceder.
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div><!-- /.container -->
+
+<!-- JavaScript -->
+<script type="text/javascript" src="{{ resource('jquery/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ resource('bootstrap/js/bootstrap.js') }}"></script>
+<!-- <script type="text/javascript" src="{{ resource('metisMenu/metisMenu.min.js') }}"></script> -->
+<script type="text/javascript" src="{{ resource('js/waitingMessage.js') }}"></script>
+<script type="text/javascript" src="{{ resource('js/notify.min.js') }}"></script>
+<script type="text/javascript" src="{{ resource('js/request.js') }}"></script>
+<script type="text/javascript" src="{{ resource('js/script.js') }}"></script>
+</body>
+</html>

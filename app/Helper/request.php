@@ -14,7 +14,7 @@ function files( $val ) {
 
 function user() {
     @session_start();
-    return @$_SESSION['user'];
+    return @$_SESSION['name'];
 }
 
 function user_id() {
@@ -24,5 +24,5 @@ function user_id() {
 
 function userType() {
     @session_start();
-    return @$_SESSION['type'];
+    return @$_SESSION['access'];
 }

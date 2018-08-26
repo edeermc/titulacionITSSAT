@@ -14,8 +14,9 @@ class Middle{
 	}
 	public function register() {
 		return array(
-			'guest'	=> 'guest',
-			'admin'	=> 'admin'
+			'guest'     => 'guest',
+            'student'   => 'student',
+            'cpanel'	=> 'cpanel'
 		);
 	}
 	public function isAuth($val, $dir) {

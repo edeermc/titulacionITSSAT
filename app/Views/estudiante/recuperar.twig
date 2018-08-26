@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ resource('font-awesome/css/font-awesome.min.css') }}">
 
     <link rel="icon" type="image/png" href="{{ resource('img/logo.png') }}">
-    <title>Registrar nuevo usuario | cPanel SYCPROF</title>
+    <title>Recuperar contrase&ntilde;a | cPanel SYCPROF</title>
     <style> body{  background-color: #262626;  } </style>
 </head>
 
@@ -18,9 +18,9 @@
         <div class="col-sm-6 col-sm-offset-3">
             <div class="panel panel-primary">
                 <div class="panel-heading text-center">
-                    <h3>Registrar nuevo usuario</h3>
+                    <h3>Recuperar contrase&ntilde;a</h3>
                 </div>
-                <form action="{{ route('egresado/savenew') }}" method="post" class="form-horizontal">
+                <form action="{{ route('egresado/recover') }}" method="post" class="form-horizontal">
                     <div class="panel-body">
                         <div class="form-group">
                             <label for="usuario" class="control-label col-sm-3">No de control:</label>
@@ -28,16 +28,9 @@
                                 <input id="usuario" type="text" class="form-control" name="usuario" placeholder="No de control" required autofocus autocomplete="off">
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="email" class="control-label col-sm-3">Correo electrónico:</label>
-                            <div class="col-sm-9">
-                                <input id="email" type="email" class="form-control" name="email" placeholder="Correo electrónico" required autocomplete="off">
-                            </div>
-                        </div>
                     </div>
                     <div class="panel-footer text-right">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-arrow-right"></i> Registrar</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-arrow-right"></i> Continuar</button>
                     </div>
                 </form>
             </div>

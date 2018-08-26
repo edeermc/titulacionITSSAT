@@ -52,7 +52,7 @@ class DB {
 
         if (!self::$con->inTransaction()) {
             self::$con->beginTransaction();
-            Logger::WriteLog('- - - Inicia transacción - - - - ', APP_DEBUG);
+            Logger::WriteLog('- - - Inicia transacción - - - - ', APP_WARNING);
         }
     }
     
@@ -60,7 +60,7 @@ class DB {
         if(self::$con != null && self::$db != null && self::$con->inTransaction()){
             self::$con->commit();
 
-            Logger::WriteLog('- - - Consolidando cambios en la base de datos. - - - - ', APP_DEBUG);
+            Logger::WriteLog('- - - Consolidando cambios en la base de datos. - - - - ', APP_WARNING);
         }
     }
     
@@ -68,7 +68,7 @@ class DB {
         if(self::$con != null && self::$db != null && self::$con->inTransaction()){
             self::$con->rollback();
 
-            Logger::WriteLog('- - - Revirtiendo cambios en la base de datos. - - - - ', APP_DEBUG);
+            Logger::WriteLog('- - - Revirtiendo cambios en la base de datos. - - - - ', APP_WARNING);
         }
     }
 }

@@ -42,7 +42,7 @@ abstract class Model {
     public function update(){
         try {
             $sql = "UPDATE " . self::getTable()  . " SET " . $this->getParams(2) . " WHERE " . self::getPK() . " = :" . static::$idField;
-            
+
             return $this->executeSQL($sql);
         } catch (\Exception $e){
             throw new \Exception($e->getMessage());
@@ -86,7 +86,7 @@ abstract class Model {
             $sql = "SELECT * FROM ".self::getTable().(empty($cond) ? '' : " WHERE {$cond}").(empty($ord) ? '' : " ORDER BY ".$ord).
                 (($i !== 0 && empty($i)) ? '' : " LIMIT {$i}").(empty($q) ? '' : ", {$q}");
             $query = Executor::doit($sql);
-            
+
             return self::many($query);
         } catch (\Exception $e){
             throw new \Exception($e->getMessage());

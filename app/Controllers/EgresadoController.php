@@ -83,7 +83,7 @@ class EgresadoController {
 
     public function panel(){
         try {
-            $egresado = EgresadosModel::getById('151U0254');
+            $egresado = EgresadosModel::getById($_SESSION['no_control']);
     
             if (!empty($egresado->calle)) {
                 $doctosE = $egresado->getDocumentos();
@@ -108,7 +108,7 @@ class EgresadoController {
 
     public function config(){
         try {
-            $egresado = EgresadosModel::getById('151U0254');
+            $egresado = EgresadosModel::getById($_SESSION['no_control']);
     
             return view('estudiante/datospersonales.twig', ['egresado' => $egresado]);
         } catch (\Exception $e) {
@@ -121,10 +121,99 @@ class EgresadoController {
         return view('estudiante/registro.twig');
     }
 
+    public function nuevo(){
+        DB::startTransaction();
+        try {
+            $ncontrol = strtoupper(input('usuario'));
+
+            $tmp = EgresadosModel::getAll("id LIKE '{$ncontrol}'");
+            if (!empty($tmp) && empty($tmp[0]->correo) && empty($tmp[0]->contrasena) && $tmp[0]->estatus == 'Registro') {
+                $tmp[0]->correo = input('email');
+                $tmp[0]->token = md5(date('Y-m-d H:i:s'));
+
+                $tmp[0]->update();
+                DB::commit();
+
+                // Mandar mensaje con el url del token;
+
+                redirect('egresado/registro/exito?msg=register');
+            } else {
+                DB::rollback();
+                redirect('egresado/registro/exito?msg=fail-register');
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            Logger::WriteLog($e);
+        }
+    }
+
+    public function activar(){
+        $token = request('token');
+        $tmp = EgresadosModel::getAll("token LIKE '{$token}'")[0];
+
+        return view('estudiante/activar.twig', ['student' => $tmp]);
+    }
+
+    public function nuevoact(){
+        DB::startTransaction();
+        try {
+            $ncontrol = strtoupper(input('usuario'));
+
+            $tmp = EgresadosModel::getAll("id LIKE '{$ncontrol}'");
+            if (!empty($tmp) && !empty($tmp[0]->correo) && empty($tmp[0]->contrasena)) {
+                $tmp[0]->contrasena = md5(input('contrasena'));
+                $tmp[0]->token = '';
+                $tmp[0]->estatus = 'Activo';
+
+                $tmp[0]->update();
+                DB::commit();
+
+                redirect('egresado/registro/exito?msg=ok-' . ($tmp[0]->estatus == 'Registro' ? 'register' : 'recover'));
+            } else {
+                DB::rollback();
+                redirect('500');
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            Logger::WriteLog($e);
+        }
+    }
+
+    public function recover(){
+        DB::startTransaction();
+        try {
+            $ncontrol = strtoupper(input('usuario'));
+
+            $tmp = EgresadosModel::getAll("id LIKE '{$ncontrol}'");
+            if (!empty($tmp) && !empty($tmp[0]->correo) && !empty($tmp[0]->contrasena) && $tmp[0]->estatus == 'Activo') {
+                $tmp[0]->contrasena = '';
+                $tmp[0]->token = md5(date('Y-m-d H:i:s'));
+                $tmp[0]->estatus = 'Recuperacion';
+
+                $tmp[0]->update();
+                DB::commit();
+
+                // Mandar mensaje con el url del token;
+
+                redirect('egresado/registro/exito?msg=recover');
+            } else {
+                DB::rollback();
+                redirect('egresado/registro/exito?msg=fail-recover');
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            Logger::WriteLog($e);
+        }
+    }
+
+    public function success(){
+        return view('estudiante/exito.twig', ['msg' => request('msg')]);
+    }
+
     public function save2(){
         DB::startTransaction();
         try {
-            $reg = EgresadosModel::getById($_POST['id']);
+            $reg = EgresadosModel::getById($_SESSION['no_control']);
     
             $reg->calle = $_POST['calle'];
             $reg->colonia = $_POST['colonia'];
@@ -149,7 +238,7 @@ class EgresadoController {
         DB::startTransaction();
         $proy = new ProyectoModel();
         try {
-            $reg = EgresadosModel::getById($_POST['id']);
+            $reg = EgresadosModel::getById($_SESSION['no_control']);
             if (ProyectoModel::exist($_POST['proyecto'])) {
                 $proy = ProyectoModel::getByNombre($_POST['proyecto']);
 
@@ -189,7 +278,7 @@ class EgresadoController {
     public function save4(){
         DB::startTransaction();
         try {
-            $reg = EgresadosModel::getById($_POST['id']);
+            $reg = EgresadosModel::getById($_SESSION['no_control']);
             $doctos = OpcionDocumentoModel::getByOpcion($reg->getProyecto()->id_opcion);
     
             foreach ($doctos as $d) {

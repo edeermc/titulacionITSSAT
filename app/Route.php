@@ -7,13 +7,18 @@ class Route{
         $route = array(
             //url
             ['url' => '/', 	        						'ctrl' => 'HomeController@index', 						    'type' => 'guest'],
-            ['url' => 'cpanel', 							'ctrl' => 'HomeController@index', 			    			'type' => 'guest'],
-            ['url' => 'egresado', 							'ctrl' => 'EgresadoController@panel', 		    			'type' => 'guest'],
-            ['url' => 'egresado/save',          			'ctrl' => 'EgresadoController@save2', 		    			'type' => 'guest'],
-            ['url' => 'egresado/save2',          			'ctrl' => 'EgresadoController@save3', 		    			'type' => 'guest'],
-            ['url' => 'egresado/savefiles',          		'ctrl' => 'EgresadoController@save4', 		    			'type' => 'guest'],
+            ['url' => 'cpanel', 							'ctrl' => 'HomeController@cpindex', 		        		'type' => ['cpanel']],
+            ['url' => 'egresado', 							'ctrl' => 'EgresadoController@panel', 		    			'type' => ['student']],
+            ['url' => 'egresado/save',          			'ctrl' => 'EgresadoController@save2', 		    			'type' => ['student']],
+            ['url' => 'egresado/save2',          			'ctrl' => 'EgresadoController@save3', 		    			'type' => ['student']],
+            ['url' => 'egresado/savefiles',          		'ctrl' => 'EgresadoController@save4', 		    			'type' => ['student']],
             ['url' => 'egresado/registro',			        'ctrl' => 'EgresadoController@registro', 	    			'type' => 'guest'],
-            ['url' => 'egresado/datospersonales',			'ctrl' => 'EgresadoController@config', 		    			'type' => 'guest'],
+            ['url' => 'egresado/savenew',   		        'ctrl' => 'EgresadoController@nuevo',     	    			'type' => 'guest'],
+            ['url' => 'egresado/activar',			        'ctrl' => 'EgresadoController@activar', 	    			'type' => 'guest'],
+            ['url' => 'egresado/saveact',   		        'ctrl' => 'EgresadoController@nuevoact',   	    			'type' => 'guest'],
+            ['url' => 'egresado/recuperar',			        'ctrl' => 'EgresadoController@recupera', 	    			'type' => 'guest'],
+            ['url' => 'egresado/registro/exito',	        'ctrl' => 'EgresadoController@success', 	    			'type' => 'guest'],
+            ['url' => 'egresado/datospersonales',			'ctrl' => 'EgresadoController@config', 		    			'type' => ['student']],
 
             /* carrera */
 			['url' => 'cpanel/carrera',					    'ctrl' => 'CarreraController@index',	    				'type' => 'guest'],
@@ -68,10 +73,11 @@ class Route{
             ['url' => 'cpanel/usuario/del',                 'ctrl' => 'UsuarioController@del',                          'type' => 'guest'],
 
             /* autenticación */
-            ['url' => 'cpanel/login', 						'ctrl' => 'AuthController@index', 						    'type' => 'guest'],
+            ['url' => 'cpanel/login', 						'ctrl' => 'AuthController@cpindex', 						'type' => 'guest'],
             ['url' => 'login', 						        'ctrl' => 'AuthController@index', 						    'type' => 'guest'],
 			['url' => 'logout', 					        'ctrl' => 'AuthController@logout', 					    	'type' => 'guest'],
-			['url' => 'auth', 						        'ctrl' => 'AuthController@login', 				    		'type' => 'guest'],
+            ['url' => 'cpanel/auth', 				        'ctrl' => 'AuthController@cplogin', 			    		'type' => 'guest'],
+            ['url' => 'auth', 						        'ctrl' => 'AuthController@login', 				    		'type' => 'guest'],
 
 			/* error */
             ['url' => '404', 					        	'ctrl' => 'ErrorController@error404',		    			'type' => 'guest'],

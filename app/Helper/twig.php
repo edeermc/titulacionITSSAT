@@ -30,12 +30,28 @@ function twig() {
     } );
     
     $user_nick  = new Twig_SimpleFunction( 'user_nick', function() {
-        return @$_SESSION['user'];
+        return @$_SESSION['access'] == 'student' ? @$_SESSION['no_control'] : @$_SESSION['user'];
     } );
-    
-    $user_id  = new Twig_SimpleFunction( 'user_id', function() {
-		return @$_SESSION['id'];
-	} );
+
+    $user_name  = new Twig_SimpleFunction( 'user_name', function() {
+        return @$_SESSION['name'];
+    } );
+
+    $user_type  = new Twig_SimpleFunction( 'user_type', function() {
+        return @$_SESSION['access'];
+    } );
+
+    $user_role  = new Twig_SimpleFunction( 'user_role', function() {
+        return @$_SESSION['role'];
+    } );
+
+    $user_role_name  = new Twig_SimpleFunction( 'user_role_name', function() {
+        return @$_SESSION['role_name'];
+    } );
+
+    $user_last  = new Twig_SimpleFunction( 'user_last', function() {
+        return @$_SESSION['last'];
+    } );
 
     $to_md5  = new Twig_SimpleFunction( 'to_md5', function( $val ) {
         return to_md5( $val );
@@ -44,7 +60,11 @@ function twig() {
     $twig->addFunction( $resource );
     $twig->addFunction( $router );
     $twig->addFunction( $user_nick );
-    $twig->addFunction( $user_id );
+    $twig->addFunction( $user_name );
+    $twig->addFunction( $user_type );
+    $twig->addFunction( $user_role );
+    $twig->addFunction( $user_role_name );
+    $twig->addFunction( $user_last );
     $twig->addFunction( $to_md5 );
 	return $twig;
 }
