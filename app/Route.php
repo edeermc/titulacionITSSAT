@@ -17,6 +17,7 @@ class Route{
             ['url' => 'egresado/activar',			        'ctrl' => 'EgresadoController@activar', 	    			'type' => 'guest'],
             ['url' => 'egresado/saveact',   		        'ctrl' => 'EgresadoController@nuevoact',   	    			'type' => 'guest'],
             ['url' => 'egresado/recuperar',			        'ctrl' => 'EgresadoController@recupera', 	    			'type' => 'guest'],
+            ['url' => 'egresado/recover',			        'ctrl' => 'EgresadoController@recover', 	    			'type' => 'guest'],
             ['url' => 'egresado/registro/exito',	        'ctrl' => 'EgresadoController@success', 	    			'type' => 'guest'],
             ['url' => 'egresado/datospersonales',			'ctrl' => 'EgresadoController@config', 		    			'type' => ['student']],
 

@@ -10,6 +10,7 @@ use App\Models\OpcionDocumentoModel;
 use App\Models\OpcionPlanModel;
 use App\Models\ProyectoModel;
 use App\Models\DocenteModel;
+use App\Helper\Mailer;
 
 class EgresadoController {
     public function index(){
@@ -135,6 +136,19 @@ class EgresadoController {
                 DB::commit();
 
                 // Mandar mensaje con el url del token;
+                $message = "<h1 align='center'>Registro de la cuenta '{$tmp[0]->id}'</h1>
+                        <p> <i>Estimado(a) " . $tmp[0]->getNombreCompleto() . ": </i></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Se ha registrado una nueva cuenta con el número de control '<b>{$tmp[0]->id}</b>' ligado a este correo el día " . strtolower(getDateTImeNow()) . ". 
+                        Para habilitar su cuenta y establecer una nueva contraseña por favor utilize el siguiente enlace <a href='" . route('egresado/activar?token=' . $tmp[0]->token) ."'>" . route('egresado/activar?token=' . $tmp[0]->token) ."</a>. <br>
+                        <small>Si no puede dar click en el enlace copie la liga y peguela en el navegador.</small> </p>
+                        <br>
+                        
+                        <div align='right'><b>Equipo de SYCPROF</b> <br>
+                        Departamento de Estudios Profesionales<br>
+                        <small>ITSSAT " . date('Y') . "</small></div>";
+
+                Mailer::sendFastMail($tmp[0]->correo, utf8_decode('Registro de una nueva cuenta'), $message);
+                DB::commit();
 
                 redirect('egresado/registro/exito?msg=register');
             } else {
@@ -193,12 +207,22 @@ class EgresadoController {
                 $tmp[0]->contrasena = '';
                 $tmp[0]->token = md5(date('Y-m-d H:i:s'));
                 $tmp[0]->estatus = 'Recuperacion';
-
                 $tmp[0]->update();
-                DB::commit();
 
                 // Mandar mensaje con el url del token;
+                $message = "<h1 align='center'>Recuperación de la cuenta '{$tmp[0]->id}'</h1>
+                        <p> <i>Estimado(a) " . $tmp[0]->getNombreCompleto() . ": </i></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Se ha solicitado una recuperación de la cuenta el día " . strtolower(getDateTImeNow()) . ", por dicha solicitud su cuenta será bloqueada temporalmente. 
+                        Para reactivar su cuenta y recuperar su contraseña por favor utilize el siguiente enlace <a href='" . route('egresado/activar?token=' . $tmp[0]->token) ."'>" . route('egresado/activar?token=' . $tmp[0]->token) ."</a>. <br>
+                        <small>Si no puede dar click en el enlace copie la liga y peguela en el navegador.</small> </p>
+                        <br>
+                        
+                        <div align='right'><b>Equipo de SYCPROF</b> <br>
+                        Departamento de Estudios Profesionales<br>
+                        <small>ITSSAT " . date('Y') . "</small></div>";
 
+                Mailer::sendFastMail($tmp[0]->correo, utf8_decode('Solicitud de recuperación de la cuenta'), $message);
+                DB::commit();
                 redirect('egresado/registro/exito?msg=recover');
             } else {
                 DB::rollback();

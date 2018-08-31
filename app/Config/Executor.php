@@ -43,7 +43,7 @@ class Executor {
                     break;
             }
             if (!empty($action))
-                Logger::WriteLog("Se ha {$action} un registro en la tabla {$table} por el usuario " . (!isset($_SESSION['id']) ? $_SESSION['no_control'] : $_SESSION['id']) . ".", APP_WARNING);
+                Logger::WriteLog("Se ha {$action} un registro en la tabla {$table} por el usuario " . (!isset($_SESSION['id']) ? @$_SESSION['no_control'] : $_SESSION['id']) . ".", APP_WARNING);
 
             $query->execute();
             if ($is_counter)

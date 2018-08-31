@@ -4,8 +4,6 @@ namespace App\Controllers;
 
 use App\Auth\Auth;
 use App\Config\Logger;
-use App\Model\Alumno;
-use App\Model\AsignarGrupo;
 
 class AuthController {
     protected $auth;

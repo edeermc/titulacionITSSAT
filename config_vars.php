@@ -11,11 +11,12 @@ define("DB_CHARSET", "UTF8");
 define("APPLICATION_ROOT", "http://localhost/titulacionITSSAT");
 
 //CONFIGURACION DE LA ZONA HORARIA
-date_default_timezone_set('America/Mexico_City');
+date_default_timezone_set("America/Mexico_City");
+setlocale(LC_TIME, ['es_ES.UTF-8', 'es_ES', 'es_MX.UTF-8', 'es_MX']);
 
 //CONFIGURACIÓN PARA GUARDAR ARCHIVOS
-define("FILES_DIR", $_SERVER["DOCUMENT_ROOT"] . '/titulacionITSSAT/public/documentos/');
-define("IMAGES_DIR", $_SERVER["DOCUMENT_ROOT"] . '/titulacionITSSAT/public/img/');
+define("FILES_DIR", $_SERVER["DOCUMENT_ROOT"] . "/titulacionITSSAT/public/documentos/");
+define("IMAGES_DIR", $_SERVER["DOCUMENT_ROOT"] . "/titulacionITSSAT/public/img/");
 
 //CONFIGURACION PARA EL MANEJO DE ERRORES
 define("DEBUG_LOGGER", true);
@@ -25,3 +26,11 @@ define("LOG_DIR", $_SERVER["DOCUMENT_ROOT"] . '/titulacionITSSAT/');
 define("APP_ERROR", 1);
 define("APP_WARNING", 2);
 define("APP_INFO", 3);
+
+//CONFIGURACION DE CORREOS
+define("SMTP_SERVER", "smtp.sicemex.com");
+define("SMTP_PORT", "35");
+define("SMTP_SSL", false);
+define("SMTP_TLS", false);
+define("SMTP_EMAIL", "emc@sicemex.com");
+define("SMTP_PASS", "Sice7910");
