@@ -19,6 +19,11 @@
     },
     "require": {
         "oodle/krumo": "*",
-        "twig/twig": "~1.0"
+        "twig/twig": "~1.0",
+        "phpoffice/phpword": "^0.15.0",
+        "dompdf/dompdf": "^0.8.2",
+        "phpoffice/phpexcel": "1.8.1",
+        "fpdf/fpdf": "1.8.1",
+        "phpmailer/phpmailer": "v6.0.5"
     }
 }

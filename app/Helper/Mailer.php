@@ -2,8 +2,7 @@
 
 namespace App\Helper;
 
-use App\Config\Logger;
-use PHPMailer;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class Mailer {
     private static $mail;
