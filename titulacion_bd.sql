@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : xampp
-Source Server Version : 100121
-Source Host           : localhost:8088
+Source Server         : Local
+Source Server Version : 100125
+Source Host           : localhost:3306
 Source Database       : titulacion
 
 Target Server Type    : MYSQL
-Target Server Version : 100121
+Target Server Version : 100125
 File Encoding         : 65001
 
-Date: 2017-09-02 11:48:13
+Date: 2018-10-18 21:39:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `carrera` (
   `siglas` varchar(10) DEFAULT NULL,
   `modalidad` enum('Escolarizado','Semiescolarizado') DEFAULT 'Escolarizado',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of carrera
@@ -33,7 +33,7 @@ CREATE TABLE `carrera` (
 INSERT INTO `carrera` VALUES ('1', 'Ingeniería Industrial', 'IIND', 'Escolarizado');
 INSERT INTO `carrera` VALUES ('2', 'Ingeniería Electromecánica', 'IEME', 'Escolarizado');
 INSERT INTO `carrera` VALUES ('3', 'Licenciatura en Informática', 'LINF', 'Escolarizado');
-INSERT INTO `carrera` VALUES ('4', 'Ingeniería en Sistemas Computacionales', 'ISIC', 'Escolarizado');
+INSERT INTO `carrera` VALUES ('4', 'Ingeniería en Sistemas Computacionales', 'ISI', 'Escolarizado');
 INSERT INTO `carrera` VALUES ('5', 'Licenciatura en Administración', 'LADM', 'Escolarizado');
 INSERT INTO `carrera` VALUES ('6', 'Ingeniería Ambiental', 'IAMB', 'Escolarizado');
 INSERT INTO `carrera` VALUES ('7', 'Ingeniería en Gestión Empresarial', 'IGEM', 'Escolarizado');
@@ -72,11 +72,11 @@ CREATE TABLE `division` (
 -- ----------------------------
 INSERT INTO `division` VALUES ('1', 'Sistemas');
 INSERT INTO `division` VALUES ('2', 'Ciencias básicas');
-INSERT INTO `division` VALUES ('3', 'ambiental');
+INSERT INTO `division` VALUES ('3', 'Ambiental');
 INSERT INTO `division` VALUES ('4', 'Industrial');
 INSERT INTO `division` VALUES ('5', 'administración');
-INSERT INTO `division` VALUES ('6', 'xxxx');
-INSERT INTO `division` VALUES ('7', 'xxxx');
+INSERT INTO `division` VALUES ('6', 'Informática');
+INSERT INTO `division` VALUES ('7', 'Administración');
 
 -- ----------------------------
 -- Table structure for docente
@@ -103,10 +103,10 @@ CREATE TABLE `docente` (
 -- ----------------------------
 -- Records of docente
 -- ----------------------------
-INSERT INTO `docente` VALUES ('1', 'Eder', 'Morga', 'Camacho', 'H', '12345678', 'Si', '1', '4', 'Docente');
-INSERT INTO `docente` VALUES ('2', 'Emmanuel', 'Chigo', 'Malaga', 'H', '0987654', 'No', '2', '2', 'JefeCarrera');
-INSERT INTO `docente` VALUES ('3', 'Eder 2', 'Morga', 'Camacho', 'H', '12345678', 'Si', '1', '4', 'Docente');
-INSERT INTO `docente` VALUES ('4', 'Eder 3', 'Morga', 'Camacho', 'H', '12345678', 'Si', '1', '4', 'Docente');
+INSERT INTO `docente` VALUES ('1', 'Edér', 'Morga', 'Camacho', 'H', '12345678', 'Si', '1', '6', 'Docente');
+INSERT INTO `docente` VALUES ('2', 'Emmanuel', 'Chigo', 'Malaga', 'H', '0987654', 'No', '2', '4', 'JefeCarrera');
+INSERT INTO `docente` VALUES ('3', 'Sarahí', 'Cobá', 'Acua', 'M', '12345678', 'No', '2', '4', 'Secretario');
+INSERT INTO `docente` VALUES ('4', 'Fulanito', 'Perengano', 'Cebollano', 'H', '12345678', 'Si', '3', '4', 'Presidente');
 
 -- ----------------------------
 -- Table structure for documento_alumno
@@ -123,17 +123,23 @@ CREATE TABLE `documento_alumno` (
   KEY `FK_documento_tipo` (`id_tipo_documento`),
   CONSTRAINT `FK_documento_egresado` FOREIGN KEY (`n_control`) REFERENCES `egresados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_documento_tipo` FOREIGN KEY (`id_tipo_documento`) REFERENCES `tipo_documento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of documento_alumno
 -- ----------------------------
-INSERT INTO `documento_alumno` VALUES ('4', '211u1234', 'f77fd53d83448743bde4da46dbc9eee1.pdf', '2', 'Pendiente');
-INSERT INTO `documento_alumno` VALUES ('5', '211u1234', 'ac0acbf5e0c26e706113c4e84a40f4d4.pdf', '3', 'Pendiente');
-INSERT INTO `documento_alumno` VALUES ('6', '211u1234', '8a95e101c878f2d6350e1d4571ffc3d0.pdf', '4', 'Pendiente');
-INSERT INTO `documento_alumno` VALUES ('20', '121u0123', '9a22492f99fcd68b076b0678b71fadff.pdf', '3', 'Pendiente');
-INSERT INTO `documento_alumno` VALUES ('21', '121u0123', '5af4015bc067c69bf56ec73000b5d2fb.pdf', '4', 'Pendiente');
-INSERT INTO `documento_alumno` VALUES ('22', '121u0123', 'f0d2afb53fe2f2cd072d513f7835f6af.pdf', '2', 'Pendiente');
+INSERT INTO `documento_alumno` VALUES ('4', '211U1234', 'f77fd53d83448743bde4da46dbc9eee1.pdf', '2', 'Aprobado');
+INSERT INTO `documento_alumno` VALUES ('5', '211U1234', 'ac0acbf5e0c26e706113c4e84a40f4d4.pdf', '3', 'Aprobado');
+INSERT INTO `documento_alumno` VALUES ('6', '211U1234', '8a95e101c878f2d6350e1d4571ffc3d0.pdf', '4', 'Rechazado');
+INSERT INTO `documento_alumno` VALUES ('20', '121U0123', '9a22492f99fcd68b076b0678b71fadff.pdf', '3', 'Aprobado');
+INSERT INTO `documento_alumno` VALUES ('21', '121U0123', '5af4015bc067c69bf56ec73000b5d2fb.pdf', '1', 'Aprobado');
+INSERT INTO `documento_alumno` VALUES ('22', '121U0123', 'f0d2afb53fe2f2cd072d513f7835f6af.pdf', '2', 'Aprobado');
+INSERT INTO `documento_alumno` VALUES ('24', '151U0254', '969b57e9ca345c6abcc8eda28e61af07.pdf', '2', 'Aprobado');
+INSERT INTO `documento_alumno` VALUES ('25', '121U0229', 'aa17a360c9422e746855600f22902b68.pdf', '1', 'Aprobado');
+INSERT INTO `documento_alumno` VALUES ('26', '121U0229', 'b1498c904339ec911d3e287ef96849a2.pdf', '2', 'Aprobado');
+INSERT INTO `documento_alumno` VALUES ('27', '121U0229', '2ad3c4be603258710037c8edfeff213a.pdf', '3', 'Aprobado');
+INSERT INTO `documento_alumno` VALUES ('28', '121U0230', '0f95b2f121f2e9aba35d755dfac9d2f4.pdf', '1', 'Aprobado');
+INSERT INTO `documento_alumno` VALUES ('29', '121U0230', '8aa07cd4b6a81edf176bc2f0a7cbe5d0.pdf', '2', 'Aprobado');
 
 -- ----------------------------
 -- Table structure for egresados
@@ -162,6 +168,7 @@ CREATE TABLE `egresados` (
   `id_proyecto` int(255) DEFAULT NULL,
   `token` varchar(255) DEFAULT NULL,
   `estatus` enum('Registro','Recuperacion','Activo','Titulado') DEFAULT 'Registro',
+  `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_egresados_plan` (`id_plan`),
   KEY `FK_egresados_proyecto` (`id_proyecto`),
@@ -172,9 +179,11 @@ CREATE TABLE `egresados` (
 -- ----------------------------
 -- Records of egresados
 -- ----------------------------
-INSERT INTO `egresados` VALUES ('121u0123', 'Jose', 'Perez', 'Pérez', 'H', '17', 'José María Mata #117', 'Chichipilco', '95746', 'San Andrés Tuxtla', 'San Andrés Tuxtla', 'Veracruz', '2941001234', 'edeermc@gmail.com', '', null, null, '987', '6543', '1', '', 'Registro');
-INSERT INTO `egresados` VALUES ('121u0229', 'Eder', 'Morga', 'Camacho', 'H', '11', 'José María Mata n117', 'Chichipilco', '95746', 'San Andrés Tuxtla', 'San Andrés Tuxtla', 'Veracruz', '2941373534', 'edeermc@gmail.com', '1234', null, null, '1234', '5678', '1', '', 'Registro');
-INSERT INTO `egresados` VALUES ('211u1234', 'Jose', 'Barrera', 'Chigo', 'M', '20', 'xxxxxxx', 'xxxxx', '12345', 'xxxxxx', 'xxxx', 'xxxxx', '1234567890', 'asd@asd.com', '', null, null, '2346', '8931', '7', '', 'Registro');
+INSERT INTO `egresados` VALUES ('121U0123', 'Jose', 'Perez', 'Pérez', 'H', '17', 'José María Mata #117', 'Chichipilco', '95746', 'San Andrés Tuxtla', 'San Andrés Tuxtla', 'Veracruz', '2941001234', null, '', null, null, '987', '6543', '1', null, 'Registro', null);
+INSERT INTO `egresados` VALUES ('121U0229', 'Eder', 'Morga', 'Camacho', 'H', '11', 'José María Mata #117', 'Chichipilco', '95746', 'San Andrés Tuxtla', 'San Andrés Tuxtla', 'Veracruz', '2941373534', 'edeermc@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', null, null, '1234', '5678', '1', '', 'Activo', '2018-09-01 15:01:14');
+INSERT INTO `egresados` VALUES ('121U0230', 'Eder', 'Morga', 'Camacho', 'H', '11', 'José María Mata #117', 'Chichipilc', '95746', 'San Andres', 'San Andres', 'Veracruz', '1234567890', 'edeermc@gmail.com', '331382460d902d1341dc73db8b990f97', null, null, '2346', '2120', '11', '', 'Activo', '2018-09-01 15:05:19');
+INSERT INTO `egresados` VALUES ('151U0254', 'Juan de Jesús', 'Isidoro', 'Cobix', 'H', '11', 'Catemburgo', 'Catemaquense', '01234', 'Catemaco', 'Catemaco', 'Veracruz', '1234567890', 'juan@gmail.com', '331382460d902d1341dc73db8b990f97', null, null, '1112', '1116', '5', '', 'Activo', '2018-08-26 18:47:31');
+INSERT INTO `egresados` VALUES ('211U1234', 'David', 'Domínguez', 'Chigo', 'M', '20', 'xxxxxxx', 'xxxxx', '12345', 'xxxxxx', 'xxxx', 'xxxxx', '1234567890', null, null, null, null, '2346', '8931', '7', '', 'Registro', null);
 
 -- ----------------------------
 -- Table structure for notificacion
@@ -206,7 +215,7 @@ CREATE TABLE `opcion_documento` (
   KEY `FK_opcion_documento` (`id_opcion`),
   CONSTRAINT `FK_documento_opcion` FOREIGN KEY (`id_documento`) REFERENCES `tipo_documento` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_opcion_documento` FOREIGN KEY (`id_opcion`) REFERENCES `opcion_titulacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of opcion_documento
@@ -214,12 +223,14 @@ CREATE TABLE `opcion_documento` (
 INSERT INTO `opcion_documento` VALUES ('3', '3', '1');
 INSERT INTO `opcion_documento` VALUES ('6', '7', '4');
 INSERT INTO `opcion_documento` VALUES ('7', '9', '3');
-INSERT INTO `opcion_documento` VALUES ('13', '1', '2');
-INSERT INTO `opcion_documento` VALUES ('14', '1', '3');
-INSERT INTO `opcion_documento` VALUES ('15', '1', '4');
-INSERT INTO `opcion_documento` VALUES ('16', '2', '1');
-INSERT INTO `opcion_documento` VALUES ('17', '2', '2');
-INSERT INTO `opcion_documento` VALUES ('18', '2', '3');
+INSERT INTO `opcion_documento` VALUES ('19', '1', '2');
+INSERT INTO `opcion_documento` VALUES ('20', '1', '3');
+INSERT INTO `opcion_documento` VALUES ('21', '1', '4');
+INSERT INTO `opcion_documento` VALUES ('22', '1', '7');
+INSERT INTO `opcion_documento` VALUES ('23', '2', '1');
+INSERT INTO `opcion_documento` VALUES ('24', '2', '2');
+INSERT INTO `opcion_documento` VALUES ('25', '2', '3');
+INSERT INTO `opcion_documento` VALUES ('26', '2', '4');
 
 -- ----------------------------
 -- Table structure for opcion_plan
@@ -234,22 +245,11 @@ CREATE TABLE `opcion_plan` (
   KEY `FK_titulacion_opcion` (`id_opcion`),
   CONSTRAINT `FK_plan_opcion` FOREIGN KEY (`id_plan`) REFERENCES `plan_estudios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_titulacion_opcion` FOREIGN KEY (`id_opcion`) REFERENCES `opcion_titulacion` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of opcion_plan
 -- ----------------------------
-INSERT INTO `opcion_plan` VALUES ('1', '3', '1');
-INSERT INTO `opcion_plan` VALUES ('2', '6', '1');
-INSERT INTO `opcion_plan` VALUES ('3', '8', '1');
-INSERT INTO `opcion_plan` VALUES ('4', '11', '1');
-INSERT INTO `opcion_plan` VALUES ('5', '14', '1');
-INSERT INTO `opcion_plan` VALUES ('6', '16', '1');
-INSERT INTO `opcion_plan` VALUES ('7', '17', '1');
-INSERT INTO `opcion_plan` VALUES ('8', '18', '1');
-INSERT INTO `opcion_plan` VALUES ('9', '19', '1');
-INSERT INTO `opcion_plan` VALUES ('10', '20', '1');
-INSERT INTO `opcion_plan` VALUES ('11', '21', '1');
 INSERT INTO `opcion_plan` VALUES ('20', '1', '3');
 INSERT INTO `opcion_plan` VALUES ('21', '11', '3');
 INSERT INTO `opcion_plan` VALUES ('22', '7', '3');
@@ -263,6 +263,20 @@ INSERT INTO `opcion_plan` VALUES ('32', '4', '7');
 INSERT INTO `opcion_plan` VALUES ('33', '12', '7');
 INSERT INTO `opcion_plan` VALUES ('34', '6', '9');
 INSERT INTO `opcion_plan` VALUES ('35', '8', '9');
+INSERT INTO `opcion_plan` VALUES ('88', '1', '1');
+INSERT INTO `opcion_plan` VALUES ('89', '3', '1');
+INSERT INTO `opcion_plan` VALUES ('90', '5', '1');
+INSERT INTO `opcion_plan` VALUES ('91', '6', '1');
+INSERT INTO `opcion_plan` VALUES ('92', '8', '1');
+INSERT INTO `opcion_plan` VALUES ('93', '9', '1');
+INSERT INTO `opcion_plan` VALUES ('94', '10', '1');
+INSERT INTO `opcion_plan` VALUES ('95', '14', '1');
+INSERT INTO `opcion_plan` VALUES ('96', '16', '1');
+INSERT INTO `opcion_plan` VALUES ('97', '17', '1');
+INSERT INTO `opcion_plan` VALUES ('98', '18', '1');
+INSERT INTO `opcion_plan` VALUES ('99', '19', '1');
+INSERT INTO `opcion_plan` VALUES ('100', '20', '1');
+INSERT INTO `opcion_plan` VALUES ('101', '21', '1');
 
 -- ----------------------------
 -- Table structure for opcion_titulacion
@@ -296,11 +310,12 @@ CREATE TABLE `perfil` (
   `modulo` text,
   `permiso` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of perfil
 -- ----------------------------
+INSERT INTO `perfil` VALUES ('1', 'Administrador', '1|1|1|1|1|1|1|1|1|1|1|1', '3|3|3|3|3|3|3|3|3|3|3|3');
 
 -- ----------------------------
 -- Table structure for plan_estudios
@@ -360,7 +375,7 @@ CREATE TABLE `proyecto` (
   `id_jefecarrera` int(11) DEFAULT NULL,
   `fecha_liberacion` date DEFAULT NULL,
   `fecha_notificacion` date DEFAULT NULL,
-  `estatus` enum('Abierto','Cerrado') DEFAULT 'Abierto',
+  `estatus` enum('Revision','Abierto','Cerrado') DEFAULT 'Abierto',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UN_proyecto_nombre` (`nombre`),
   KEY `FK_proyecto_presidente` (`id_presidente`),
@@ -383,18 +398,19 @@ CREATE TABLE `proyecto` (
   CONSTRAINT `FK_proyecto_secretarioacademia` FOREIGN KEY (`id_secretarioacademia`) REFERENCES `docente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_proyecto_vocal` FOREIGN KEY (`id_vocal`) REFERENCES `docente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_proyecto_vocal2` FOREIGN KEY (`id_vocal_suplente`) REFERENCES `docente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of proyecto
 -- ----------------------------
-INSERT INTO `proyecto` VALUES ('1', 'Sistema web para academia de inglés', '2', '1', '2', '1', '2', '1', '2', 'muy bonito\r\n\r\nas', '1', '1', '2', '0000-00-00', '0000-00-00', 'Abierto');
+INSERT INTO `proyecto` VALUES ('1', 'Sistema web para academia de inglés', '2', '1', '2', '4', '3', '1', '2', 'muy bonito\r\n------\r\nASAP', '3', '1', '2', '0000-00-00', '0000-00-00', 'Abierto');
 INSERT INTO `proyecto` VALUES ('2', 'Inventarios', null, null, null, null, null, null, null, null, null, null, null, null, null, 'Abierto');
 INSERT INTO `proyecto` VALUES ('3', 'Nominas', null, null, null, null, null, null, null, 'sdffjkhfkñlgfdfsdfhgjghkjghjj\r\n', null, null, null, '0000-00-00', '0000-00-00', 'Abierto');
-INSERT INTO `proyecto` VALUES ('4', 'ERP', null, null, null, null, null, null, null, null, null, null, null, null, null, 'Abierto');
-INSERT INTO `proyecto` VALUES ('5', 'Tesis del sentido de la vida', '1', null, null, null, null, null, null, 'XXXXXXXXXXXXXXXXXXXXXXXX', null, null, null, '0000-00-00', '0000-00-00', 'Abierto');
+INSERT INTO `proyecto` VALUES ('5', 'Tesis del sentido de la vida', '2', null, null, null, null, null, null, 'XXXXXXXXXXXXXXXXXXXXXXXX', '4', '3', '2', '0000-00-00', '0000-00-00', 'Abierto');
 INSERT INTO `proyecto` VALUES ('6', 'Tesis de cantidad de truza', '1', null, null, null, null, null, null, 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\r\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', null, null, null, '0000-00-00', '0000-00-00', 'Abierto');
-INSERT INTO `proyecto` VALUES ('7', 'Proyecto x', '1', null, null, null, null, null, null, '', null, null, null, null, null, 'Abierto');
+INSERT INTO `proyecto` VALUES ('7', 'Proyecto x', '1', null, null, null, null, null, null, '', '3', '4', '1', null, null, 'Abierto');
+INSERT INTO `proyecto` VALUES ('10', 'Medicion de la truza', null, null, null, null, null, null, null, 'xxx\r\nxx\r\nx', null, null, null, null, null, 'Abierto');
+INSERT INTO `proyecto` VALUES ('11', 'Proyecto prueba ', '2', null, null, null, null, null, null, null, '4', '3', '2', null, null, 'Abierto');
 
 -- ----------------------------
 -- Table structure for tipo_documento
@@ -404,7 +420,7 @@ CREATE TABLE `tipo_documento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tipo_documento
@@ -414,7 +430,8 @@ INSERT INTO `tipo_documento` VALUES ('2', 'Certificado de inglés');
 INSERT INTO `tipo_documento` VALUES ('3', 'Liberación de servicio');
 INSERT INTO `tipo_documento` VALUES ('4', 'Fotos');
 INSERT INTO `tipo_documento` VALUES ('5', 'Extraescolares');
-INSERT INTO `tipo_documento` VALUES ('6', 'xxxx');
+INSERT INTO `tipo_documento` VALUES ('6', 'Certificado médico');
+INSERT INTO `tipo_documento` VALUES ('7', 'Paracetamol');
 
 -- ----------------------------
 -- Table structure for usuario
@@ -428,13 +445,17 @@ CREATE TABLE `usuario` (
   `correo` varchar(50) DEFAULT NULL,
   `id_perfil` int(11) DEFAULT NULL,
   `id_docente` int(11) DEFAULT NULL,
+  `last_login` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_usuario_perfil` (`id_perfil`),
   KEY `FK_usuario_docente` (`id_docente`),
   CONSTRAINT `FK_usuario_docente` FOREIGN KEY (`id_docente`) REFERENCES `docente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_usuario_perfil` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of usuario
 -- ----------------------------
+INSERT INTO `usuario` VALUES ('1', 'edeermc', 'e10adc3949ba59abbe56e057f20f883e', 'Eder Morga', 'edeermc@gmail.com', '1', null, '2018-09-05 16:04:14');
+INSERT INTO `usuario` VALUES ('2', 'e_docente', 'e10adc3949ba59abbe56e057f20f883e', 'Eder Morga Camacho', 'emc@sicemex.com', '1', '1', null);
+INSERT INTO `usuario` VALUES ('3', 'echigo', 'e10adc3949ba59abbe56e057f20f883e', 'Emmanuel Chigo', 'echigo@gmail.com', '1', '2', null);
