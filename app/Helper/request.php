@@ -31,25 +31,25 @@ function getDay($d = '') {
     if(empty($d)) $d = date('D');
     switch ($d) {
         case 'Mon':
-            return 'Lunes';
+            return "Lunes";
             break;
         case 'Tue':
-            return 'Martes';
+            return "Martes";
             break;
         case 'Wed':
-            return 'Miércoles';
+            return "Miércoles";
             break;
         case 'Thu':
-            return 'Jueves';
+            return "Jueves";
             break;
         case 'Fri':
-            return 'Viernes';
+            return "Viernes";
             break;
         case 'Sat':
-            return 'Sábado';
+            return "Sábado";
             break;
         case 'Sun':
-            return 'Domingo';
+            return "Domingo";
             break;
     }
 }

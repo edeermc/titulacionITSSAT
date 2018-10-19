@@ -288,6 +288,7 @@ class EgresadoController {
                 $proy->id_presidenteacademia =  DocenteModel::getCargoAcademia($reg->getPlan()->id_carrera, 1)->id;
                 $proy->id_secretarioacademia = DocenteModel::getCargoAcademia($reg->getPlan()->id_carrera, 2)->id;
                 $proy->id_jefecarrera = DocenteModel::getCargoAcademia($reg->getPlan()->id_carrera, 3)->id;
+                $proy->estatus = "Revision";
                 $id_proy = $proy->add();
             }
 

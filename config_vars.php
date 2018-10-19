@@ -17,6 +17,8 @@ setlocale(LC_TIME, ['es_ES.UTF-8', 'es_ES', 'es_MX.UTF-8', 'es_MX']);
 //CONFIGURACIÓN PARA GUARDAR ARCHIVOS
 define("FILES_DIR", $_SERVER["DOCUMENT_ROOT"] . "/titulacionITSSAT/public/documentos/");
 define("IMAGES_DIR", $_SERVER["DOCUMENT_ROOT"] . "/titulacionITSSAT/public/img/");
+define("TEMPLATES_DIR", $_SERVER["DOCUMENT_ROOT"] . "/titulacionITSSAT/public/plantillas/");
+define("MPDF_DIR", $_SERVER["DOCUMENT_ROOT"] . "/titulacionITSSAT/vendor/mpdf");
 
 //CONFIGURACION PARA EL MANEJO DE ERRORES
 define("DEBUG_LOGGER", true);

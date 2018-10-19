@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    '5255c38a0faeba867671b61dfda6d864' => $vendorDir . '/paragonie/random_compat/lib/random.php',
     'b6a05593ec5efcc4da9617ae78e2aea1' => $vendorDir . '/oodle/krumo/class.krumo.php',
     'a1e4c8c9194fc5d698be24270019b701' => $baseDir . '/app/Helper/twig.php',
     'a19c1e3dde4af7f76bfea5049073db01' => $baseDir . '/app/Helper/request.php',

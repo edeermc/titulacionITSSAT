@@ -47,6 +47,11 @@
                             <i class="fa fa-graduation-cap"></i> Dictamen
                         </button>
                     {% endif %}
+                    {% if(p.estatus == "Revision") %}
+                        <a href="#" class="btn btn-xs btn-warning">
+                            <i class="fa fa-books"></i> Anteproyecto
+                        </a>
+                    {% endif %}
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#operationModal" data-id="{{ p.id }}" data-model="{{ modelo }}" data-operation="Editar">
                         <i class="fa fa-edit"></i> Editar
                     </button>

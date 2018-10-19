@@ -83,7 +83,8 @@ class Route{
 			/* error */
             ['url' => '404', 					        	'ctrl' => 'ErrorController@error404',		    			'type' => 'guest'],
 			['url' => '403', 						        'ctrl' => 'ErrorController@error403', 	    				'type' => 'guest'],
-            ['url' => '500', 						        'ctrl' => 'ErrorController@error500', 	    				'type' => 'guest']
+            ['url' => '500', 						        'ctrl' => 'ErrorController@error500', 	    				'type' => 'guest'],
+            ['url' => 'test', 						        'ctrl' => 'HomeController@test',     	    				'type' => 'guest']
         );
         return $route;
     }
