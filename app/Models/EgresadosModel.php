@@ -77,7 +77,7 @@ class EgresadosModel extends Model {
     }
 
     public function getDireccionCompleta(){
-        return 'Calle '.$this->calle.' Col. '.$this->colonia.' C.P. '.$this->cp.', '.$this->municipio.', '.$this->ciudad.', '.$this->estado;
+        return $this->calle.', '.$this->colonia.', '.(!empty($this->cp) ? $this->cp.', ' : '').$this->municipio.', '.$this->ciudad.', '.$this->estado;
     }
 
     public static function getByProyecto($id, $ord = 'id'){

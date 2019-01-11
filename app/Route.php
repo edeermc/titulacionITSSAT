@@ -20,6 +20,7 @@ class Route{
             ['url' => 'egresado/recover',			        'ctrl' => 'EgresadoController@recover', 	    			'type' => 'guest'],
             ['url' => 'egresado/registro/exito',	        'ctrl' => 'EgresadoController@success', 	    			'type' => 'guest'],
             ['url' => 'egresado/datospersonales',			'ctrl' => 'EgresadoController@config', 		    			'type' => ['student']],
+            ['url' => 'egresado/solicitud',			        'ctrl' => 'ReporteController@solicitud',	    			'type' => ['student']],
 
             /* carrera */
 			['url' => 'cpanel/carrera',					    'ctrl' => 'CarreraController@index',	    				'type' => 'guest'],
@@ -72,6 +73,9 @@ class Route{
             ['url' => 'cpanel/usuario',                     'ctrl' => 'UsuarioController@index',                        'type' => 'guest'],
             ['url' => 'cpanel/usuario/save',                'ctrl' => 'UsuarioController@save',                         'type' => 'guest'],
             ['url' => 'cpanel/usuario/del',                 'ctrl' => 'UsuarioController@del',                          'type' => 'guest'],
+
+            /* Reportes */
+            ['url' => 'reporte/registroproyecto',			'ctrl' => 'ReporteController@registroProyecto', 			'type' => 'guest'],
 
             /* autenticación */
             ['url' => 'cpanel/login', 						'ctrl' => 'AuthController@cpindex', 						'type' => 'guest'],

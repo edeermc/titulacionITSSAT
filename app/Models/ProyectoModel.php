@@ -19,6 +19,7 @@ class ProyectoModel extends Model {
     public $id_presidenteacademia;
     public $id_secretarioacademia;
     public $id_jefecarrera;
+    public $id_carrera;
     public $fecha_liberacion;
     public $fecha_notificacion;
     public $estatus;
@@ -103,6 +104,14 @@ class ProyectoModel extends Model {
     public function getJefeCarrera(){
         try {
             return DocenteModel::getById($this->id_jefecarrera);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function getCarrera(){
+        try {
+            return CarreraModel::getById($this->id_carrera);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());
         }
